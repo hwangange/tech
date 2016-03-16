@@ -26,7 +26,7 @@ import java.util.Map;
 public class Register extends AppCompatActivity {
 
     private EditText username, password;
-    private Button register;
+    private Button register, back;
     private RequestQueue requestQueue;
     private static final String URL = "http://10.0.0.8/Technovations2/php/register.php";
     private StringRequest request;
@@ -39,6 +39,7 @@ public class Register extends AppCompatActivity {
         username = (EditText) findViewById(R.id.username_register);
         password = (EditText) findViewById(R.id.password_register);
         register = (Button) findViewById(R.id.register_register);
+        back = (Button) findViewById(R.id.back_register);
 
         requestQueue = Volley.newRequestQueue(this);
 
@@ -81,6 +82,13 @@ public class Register extends AppCompatActivity {
                 };
 
                 requestQueue.add(request);
+            }
+        });
+
+        back.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                startActivity(new Intent(getApplicationContext(), Login.class));
             }
         });
 
