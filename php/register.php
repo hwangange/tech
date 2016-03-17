@@ -11,7 +11,7 @@ header('Content-Type: application/json ');
 			$this->connection = $this->db->get_connection();
 		}
 
-		public function does_user_exist($username, $password, $first, $last, $email){
+		public function does_user_exist($username, $password, $first, $last, $email, $year){
 			$query = "Select * from users where username = '$username'";
 			$result = mysqli_query($this->connection, $query);
 			if(mysqli_num_rows($result)>0){
@@ -19,7 +19,8 @@ header('Content-Type: application/json ');
 				echo json_encode($json);
 				mysqli_close($this->connection);
 			}else{
-				$query = "Insert into users(first, last, email, username, password) values ('$first', '$last', '$email', '$username', '$password')";
+				$graduatingYear = intval($year);
+				$query = "Insert into users(first, last, email, graduatingYear, username, password) values ('$first', '$last', '$email', '$graduatingYear', '$username', '$password')";
 				$is_inserted = mysqli_query($this->connection, $query);
 				if($is_inserted == 1) {
 					$json['success'] = 'Account created';
@@ -34,19 +35,20 @@ header('Content-Type: application/json ');
 	}
 
 	$user = new User();
-	if(isset($_POST['password'], $_POST['username'], $_POST['first'], $_POST['last'], $_POST['email'])) {
+	if(isset($_POST['password'], $_POST['username'], $_POST['first'], $_POST['last'], $_POST['email'], $_POST['year'])) {
 		$password = $_POST['password'];
 		$username = $_POST['username'];
 		$first = $_POST['first'];
 		$last = $_POST['last'];
 		$email = $_POST['email'];
+		$year = $_POST['year'];
 
-		if(!empty($password)&&!empty($username)) {
+		if(!empty($password)&&!empty($username)&&!empty($first)&&!empty($last)&&!empty($email)&&!empty($year)) {
 			$encrypted_password = md5($password);
 			$encrypted_first = md5($first);
 			$encrypted_last = md5($last);
 			$encrypted_email = md5($email);
-			$user -> does_user_exist($username, $encrypted_password, $first, $last, $email);
+			$user -> does_user_exist($username, $encrypted_password, $first, $last, $email, $year);
 		}else {
 			$json['error'] = 'You must fill in all fields';
 			echo json_encode($json);

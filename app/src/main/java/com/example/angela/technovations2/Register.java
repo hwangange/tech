@@ -27,7 +27,7 @@ import java.util.Map;
 
 public class Register extends AppCompatActivity {
 
-    private EditText username, password, first_name, last_name, email;
+    private EditText username, password, first_name, last_name, email, year;
     private TextView guideline;
     private Button register, back;
     private RequestQueue requestQueue;
@@ -44,6 +44,7 @@ public class Register extends AppCompatActivity {
         first_name = (EditText) findViewById(R.id.first_name_register);
         last_name = (EditText) findViewById(R.id.last_name_register);
         email = (EditText) findViewById(R.id.email_register);
+        year = (EditText) findViewById(R.id.year_register);
 
         register = (Button) findViewById(R.id.register_register);
         back = (Button) findViewById(R.id.back_register);
@@ -87,6 +88,7 @@ public class Register extends AppCompatActivity {
                         hashMap.put("first",first_name.getText().toString());
                         hashMap.put("last",last_name.getText().toString());
                         hashMap.put("email",email.getText().toString());
+                        hashMap.put("year", year.getText().toString());
 
                         return hashMap;
                     }

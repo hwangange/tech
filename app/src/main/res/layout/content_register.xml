@@ -68,6 +68,13 @@
                 android:singleLine="true"
                 />
 
+            <EditText android:id="@+id/year_register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:hint="Graduating Year"
+                android:inputType="number" android:maxLines="1"
+                android:singleLine="true"
+                />
+
             <EditText android:id="@+id/username_register" android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:hint="Username"
                 android:inputType="text" android:maxLines="1"
