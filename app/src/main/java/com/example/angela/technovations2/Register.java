@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -25,7 +27,8 @@ import java.util.Map;
 
 public class Register extends AppCompatActivity {
 
-    private EditText username, password;
+    private EditText username, password, first_name, last_name, email;
+    private TextView guideline;
     private Button register, back;
     private RequestQueue requestQueue;
     private static final String URL = "http://10.0.0.8/Technovations2/php/register.php";
@@ -38,8 +41,14 @@ public class Register extends AppCompatActivity {
 
         username = (EditText) findViewById(R.id.username_register);
         password = (EditText) findViewById(R.id.password_register);
+        first_name = (EditText) findViewById(R.id.first_name_register);
+        last_name = (EditText) findViewById(R.id.last_name_register);
+        email = (EditText) findViewById(R.id.email_register);
+
         register = (Button) findViewById(R.id.register_register);
         back = (Button) findViewById(R.id.back_register);
+        guideline = (TextView) findViewById(R.id.guideline);
+
 
         requestQueue = Volley.newRequestQueue(this);
 
@@ -75,6 +84,9 @@ public class Register extends AppCompatActivity {
                         HashMap<String,String> hashMap=new HashMap<String,String>();
                         hashMap.put("username",username.getText().toString());
                         hashMap.put("password",password.getText().toString());
+                        hashMap.put("first",first_name.getText().toString());
+                        hashMap.put("last",last_name.getText().toString());
+                        hashMap.put("email",email.getText().toString());
 
                         return hashMap;
                     }

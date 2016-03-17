@@ -11,29 +11,85 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.angela.technovations2.Register"
     tools:showIn="@layout/activity_register"
+    android:scrollbars = "vertical"
     android:orientation="vertical">
 
-    <EditText android:id="@+id/username_register" android:layout_width="match_parent"
-        android:layout_height="wrap_content" android:hint="Username"
-        android:inputType="text" android:maxLines="1"
-        android:singleLine="true" />
+    <ScrollView android:id="@+id/ScrollView01"
+        android:layout_width="match_parent" android:layout_height="match_parent">
+        <LinearLayout android:id="@+id/LinearLayout02"
+            android:layout_width = "match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <EditText android:id="@+id/password_register" android:layout_width="match_parent"
-        android:layout_height="wrap_content"  android:hint="@string/prompt_password"
-        android:inputType="textPassword"
-        android:maxLines="1" android:singleLine="true" />
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="One of the distinctive characteristics of people living in the United States is the conviction that each individual can make a difference through volunteer service. Many colleges now require community service involvement as criteria for acceptance.  The Y.E.S. program provides opportunities for students to get involved with voluntary service at the local level to make a positive difference in their neighborhoods and communities.
 
-    <Button android:id="@+id/register_register"
-        android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:layout_marginTop="16dp" android:text="Register"
-        />
+                        \n\nStudents who complete 100 hours (including up to 25 summer hours) of community service are recognized in the Clements Commencement Program under Awards and Scholarships, and awarded a Y.E.S. medal at Senior Awards Ceremony to wear at graduation. Participation is voluntary and students may not be paid for any service they perform.  Hours must be fulfilled with non-profit organizations/agencies.
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Back"
-        android:id="@+id/back_register"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center_horizontal" />
+                        \n\nTo participate in the Clements Y.E.S program, students need to sign and submit the contract below.
+
+                        \n\nVolunteer hours are recorded using the “Community Service Documentation Form”, or Y.E.S Form.  The form must be signed by 1) the representative of the organization/agency verifying the number of hours worked; 2) the student and 3) student’s parent/guardian.
+
+                        \n\nThe Clements Y.E.S. program guidelines, the Y.E.S Form and the contract (this letter) can be found on the Y.E.S. website http://www.chsyes.info/. Also available on the website are posting of volunteer opportunities and a query tool for students to monitor their volunteer hours.
+
+                        \n\nWe continue to be very excited about the Y.E.S. program and hope that you will choose to be a part of it.  If you have any questions, please e-mail the Y.E.S. coordinators Susan Lam at susanlam2000@gmail.com or Carol Scott at cmalt1@comcast.net.\n\n "
+                    android:id="@+id/guideline" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textStyle="bold"
+                android:text="I have reviewed and agree to follow the Y.E.S. guidelines. I understand that to fulfill the requirements for the Y.E.S. medal, I must complete the required hours fifty (50) days before the completion of my senior year. I further understand that I must submit proper documentation in a timely manner as outlined in the Y.E.S. guidelines.
+
+                \n\nIf at any time during this process I falsify documentation, I understand that I will automatically be removed from the Y.E.S. program."
+                android:id="@+id/agreement1" />
+
+            <EditText android:id="@+id/first_name_register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:hint="First Name"
+                android:inputType="text" android:maxLines="1"
+                android:singleLine="true"
+            />
+
+            <EditText android:id="@+id/last_name_register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:hint="Last Name"
+                android:inputType="text" android:maxLines="1"
+                android:singleLine="true"
+                />
+
+            <EditText android:id="@+id/email_register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:hint="Email"
+                android:inputType="textEmailAddress" android:maxLines="1"
+                android:singleLine="true"
+                />
+
+            <EditText android:id="@+id/username_register" android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:hint="Username"
+                android:inputType="text" android:maxLines="1"
+                android:singleLine="true" />
+
+            <EditText android:id="@+id/password_register" android:layout_width="match_parent"
+                android:layout_height="wrap_content"  android:hint="@string/prompt_password"
+                android:inputType="textPassword"
+                android:maxLines="1" android:singleLine="true" />
+
+            <Button android:id="@+id/register_register"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="16dp" android:text="Register" />
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Back"
+                android:id="@+id/back_register"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
