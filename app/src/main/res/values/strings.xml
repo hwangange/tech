@@ -19,5 +19,11 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="title_activity_signature">Signature</string>
+    <string name="agreement">Agreement</string>
+    <string name="clear_pad">Clear Pad</string>
+    <string name="save_signature">Save Signature</string>
+    <string name="title_activity_view_signature">viewSignature</string>
+
 
 </resources>

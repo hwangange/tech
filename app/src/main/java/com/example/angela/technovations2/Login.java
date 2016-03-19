@@ -19,6 +19,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.github.gcacace.signaturepad.views.SignaturePad;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,6 +34,7 @@ public class Login extends AppCompatActivity{
     private Button sign_in;
     private Button register;
     private RequestQueue requestQueue;
+
     private static final String URL = "http://10.0.0.8/Technovations2/php/user_control.php"; //changeable
     private StringRequest request;
 
