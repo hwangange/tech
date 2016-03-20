@@ -16,6 +16,7 @@ header('Content-Type: application/json ');
 			$result = mysqli_query($this->connection, $query);
 			if(mysqli_num_rows($result)>0){
 				$json['success'] = 'Welcome '.$username;
+				$json['user'] = $username;
 				echo json_encode($json);
 				mysqli_close($this->connection);
 			}else{

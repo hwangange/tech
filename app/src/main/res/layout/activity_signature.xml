@@ -32,15 +32,6 @@
             android:layout_alignParentBottom="true"
             android:text="@string/agreement" />
 
-        <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/username"
-            android:hint = "username"
-            android:layout_above="@+id/signature_pad"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
         <com.github.gcacace.signaturepad.views.SignaturePad
             android:layout_width="fill_parent"
             android:layout_height="400dp"

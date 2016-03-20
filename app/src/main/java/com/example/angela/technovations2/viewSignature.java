@@ -32,11 +32,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class viewSignature extends AppCompatActivity {
-    private EditText usernameViewSignature;
     private Button viewSignatureButton;
     private LinearLayout signatureLayout;
     private RequestQueue requestQueue;
     private StringRequest request;
+    private SessionManagement session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,20 +44,23 @@ public class viewSignature extends AppCompatActivity {
         setContentView(R.layout.content_view_signature);
         requestQueue = Volley.newRequestQueue(this);
 
-        usernameViewSignature = (EditText) findViewById(R.id.usernameViewSignature);
+        session = new SessionManagement(getApplicationContext());
+        session.checkLogin();
+        HashMap<String, String> user = session.getUserDetails();
+        final String username = user.get(SessionManagement.KEY_USERNAME);
+
         viewSignatureButton = (Button) findViewById(R.id.viewSignatureButton);
         signatureLayout = (LinearLayout) findViewById(R.id.signatureLayout);
 
         viewSignatureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String sig_url = "http://10.0.0.8/Technovations2/php/viewSignature.php/?user=" + usernameViewSignature.getText().toString();
+                String sig_url = "http://10.0.0.8/Technovations2/php/viewSignature.php/?user=" + username;
 
                 request = new StringRequest(Request.Method.GET, sig_url, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try{
-                            Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT).show();
                             JSONObject jsonObject = new JSONObject(response);
                             if(jsonObject.names().get(0).equals("success")){
                                 int length = jsonObject.getInt("length");

@@ -49,14 +49,18 @@ public class Signature extends Activity {
     private Button mSaveButton;
     private RequestQueue requestQueue;
     private StringRequest request;
-    private EditText username;
+    private SessionManagement session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signature);
 
-        username = (EditText) findViewById(R.id.username);
+        session = new SessionManagement(getApplicationContext());
+        session.checkLogin();
+        HashMap<String, String> user = session.getUserDetails();
+        final String username = user.get(SessionManagement.KEY_USERNAME);
+
         requestQueue = Volley.newRequestQueue(this);
         mSignaturePad = (SignaturePad) findViewById(R.id.signature_pad);
         mSignaturePad.setOnSignedListener(new SignaturePad.OnSignedListener() {
@@ -121,7 +125,7 @@ public class Signature extends Activity {
                     @Override
                     protected Map<String, String> getParams() throws AuthFailureError {
                         HashMap<String,String> hashMap=new HashMap<String,String>();
-                        hashMap.put("user",username.getText().toString());
+                        hashMap.put("user",username);
                         hashMap.put("sig", signature);
 
                         return hashMap;

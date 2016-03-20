@@ -34,6 +34,7 @@ public class Login extends AppCompatActivity{
     private Button sign_in;
     private Button register;
     private RequestQueue requestQueue;
+    SessionManagement session;
 
     private static final String URL = "http://10.0.0.8/Technovations2/php/user_control.php"; //changeable
     private StringRequest request;
@@ -50,6 +51,8 @@ public class Login extends AppCompatActivity{
 
         requestQueue = Volley.newRequestQueue(this);
 
+        session = new SessionManagement(getApplication());
+
         sign_in.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -62,6 +65,8 @@ public class Login extends AppCompatActivity{
                             JSONObject jsonObject = new JSONObject(response);
                             if(jsonObject.names().get(0).equals("success")){
                                 Toast.makeText(getApplicationContext(),"SUCCESS: "+jsonObject.getString("success"),Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(),"USER: "+jsonObject.getString("user"),Toast.LENGTH_SHORT).show();
+                                session.createLoginSession(jsonObject.getString("user"));
                                 startActivity(new Intent(getApplicationContext(),Welcome.class));
                             }else{
                                 Toast.makeText(getApplicationContext(),"ERROR: "+jsonObject.getString("error"),Toast.LENGTH_SHORT).show();
