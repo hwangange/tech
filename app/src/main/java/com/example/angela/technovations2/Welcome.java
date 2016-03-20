@@ -30,8 +30,8 @@ import java.util.HashMap;
  */
 public class Welcome extends Activity {
 
-    private Button logout, signature, viewSignature;
-    private TextView welcome;
+    private Button logout, signature, viewSignature, profile;
+    private TextView welcome, welcomeName;
 
     private SessionManagement session;
 
@@ -53,9 +53,13 @@ public class Welcome extends Activity {
         // get user data from session
         HashMap<String, String> user = session.getUserDetails();
         String username = user.get(SessionManagement.KEY_USERNAME);
+        String name = user.get(SessionManagement.KEY_NAME);
 
         welcome = (TextView) findViewById(R.id.textView);
         welcome.setText(Html.fromHtml("Welcome <b>" + username + "</b>"));
+
+        welcomeName = (TextView) findViewById(R.id.textViewName);
+        welcomeName.setText(Html.fromHtml("<b>Name: </b>" + name));
 
         signature=(Button)findViewById(R.id.signatureButton);
         signature.setOnClickListener(new View.OnClickListener() {
@@ -70,6 +74,14 @@ public class Welcome extends Activity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), viewSignature.class));
+            }
+        });
+
+        profile=(Button)findViewById(R.id.profileButton);
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), Profile.class));
             }
         });
 

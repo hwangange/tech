@@ -14,9 +14,20 @@ header('Content-Type: application/json ');
 		public function does_user_exist($username, $password){
 			$query = "Select * from users where username = '$username' and password = '$password' ";
 			$result = mysqli_query($this->connection, $query);
+			$name = "";
+			$email = "";
+			$year = "";
 			if(mysqli_num_rows($result)>0){
+				while ($row = $result->fetch_assoc()) {
+					$name = $row['first'] . " " . $row['last']; 
+					$email = $row['email'];
+					$year = $row['graduatingYear'];
+				}
 				$json['success'] = 'Welcome '.$username;
 				$json['user'] = $username;
+				$json['name'] = $name;
+				$json['email'] = $email;
+				$json['year'] = $year;
 				echo json_encode($json);
 				mysqli_close($this->connection);
 			}else{

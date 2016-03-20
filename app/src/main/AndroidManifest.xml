@@ -38,6 +38,10 @@
         <activity
             android:name=".viewSignature"
             android:label="@string/title_activity_view_signature"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Profile"
+            android:label="@string/title_activity_profile"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

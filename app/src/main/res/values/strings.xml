@@ -24,6 +24,7 @@
     <string name="clear_pad">Clear Pad</string>
     <string name="save_signature">Save Signature</string>
     <string name="title_activity_view_signature">viewSignature</string>
+    <string name="title_activity_profile">Profile</string>
 
 
 </resources>

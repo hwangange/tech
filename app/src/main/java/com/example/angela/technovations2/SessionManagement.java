@@ -22,6 +22,9 @@ public class SessionManagement {
 
     // User name (make variable public to access from outside)
     public static final String KEY_USERNAME = "username";
+    public static final String KEY_EMAIL = "email";
+    public static final String KEY_NAME = "name";
+    public static final String KEY_YEAR = "year";
 
     // Constructor
     public SessionManagement (Context context) {
@@ -30,15 +33,21 @@ public class SessionManagement {
         editor = pref.edit();
     }
 
-    public void createLoginSession(String username) {
+    public void createLoginSession(String username, String name, String email, int year) {
         editor.putBoolean(IS_LOGIN, true);
         editor.putString(KEY_USERNAME, username);
+        editor.putString(KEY_NAME, name);
+        editor.putString(KEY_EMAIL, email);
+        editor.putString(KEY_YEAR, String.valueOf(year));
         editor.commit();
     }
 
     public HashMap<String, String> getUserDetails() {
         HashMap<String, String> user = new HashMap<String, String>();
-        user.put(KEY_USERNAME, pref.getString(KEY_USERNAME, null));
+        user.put(KEY_USERNAME, pref.getString(KEY_USERNAME, "null"));
+        user.put(KEY_NAME, pref.getString(KEY_NAME, "null"));
+        user.put(KEY_EMAIL, pref.getString(KEY_EMAIL, "null"));
+        user.put(KEY_YEAR, pref.getString(KEY_YEAR, "null"));
         return user;
     }
 
