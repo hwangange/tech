@@ -42,7 +42,7 @@ public class Welcome extends Activity {
             }
         });
 
-        viewSignature=(Button)findViewById(R.id.signatureButton);
+        viewSignature=(Button)findViewById(R.id.viewSignatureButton);
         viewSignature.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
