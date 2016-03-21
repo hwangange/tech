@@ -31,7 +31,7 @@ import java.util.HashMap;
 public class Welcome extends Activity {
 
     private Button logout, signature, viewSignature, profile;
-    private TextView welcome, welcomeName;
+    private TextView welcome;
 
     private SessionManagement session;
 
@@ -57,9 +57,6 @@ public class Welcome extends Activity {
 
         welcome = (TextView) findViewById(R.id.textView);
         welcome.setText(Html.fromHtml("Welcome <b>" + username + "</b>"));
-
-        welcomeName = (TextView) findViewById(R.id.textViewName);
-        welcomeName.setText(Html.fromHtml("<b>Name: </b>" + name));
 
         signature=(Button)findViewById(R.id.signatureButton);
         signature.setOnClickListener(new View.OnClickListener() {

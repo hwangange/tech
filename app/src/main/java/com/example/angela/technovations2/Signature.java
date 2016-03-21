@@ -96,7 +96,10 @@ public class Signature extends Activity {
             @Override
             public void onClick(View view) {
                 Bitmap signatureBitmap = mSignaturePad.getSignatureBitmap();
-                String sig_url = "http://10.0.0.8/Technovations2/php/signature.php";
+
+                String ip_address = getString(R.string.ip_address);
+                String sig_url = "http://" + ip_address + "/Technovations2/php/signature.php";
+
                 final String signature = convert(signatureBitmap);
                 
                 request = new StringRequest(Request.Method.POST, sig_url, new Response.Listener<String>() {

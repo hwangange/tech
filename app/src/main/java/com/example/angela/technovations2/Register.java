@@ -31,8 +31,10 @@ public class Register extends AppCompatActivity {
     private TextView guideline;
     private Button register, back;
     private RequestQueue requestQueue;
-    private static final String URL = "http://10.0.0.8/Technovations2/php/register.php";
+
     private StringRequest request;
+
+    private String URL = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +52,8 @@ public class Register extends AppCompatActivity {
         back = (Button) findViewById(R.id.back_register);
         guideline = (TextView) findViewById(R.id.guideline);
 
+        String ip_address = getString(R.string.ip_address);
+        URL = "http://" + ip_address + "/Technovations2/php/register.php";
 
         requestQueue = Volley.newRequestQueue(this);
 

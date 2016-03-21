@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Technovations2</string>
+    <string name="app_name">Technovation Challenge</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -25,6 +25,12 @@
     <string name="save_signature">Save Signature</string>
     <string name="title_activity_view_signature">viewSignature</string>
     <string name="title_activity_profile">Profile</string>
+    <string name="title_activity_welcome_navigation">WelcomeNavigation</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="ip_address">10.0.0.8</string>
 
 
 </resources>

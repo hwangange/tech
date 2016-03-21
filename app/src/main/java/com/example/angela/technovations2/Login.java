@@ -2,6 +2,7 @@ package com.example.angela.technovations2;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -36,7 +38,7 @@ public class Login extends AppCompatActivity{
     private RequestQueue requestQueue;
     SessionManagement session;
 
-    private static final String URL = "http://10.0.0.8/Technovations2/php/user_control.php"; //changeable
+    private String URL = ""; //changeable
     private StringRequest request;
 
     @Override
@@ -52,6 +54,10 @@ public class Login extends AppCompatActivity{
         requestQueue = Volley.newRequestQueue(this);
 
         session = new SessionManagement(getApplication());
+
+        String ip_address = getString(R.string.ip_address);
+        URL = "http://" + ip_address + "/Technovations2/php/user_control.php";
+
 
         sign_in.setOnClickListener(new View.OnClickListener(){
 

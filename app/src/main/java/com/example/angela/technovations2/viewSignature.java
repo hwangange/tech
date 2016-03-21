@@ -55,7 +55,9 @@ public class viewSignature extends AppCompatActivity {
         viewSignatureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String sig_url = "http://10.0.0.8/Technovations2/php/viewSignature.php/?user=" + username;
+
+                String ip_address = getString(R.string.ip_address);
+                String sig_url = "http://" + ip_address + "/Technovations2/php/viewSignature.php/?user=" + username;
 
                 request = new StringRequest(Request.Method.GET, sig_url, new Response.Listener<String>() {
                     @Override
