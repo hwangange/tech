@@ -30,7 +30,7 @@ import java.util.HashMap;
  */
 public class Welcome extends Activity {
 
-    private Button logout, signature, viewSignature, profile;
+    private Button logout, signature, viewSignature, profile, welcomeNav;
     private TextView welcome;
 
     private SessionManagement session;
@@ -79,6 +79,14 @@ public class Welcome extends Activity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), Profile.class));
+            }
+        });
+
+        welcomeNav = (Button)findViewById(R.id.welcomeNavButton);
+        welcomeNav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), WelcomeNav.class));
             }
         });
 

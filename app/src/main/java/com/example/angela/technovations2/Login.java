@@ -77,7 +77,7 @@ public class Login extends AppCompatActivity{
                                 String email = jsonObject.getString("email");
                                 int year = jsonObject.getInt("year");
                                 session.createLoginSession(user, name, email, year);
-                                startActivity(new Intent(getApplicationContext(),Welcome.class));
+                                startActivity(new Intent(getApplicationContext(),WelcomeNav.class));
                             }else{
                                 Toast.makeText(getApplicationContext(),"ERROR: "+jsonObject.getString("error"),Toast.LENGTH_SHORT).show();
                             }

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_profile"
+            android:title="Profile" />
+        <item
+            android:id="@+id/nav_create"
+            android:title="Create" />
+        <item
+            android:id="@+id/nav_drafts"
+            android:title="Drafts" />
+        <item
+            android:id="@+id/nav_log"
+            android:title="Log" />
+        <item
+            android:id="@+id/nav_logout"
+            android:title="Logout" />
+    </group>
+
+    <item android:title="Signature">
+        <menu>
+            <item
+                android:id="@+id/nav_signature"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Add a Signature" />
+            <item
+                android:id="@+id/nav_view_signature"
+                android:icon="@drawable/ic_menu_send"
+                android:title="View Signatures" />
+        </menu>
+    </item>
+
+</menu>

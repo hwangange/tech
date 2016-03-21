@@ -36,4 +36,10 @@
         android:layout_height="wrap_content"
         android:text="Profile"
         android:id="@+id/profileButton" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome Nav"
+        android:id="@+id/welcomeNavButton" />
 </LinearLayout>
