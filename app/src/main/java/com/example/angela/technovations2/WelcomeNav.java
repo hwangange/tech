@@ -107,7 +107,7 @@ public class WelcomeNav extends AppCompatActivity
         if (id == R.id.nav_profile) {
             startActivity(new Intent(getApplicationContext(), Profile.class));
         } else if (id == R.id.nav_create) {
-            //startActivity(new Intent(getApplicationContext(), Profile.class));
+            startActivity(new Intent(getApplicationContext(), Create.class));
         } else if (id == R.id.nav_drafts) {
 
         } else if (id == R.id.nav_log) {

@@ -46,6 +46,10 @@
         <activity
             android:name=".WelcomeNav"
             android:label="@string/title_activity_welcome_nav"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Create"
+            android:label="@string/title_activity_create"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
