@@ -22,7 +22,7 @@ public class WelcomeNav extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private SessionManagement session;
-    private TextView navDrawerStudentName, navDrawerStudentEmail, navDrawerWelcome;
+    private TextView navDrawerStudentName, navDrawerStudentUsername, navDrawerWelcome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,15 +39,6 @@ public class WelcomeNav extends AppCompatActivity
         String name = user.get(SessionManagement.KEY_NAME);
         String email = user.get(SessionManagement.KEY_EMAIL);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -58,11 +49,11 @@ public class WelcomeNav extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         navDrawerStudentName = (TextView) findViewById(R.id.navDrawerStudentName);
-        navDrawerStudentEmail = (TextView) findViewById(R.id.navDrawerStudentEmail);
+        navDrawerStudentUsername = (TextView) findViewById(R.id.navDrawerStudentUsername);
         navDrawerWelcome = (TextView) findViewById(R.id.navDrawerWelcome);
 
-       // navDrawerStudentName.setText(Html.fromHtml("" + name));
-        //navDrawerStudentEmail.setText(Html.fromHtml(email));
+     //   navDrawerStudentName.setText(Html.fromHtml("" + name)); //i   crie
+       // navDrawerStudentUsername.setText(Html.fromHtml(username));
         navDrawerWelcome.setText(Html.fromHtml("Welcome <b>" + username + "</b>"));
     }
 

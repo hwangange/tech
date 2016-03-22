@@ -1,9 +1,11 @@
 package com.example.angela.technovations2;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Base64;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -24,17 +26,21 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.github.gcacace.signaturepad.views.SignaturePad;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Create extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private EditText first, last, id, classof, servicedate, hours, description, studentsig, orgname, phonenum, website, address, conname, conemail, condate, consig, parentsig;
+    private EditText first, last, id, classof, servicedate, hours, description, orgname, phonenum, website, address, conname, conemail, condate;
+    private SignaturePad studentsig, consig, parentsig;
+
     private Button submit;
     private RequestQueue requestQueue;
 
@@ -87,7 +93,7 @@ public class Create extends AppCompatActivity
         servicedate = (EditText) findViewById(R.id.servicedate_sub);
         hours = (EditText) findViewById(R.id.hours_sub);
         description = (EditText) findViewById(R.id.description_sub);
-        studentsig = (EditText) findViewById(R.id.studentsig_sub);
+        studentsig = (SignaturePad) findViewById(R.id.studentsig);
         orgname = (EditText) findViewById(R.id.orgname_sub);
         phonenum = (EditText) findViewById(R.id.phonenum_sub);
         website = (EditText) findViewById(R.id.website_sub);
@@ -95,8 +101,8 @@ public class Create extends AppCompatActivity
         conname = (EditText) findViewById(R.id.conname_sub);
         conemail = (EditText) findViewById(R.id.conemail_sub);
         condate = (EditText) findViewById(R.id.condate_sub);
-        consig = (EditText) findViewById(R.id.consig_sub);
-        parentsig = (EditText) findViewById(R.id.parentsig_sub);
+        consig = (SignaturePad) findViewById(R.id.consig);
+        parentsig = (SignaturePad) findViewById(R.id.parentsig);
 
         submit = (Button) findViewById(R.id.submit_sub);
 
@@ -106,6 +112,15 @@ public class Create extends AppCompatActivity
 
             @Override
             public void onClick(View view){
+
+                Bitmap studentBitmap = studentsig.getSignatureBitmap();
+                final String student_signature = convert(studentBitmap);
+
+                Bitmap conBitmap = consig.getSignatureBitmap();
+                final String con_signature = convert(conBitmap);
+
+                Bitmap parentBitmap = parentsig.getSignatureBitmap();
+                final String parent_signature = convert(parentBitmap);
 
                 request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
                     @Override
@@ -142,16 +157,16 @@ public class Create extends AppCompatActivity
                         hashMap.put("log", "yes");
                         hashMap.put("description", description.getText().toString());
                         hashMap.put("paid", "no");
-                        hashMap.put("studentsig",studentsig.getText().toString());
+                        hashMap.put("studentsig",student_signature);
                         hashMap.put("orgname", orgname.getText().toString());
                         hashMap.put("phonenum", phonenum.getText().toString());
                         hashMap.put("website",website.getText().toString());
                         hashMap.put("address",address.getText().toString());
                         hashMap.put("conname",conname.getText().toString());
                         hashMap.put("conemail",conemail.getText().toString());
-                        hashMap.put("consig",consig.getText().toString());
+                        hashMap.put("consig", con_signature);
                         hashMap.put("date",condate.getText().toString());
-                        hashMap.put("parsig",parentsig.getText().toString());
+                        hashMap.put("parsig",parent_signature);
                         return hashMap;
                     }
 
@@ -162,6 +177,15 @@ public class Create extends AppCompatActivity
         });
 
 
+    }
+
+    public String convert(Bitmap bitmap) { //bitmap->byte array->base64 string
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 0 /*ignored for PNG*/, bos);
+        byte[] bitmapdata = bos.toByteArray();
+        int flags = Base64.NO_WRAP | Base64.URL_SAFE;
+        String str = Base64.encodeToString(bitmapdata, flags);
+        return str;
     }
 
     @Override

@@ -121,10 +121,15 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"/>
 
-            <EditText android:id="@+id/studentsig_sub" android:layout_width="match_parent"
+            <com.github.gcacace.signaturepad.views.SignaturePad
+                android:layout_width="fill_parent"
+                android:layout_height="200dp"
+                android:id="@+id/studentsig" />
+
+           <!-- <EditText android:id="@+id/studentsig_sub" android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
-                android:singleLine="true" />
+                android:singleLine="true" /> -->
 
             <TextView
                 android:layout_width="wrap_content"
@@ -210,20 +215,30 @@
                 android:text="SPONSOR SIGNATURE"
                 android:layout_height="wrap_content" />
 
-            <EditText android:id="@+id/consig_sub" android:layout_width="match_parent"
+           <!-- <EditText android:id="@+id/consig_sub" android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
-                android:singleLine="true" />
+                android:singleLine="true" /> -->
+
+            <com.github.gcacace.signaturepad.views.SignaturePad
+                android:layout_width="fill_parent"
+                android:layout_height="200dp"
+                android:id="@+id/consig" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:text="PARENT SIGNATURE"
                 android:layout_height="wrap_content" />
 
-            <EditText android:id="@+id/parentsig_sub" android:layout_width="match_parent"
+            <!--<EditText android:id="@+id/parentsig_sub" android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
-                android:singleLine="true" />
+                android:singleLine="true" /> -->
+
+            <com.github.gcacace.signaturepad.views.SignaturePad
+                android:layout_width="fill_parent"
+                android:layout_height="200dp"
+                android:id="@+id/parentsig" />
 
 
             <Button android:id="@+id/submit_sub"

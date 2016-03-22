@@ -34,6 +34,9 @@ public class SessionManagement {
     }
 
     public void createLoginSession(String username, String name, String email, int year) {
+
+
+
         editor.putBoolean(IS_LOGIN, true);
         editor.putString(KEY_USERNAME, username);
         editor.putString(KEY_NAME, name);
