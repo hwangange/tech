@@ -3,19 +3,19 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_profile_create"
+            android:id="@+id/nav_profile_profile"
             android:title="@string/profile" />
         <item
-            android:id="@+id/nav_create_create"
+            android:id="@+id/nav_create_profile"
             android:title="@string/create" />
         <item
-            android:id="@+id/nav_drafts_create"
+            android:id="@+id/nav_drafts_profile"
             android:title="@string/drafts" />
         <item
-            android:id="@+id/nav_log_create"
+            android:id="@+id/nav_log_profile"
             android:title="@string/log" />
         <item
-            android:id="@+id/nav_logout_create"
+            android:id="@+id/nav_logout_profile"
             android:title="@string/logout" />
     </group>
 

@@ -15,8 +15,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -38,8 +40,9 @@ import java.util.Map;
 public class Create extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private EditText first, last, id, classof, servicedate, hours, description, orgname, phonenum, website, address, conname, conemail, condate;
+    private EditText first, last, id, classof, teacher, servicedate, hours, description, orgname, phonenum, website, address, conname, conemail, condate;
     private SignaturePad studentsig, consig, parentsig;
+    private Spinner paid_spinner;
 
     private Button submit;
     private RequestQueue requestQueue;
@@ -90,9 +93,14 @@ public class Create extends AppCompatActivity
         last = (EditText) findViewById(R.id.last_sub);
         id = (EditText) findViewById(R.id.id_sub);
         classof = (EditText) findViewById(R.id.classof_sub);
+        teacher = (EditText) findViewById(R.id.teacher);
         servicedate = (EditText) findViewById(R.id.servicedate_sub);
         hours = (EditText) findViewById(R.id.hours_sub);
         description = (EditText) findViewById(R.id.description_sub);
+        /*paid_spinner = (Spinner) findViewById(R.id.paid_spinner);
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.paid_array, android.R.layout.activity_create);
+            adapter.setDropDownViewResource(android.R.layout.activity_create);
+            paid_spinner.setAdapter(adapter); */
         studentsig = (SignaturePad) findViewById(R.id.studentsig);
         orgname = (EditText) findViewById(R.id.orgname_sub);
         phonenum = (EditText) findViewById(R.id.phonenum_sub);
@@ -151,7 +159,7 @@ public class Create extends AppCompatActivity
                         hashMap.put("last",last.getText().toString());
                         hashMap.put("id", id.getText().toString());
                         hashMap.put("class", classof.getText().toString());
-                        hashMap.put("teacher", "Todd");
+                        hashMap.put("teacher", teacher.getText().toString());
                         hashMap.put("servicedate", servicedate.getText().toString());
                         hashMap.put("hours", hours.getText().toString());
                         hashMap.put("log", "yes");
@@ -226,20 +234,16 @@ public class Create extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_profile) {
+        if (id == R.id.nav_profile_create) {
             startActivity(new Intent(getApplicationContext(), Profile.class));
-        } else if (id == R.id.nav_create) {
+        } else if (id == R.id.nav_create_create) {
             startActivity(new Intent(getApplicationContext(), Create.class));
-        } else if (id == R.id.nav_drafts) {
+        } else if (id == R.id.nav_drafts_create) {
 
-        } else if (id == R.id.nav_log) {
+        } else if (id == R.id.nav_log_create) {
 
-        } else if (id == R.id.nav_logout) {
+        } else if (id == R.id.nav_logout_create) {
             session.logoutUser();
-        } else if (id == R.id.nav_signature) {
-            startActivity(new Intent(getApplicationContext(), Signature.class));
-        } else if (id == R.id.nav_view_signature) {
-            startActivity(new Intent(getApplicationContext(), viewSignature.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

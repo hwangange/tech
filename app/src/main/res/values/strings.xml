@@ -30,9 +30,23 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="ip_address">10.4.68.218</string>
+    <string name="ip_address">10.0.0.8</string>
     <string name="title_activity_welcome_nav">Home</string>
     <string name="title_activity_create">Create</string>
 
+    <!--Submission Form -->
+    <string-array name="paid_array">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+
+    <string name="profile">Profile</string>
+    <string name="create">Create</string>
+    <string name="drafts">Drafts</string>
+    <string name="log">Log</string>
+    <string name="logout">Logout</string>
+    <string name="signature">Signature</string>
+    <string name="add_signature">Add a Signature</string>
+    <string name="view_signature">View Signatures</string>
 
 </resources>

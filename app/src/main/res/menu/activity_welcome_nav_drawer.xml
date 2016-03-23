@@ -4,31 +4,31 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_profile"
-            android:title="Profile" />
+            android:title="@string/profile" />
         <item
             android:id="@+id/nav_create"
-            android:title="Create" />
+            android:title="@string/create" />
         <item
             android:id="@+id/nav_drafts"
-            android:title="Drafts" />
+            android:title="@string/drafts" />
         <item
             android:id="@+id/nav_log"
-            android:title="Log" />
+            android:title="@string/log" />
         <item
             android:id="@+id/nav_logout"
-            android:title="Logout" />
+            android:title="@string/logout" />
     </group>
 
-    <item android:title="Signature">
+    <item android:title="@string/signature">
         <menu>
             <item
                 android:id="@+id/nav_signature"
                 android:icon="@drawable/ic_menu_share"
-                android:title="Add a Signature" />
+                android:title="@string/add_signature" />
             <item
                 android:id="@+id/nav_view_signature"
                 android:icon="@drawable/ic_menu_send"
-                android:title="View Signatures" />
+                android:title="@string/view_signature" />
         </menu>
     </item>
 

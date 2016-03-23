@@ -81,6 +81,17 @@
 
             <TextView
                 android:layout_width="match_parent"
+                android:text="3RD PERIOD TEACHER "
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"/>
+
+            <EditText android:id="@+id/teacher" android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" android:maxLines="1"
+                android:singleLine="true" />
+
+            <TextView
+                android:layout_width="match_parent"
                 android:text="DATE(s) SERVICE PERFORMED "
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"/>
@@ -117,6 +128,17 @@
 
             <TextView
                 android:layout_width="match_parent"
+                android:text="Were you paid, rewarded or required to to do this service?"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"/>
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/paid_spinner" />
+
+            <TextView
+                android:layout_width="match_parent"
                 android:text="SIGNATURE OF STUDENT"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"/>
@@ -125,11 +147,6 @@
                 android:layout_width="fill_parent"
                 android:layout_height="200dp"
                 android:id="@+id/studentsig" />
-
-           <!-- <EditText android:id="@+id/studentsig_sub" android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:singleLine="true" /> -->
 
             <TextView
                 android:layout_width="wrap_content"
@@ -215,11 +232,6 @@
                 android:text="SPONSOR SIGNATURE"
                 android:layout_height="wrap_content" />
 
-           <!-- <EditText android:id="@+id/consig_sub" android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:singleLine="true" /> -->
-
             <com.github.gcacace.signaturepad.views.SignaturePad
                 android:layout_width="fill_parent"
                 android:layout_height="200dp"
@@ -229,11 +241,6 @@
                 android:layout_width="match_parent"
                 android:text="PARENT SIGNATURE"
                 android:layout_height="wrap_content" />
-
-            <!--<EditText android:id="@+id/parentsig_sub" android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:singleLine="true" /> -->
 
             <com.github.gcacace.signaturepad.views.SignaturePad
                 android:layout_width="fill_parent"
