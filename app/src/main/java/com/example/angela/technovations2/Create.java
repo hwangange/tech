@@ -329,10 +329,12 @@ public class Create extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_profile_create) {
+        if (id == R.id.nav_home_create) {
+            startActivity(new Intent(getApplicationContext(), WelcomeNav.class));
+        } else if (id == R.id.nav_profile_create) {
             startActivity(new Intent(getApplicationContext(), Profile.class));
         } else if (id == R.id.nav_create_create) {
-            startActivity(new Intent(getApplicationContext(), Create.class));
+           // startActivity(new Intent(getApplicationContext(), Create.class));
         } else if (id == R.id.nav_drafts_create) {
 
         } else if (id == R.id.nav_log_create) {

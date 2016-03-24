@@ -40,6 +40,7 @@
         <item>No</item>
     </string-array>
 
+    <string name="home">Home</string>
     <string name="profile">Profile</string>
     <string name="create">Create</string>
     <string name="drafts">Drafts</string>

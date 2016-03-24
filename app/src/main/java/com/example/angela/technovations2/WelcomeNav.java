@@ -95,7 +95,9 @@ public class WelcomeNav extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_profile) {
+        if (id == R.id.nav_home) {
+            //startActivity(new Intent(getApplicationContext(), WelcomeNav.class));
+        } else if (id == R.id.nav_profile) {
             startActivity(new Intent(getApplicationContext(), Profile.class));
         } else if (id == R.id.nav_create) {
             startActivity(new Intent(getApplicationContext(), Create.class));
@@ -105,11 +107,11 @@ public class WelcomeNav extends AppCompatActivity
 
         } else if (id == R.id.nav_logout) {
             session.logoutUser();
-        } else if (id == R.id.nav_signature) {
+        } /*else if (id == R.id.nav_signature) {
             startActivity(new Intent(getApplicationContext(), Signature.class));
         } else if (id == R.id.nav_view_signature) {
             startActivity(new Intent(getApplicationContext(), viewSignature.class));
-        }
+        } */
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

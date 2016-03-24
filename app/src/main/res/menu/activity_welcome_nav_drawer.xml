@@ -3,6 +3,9 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_home"
+            android:title="@string/home" />
+        <item
             android:id="@+id/nav_profile"
             android:title="@string/profile" />
         <item
@@ -19,7 +22,7 @@
             android:title="@string/logout" />
     </group>
 
-    <item android:title="@string/signature">
+   <!-- <item android:title="@string/signature">
         <menu>
             <item
                 android:id="@+id/nav_signature"
@@ -30,6 +33,6 @@
                 android:icon="@drawable/ic_menu_send"
                 android:title="@string/view_signature" />
         </menu>
-    </item>
+    </item> -->
 
 </menu>

@@ -103,8 +103,9 @@ public class Profile extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
-        if (id == R.id.nav_profile_profile) {
+        if (id == R.id.nav_home_profile) {
+            startActivity(new Intent(getApplicationContext(), WelcomeNav.class));
+        } else if (id == R.id.nav_profile_profile) {
             startActivity(new Intent(getApplicationContext(), Profile.class));
         } else if (id == R.id.nav_create_profile) {
             startActivity(new Intent(getApplicationContext(), Create.class));
