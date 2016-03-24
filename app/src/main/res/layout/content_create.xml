@@ -18,13 +18,6 @@
             android:layout_width = "match_parent" android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <Button
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ADD TO DRAFTS"
-                android:id="@+id/button3" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -247,10 +240,30 @@
                 android:layout_height="200dp"
                 android:id="@+id/parentsig" />
 
+            <LinearLayout
+                android:id="@+id/buttons_container"
+                android:paddingTop="16dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentBottom="true">
 
-            <Button android:id="@+id/submit_sub"
-                android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:layout_marginTop="16dp" android:text="SUBMIT"/>
+                <Button
+                    android:id="@+id/drafts_button"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="SAVE TO DRAFTS"
+                    android:enabled="true" />
+
+                <Button
+                    android:id="@+id/submit_sub"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="SUBMIT"
+                    android:enabled="true" />
+            </LinearLayout>
 
         </LinearLayout>
 

@@ -44,7 +44,7 @@ public class Create extends AppCompatActivity
     private SignaturePad studentsig, consig, parentsig;
     private Spinner paid_spinner;
 
-    private Button submit;
+    private Button submit, drafts;
     private RequestQueue requestQueue;
 
     private StringRequest request;
@@ -82,37 +82,54 @@ public class Create extends AppCompatActivity
         session.checkLogin();
 
         HashMap<String, String> user = session.getUserDetails();
-        String username = user.get(SessionManagement.KEY_USERNAME);
+        final String username = user.get(SessionManagement.KEY_USERNAME);
         String name = user.get(SessionManagement.KEY_NAME);
         String email = user.get(SessionManagement.KEY_EMAIL);
 
-        String ip_address = getString(R.string.ip_address);
-        URL = "http://" + ip_address + "/Technovations2/php/submission.php";
+        final String ip_address = getString(R.string.ip_address);
+
 
         first = (EditText) findViewById(R.id.first_sub);
+        first.setText("");
         last = (EditText) findViewById(R.id.last_sub);
+        last.setText("");
         id = (EditText) findViewById(R.id.id_sub);
+        id.setText("");
         classof = (EditText) findViewById(R.id.classof_sub);
+        classof.setText("");
         teacher = (EditText) findViewById(R.id.teacher);
+        teacher.setText("");
         servicedate = (EditText) findViewById(R.id.servicedate_sub);
+        teacher.setText("");
         hours = (EditText) findViewById(R.id.hours_sub);
+        hours.setText("");
         description = (EditText) findViewById(R.id.description_sub);
+        description.setText("");
         /*paid_spinner = (Spinner) findViewById(R.id.paid_spinner);
             ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.paid_array, android.R.layout.activity_create);
             adapter.setDropDownViewResource(android.R.layout.activity_create);
             paid_spinner.setAdapter(adapter); */
         studentsig = (SignaturePad) findViewById(R.id.studentsig);
+
         orgname = (EditText) findViewById(R.id.orgname_sub);
+        orgname.setText("");
         phonenum = (EditText) findViewById(R.id.phonenum_sub);
+        phonenum.setText("");
         website = (EditText) findViewById(R.id.website_sub);
+        website.setText("");
         address = (EditText) findViewById(R.id.address_sub);
+        address.setText("");
         conname = (EditText) findViewById(R.id.conname_sub);
+        conname.setText("");
         conemail = (EditText) findViewById(R.id.conemail_sub);
+        conemail.setText("");
         condate = (EditText) findViewById(R.id.condate_sub);
+        condate.setText("");
         consig = (SignaturePad) findViewById(R.id.consig);
         parentsig = (SignaturePad) findViewById(R.id.parentsig);
 
         submit = (Button) findViewById(R.id.submit_sub);
+        drafts = (Button) findViewById(R.id.drafts_button);
 
         requestQueue = Volley.newRequestQueue(this);
 
@@ -120,6 +137,8 @@ public class Create extends AppCompatActivity
 
             @Override
             public void onClick(View view){
+
+                URL = "http://" + ip_address + "/Technovations2/php/submission.php";
 
                 Bitmap studentBitmap = studentsig.getSignatureBitmap();
                 final String student_signature = convert(studentBitmap);
@@ -129,6 +148,8 @@ public class Create extends AppCompatActivity
 
                 Bitmap parentBitmap = parentsig.getSignatureBitmap();
                 final String parent_signature = convert(parentBitmap);
+
+
 
                 request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
                     @Override
@@ -155,6 +176,7 @@ public class Create extends AppCompatActivity
                     @Override
                     protected Map<String, String> getParams() throws AuthFailureError {
                         HashMap<String,String> hashMap=new HashMap<String,String>();
+                        hashMap.put("username",username);
                         hashMap.put("first",first.getText().toString());
                         hashMap.put("last",last.getText().toString());
                         hashMap.put("id", id.getText().toString());
@@ -184,8 +206,81 @@ public class Create extends AppCompatActivity
             }
         });
 
+        drafts.setOnClickListener(new View.OnClickListener() {
 
-    }
+            @Override
+            public void onClick(View view) {
+
+                URL = "http://" + ip_address + "/Technovations2/php/draft.php";
+
+                Bitmap studentBitmap = studentsig.getSignatureBitmap();
+                final String student_signature = convert(studentBitmap);
+
+                Bitmap conBitmap = consig.getSignatureBitmap();
+                final String con_signature = convert(conBitmap);
+
+                Bitmap parentBitmap = parentsig.getSignatureBitmap();
+                final String parent_signature = convert(parentBitmap);
+
+
+                request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
+                            JSONObject jsonObject = new JSONObject(response);
+                            if (jsonObject.names().get(0).equals("success")) {
+                                Toast.makeText(getApplicationContext(), "SUCCESS: " + jsonObject.getString("success"), Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(getApplicationContext(), WelcomeNav.class));
+                            } else {
+                                Toast.makeText(getApplicationContext(), "ERROR: " + jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+
+                }) {
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        HashMap<String, String> hashMap = new HashMap<String, String>();
+                        hashMap.put("username", username);
+                        hashMap.put("first", first.getText().toString());
+                        hashMap.put("last", last.getText().toString() + "");
+                        hashMap.put("id", id.getText().toString() + "");
+                        hashMap.put("class", classof.getText().toString() + "");
+                        hashMap.put("teacher", teacher.getText().toString() + "");
+                        hashMap.put("servicedate", servicedate.getText().toString() + "");
+                        hashMap.put("hours", hours.getText().toString() + "");
+                        hashMap.put("log", "yes");
+                        hashMap.put("description", description.getText().toString() + "");
+                        hashMap.put("paid", "no");
+                        hashMap.put("studentsig", student_signature);
+                        hashMap.put("orgname", orgname.getText().toString()  +"");
+                        hashMap.put("phonenum", phonenum.getText().toString()  + "");
+                        hashMap.put("website", website.getText().toString() + "");
+                        hashMap.put("address", address.getText().toString() + "");
+                        hashMap.put("conname", conname.getText().toString() + "");
+                        hashMap.put("conemail", conemail.getText().toString()  +"");
+                        hashMap.put("consig", con_signature);
+                        hashMap.put("date", condate.getText().toString() + "");
+                        hashMap.put("parsig", parent_signature);
+                        return hashMap;
+                    }
+
+                };
+
+            requestQueue.add(request);
+        }
+    });
+
+
+}
 
     public String convert(Bitmap bitmap) { //bitmap->byte array->base64 string
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
