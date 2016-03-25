@@ -338,7 +338,7 @@ public class Create extends AppCompatActivity
         } else if (id == R.id.nav_drafts_create) {
 
         } else if (id == R.id.nav_log_create) {
-
+            startActivity(new Intent(getApplicationContext(), Log.class));
         } else if (id == R.id.nav_logout_create) {
             session.logoutUser();
         }

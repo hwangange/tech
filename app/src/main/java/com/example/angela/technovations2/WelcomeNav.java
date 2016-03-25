@@ -104,7 +104,7 @@ public class WelcomeNav extends AppCompatActivity
         } else if (id == R.id.nav_drafts) {
 
         } else if (id == R.id.nav_log) {
-
+            startActivity(new Intent(getApplicationContext(), Log.class));
         } else if (id == R.id.nav_logout) {
             session.logoutUser();
         } /*else if (id == R.id.nav_signature) {

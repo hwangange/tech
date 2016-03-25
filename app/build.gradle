@@ -17,6 +17,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE-FIREBASE.txt'
+        exclude 'META-INF/NOTICE'
+    }
 }
 
 dependencies {
@@ -25,7 +31,7 @@ dependencies {
     compile 'com.android.support:design:23.1.0'
     compile 'com.mcxiaoke.volley:library:1.0.19'
     compile 'com.github.gcacace:signature-pad:1.1.0'
-
+    compile 'com.firebase:firebase-client-android:2.5.2+'
 }
 
 repositories {
