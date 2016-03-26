@@ -86,8 +86,6 @@ public class Create extends AppCompatActivity
         String name = user.get(SessionManagement.KEY_NAME);
         String email = user.get(SessionManagement.KEY_EMAIL);
 
-        final String ip_address = getString(R.string.ip_address);
-
 
         first = (EditText) findViewById(R.id.first_sub);
         first.setText("");
@@ -138,7 +136,7 @@ public class Create extends AppCompatActivity
             @Override
             public void onClick(View view){
 
-                URL = "http://" + ip_address + "/Technovations2/php/submission.php";
+                URL = "http://ajuj.comlu.com/submission.php";
 
                 Bitmap studentBitmap = studentsig.getSignatureBitmap();
                 final String student_signature = convert(studentBitmap);
@@ -211,7 +209,7 @@ public class Create extends AppCompatActivity
             @Override
             public void onClick(View view) {
 
-                URL = "http://" + ip_address + "/Technovations2/php/draft.php";
+                URL = "http://ajuj.comlu.com/draft.php";
 
                 Bitmap studentBitmap = studentsig.getSignatureBitmap();
                 final String student_signature = convert(studentBitmap);

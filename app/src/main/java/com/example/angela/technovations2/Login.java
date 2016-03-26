@@ -55,8 +55,8 @@ public class Login extends AppCompatActivity{
 
         session = new SessionManagement(getApplication());
 
-        String ip_address = getString(R.string.ip_address);
-        URL = "http://" + ip_address + "/Technovations2/php/user_control.php";
+
+        URL = "http://ajuj.comlu.com/user_control.php";
 
 
         sign_in.setOnClickListener(new View.OnClickListener(){

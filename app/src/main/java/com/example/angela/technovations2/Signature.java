@@ -97,8 +97,7 @@ public class Signature extends Activity {
             public void onClick(View view) {
                 Bitmap signatureBitmap = mSignaturePad.getSignatureBitmap();
 
-                String ip_address = getString(R.string.ip_address);
-                String sig_url = "http://" + ip_address + "/Technovations2/php/signature.php";
+                String sig_url = "http://ajuj.comlu.com/signature.php";
 
                 final String signature = convert(signatureBitmap);
                 

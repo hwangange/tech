@@ -58,8 +58,6 @@ public class Log extends AppCompatActivity
         String name = user.get(SessionManagement.KEY_NAME);
         String email = user.get(SessionManagement.KEY_EMAIL);
 
-        final String ip_address = getString(R.string.ip_address);
-
         tabhost = (TabHost) findViewById(R.id.tabHost);
         tabhost.setup();
         TabHost.TabSpec approved = tabhost.newTabSpec("Approved");

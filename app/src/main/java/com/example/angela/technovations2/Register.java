@@ -52,9 +52,6 @@ public class Register extends AppCompatActivity {
         back = (Button) findViewById(R.id.back_register);
         guideline = (TextView) findViewById(R.id.guideline);
 
-        String ip_address = getString(R.string.ip_address);
-        URL = "http://" + ip_address + "/Technovations2/php/register.php";
-
         requestQueue = Volley.newRequestQueue(this);
 
         register.setOnClickListener(new View.OnClickListener(){
@@ -62,9 +59,10 @@ public class Register extends AppCompatActivity {
             @Override
             public void onClick(View view){
 
-                request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+                request = new StringRequest(Request.Method.POST, "http://ajuj.comlu.com/register.php", new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        Toast.makeText(getApplicationContext(),response,Toast.LENGTH_SHORT).show();
                         try{
                             JSONObject jsonObject = new JSONObject(response);
                             if(jsonObject.names().get(0).equals("success")){
