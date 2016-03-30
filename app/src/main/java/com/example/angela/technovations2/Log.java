@@ -2,6 +2,7 @@ package com.example.angela.technovations2;
 
 import android.app.LocalActivityManager;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -14,12 +15,34 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.SimpleAdapter;
 import android.widget.TabHost;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Log extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -29,10 +52,17 @@ public class Log extends AppCompatActivity
     private StringRequest request;
 
     private String URL = "";
+    private String username, email, name;
 
     private SessionManagement session;
 
     private TabHost tabhost;
+
+    private ListView tab1, tab2, tab3;
+
+    private RelativeLayout view1, view2, view3;
+
+    List<Map<String, String>> approvedList, deniedList, pendingList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,9 +84,13 @@ public class Log extends AppCompatActivity
         session.checkLogin();
 
         HashMap<String, String> user = session.getUserDetails();
-        final String username = user.get(SessionManagement.KEY_USERNAME);
-        String name = user.get(SessionManagement.KEY_NAME);
-        String email = user.get(SessionManagement.KEY_EMAIL);
+        username = user.get(SessionManagement.KEY_USERNAME);
+        name = user.get(SessionManagement.KEY_NAME);
+        email = user.get(SessionManagement.KEY_EMAIL);
+
+        approvedList = new ArrayList<Map<String, String>>();
+        deniedList = new ArrayList<Map<String, String>>();
+        pendingList = new ArrayList<Map<String, String>>();
 
         tabhost = (TabHost) findViewById(R.id.tabHost);
         tabhost.setup();
@@ -64,12 +98,31 @@ public class Log extends AppCompatActivity
         TabHost.TabSpec denied = tabhost.newTabSpec("Denied");
         TabHost.TabSpec pending = tabhost.newTabSpec("Pending");
 
+        requestQueue = Volley.newRequestQueue(this);
+
+        tab1 = (ListView) findViewById(R.id.tab1);
+        tab2 = (ListView) findViewById(R.id.tab2);
+        tab3 = (ListView) findViewById(R.id.tab3);
+
+
+        view1 = new RelativeLayout(getApplicationContext());
+        view2 = new RelativeLayout(getApplicationContext());
+        view3 = new RelativeLayout(getApplicationContext());
+
+
+        String approved_url = "http://ajuj.comlu.com/approved.php/?user=" + username;
+        String denied_url = "http://ajuj.comlu.com/denied.php/?user=" + username;
+        String pending_url = "http://ajuj.comlu.com/pending.php/?user=" + username;
+        getApprovedContent(approved_url);
+        getDeniedContent(denied_url);
+        getPendingContent(pending_url);
+
         approved.setIndicator("Approved");
-        approved.setContent(R.id.tab1);
+        approved.setContent(tab1.getId());
         denied.setIndicator("Denied");
-        denied.setContent(R.id.tab2);
+        denied.setContent(tab2.getId());
         pending.setIndicator("Pending");
-        pending.setContent(R.id.tab3);
+        pending.setContent(tab3.getId());
 
         tabhost.addTab(approved);
         tabhost.addTab(denied);
@@ -131,5 +184,191 @@ public class Log extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void getApprovedContent(String url) {
+
+        request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try{
+                    approvedList.clear();
+                    JSONObject jsonObject = new JSONObject(response);
+                    if(jsonObject.names().get(0).equals("success")){
+                        int length = jsonObject.getInt("length");
+                        for(int i = 0; i < length; i++) {
+
+                            JSONObject row = jsonObject.getJSONObject(i+"");
+                            String uniqueid = row.getString("uniqueid");
+                            String servicedate = row.getString("servicedate");
+                            int hours = row.getInt("hours");
+                            String description = row.getString("description");
+                            String orgname = row.getString("orgname");
+                            String conname = row.getString("conname");
+
+                            approvedList.add(createForm(uniqueid, servicedate, description, orgname));
+                        }
+                        Toast.makeText(getApplicationContext(), "SUCCESS: " + jsonObject.getString("success"), Toast.LENGTH_SHORT).show();
+                    }else{
+                        if(jsonObject.names().get(0).equals("empty")) {
+                            Toast.makeText(getApplicationContext(),"EMPTY: "+jsonObject.getString("empty"),Toast.LENGTH_SHORT).show();
+                        }else {
+                            Toast.makeText(getApplicationContext(), "ERROR: " + jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }catch(JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener(){
+            @Override
+            public void onErrorResponse(VolleyError error){
+
+            }
+
+        });
+
+        requestQueue.add(request);
+        String[] from = {"orgname", "servicedate", "description", "uniqueid"};
+        int[] to = {R.id.titleLogItem, R.id.dateLogItem, R.id.textLogItem, R.id.idLogItem};
+        SimpleAdapter simpleAdapter = new SimpleAdapter(this, approvedList,
+                R.layout.approved_list_items,
+                from, to);
+        tab1.setAdapter(simpleAdapter);
+
+        //perform listView item click event
+        tab1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(getApplicationContext(), "approved", Toast.LENGTH_LONG).show();//show the selected image in toast according to position
+            }
+        });
+    }
+
+    public void getDeniedContent(String url) {
+
+        request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try{
+                    deniedList.clear();
+                    JSONObject jsonObject = new JSONObject(response);
+                    if(jsonObject.names().get(0).equals("success")){
+                        int length = jsonObject.getInt("length");
+                        for(int i = 0; i < length; i++) {
+
+                            JSONObject row = jsonObject.getJSONObject(i+"");
+                            String uniqueid = row.getString("uniqueid");
+                            String servicedate = row.getString("servicedate");
+                            int hours = row.getInt("hours");
+                            String description = row.getString("description");
+                            String orgname = row.getString("orgname");
+                            String conname = row.getString("conname");
+
+                            deniedList.add(createForm(uniqueid, servicedate, description, orgname));
+                        }
+                        Toast.makeText(getApplicationContext(), "SUCCESS: " + jsonObject.getString("success"), Toast.LENGTH_SHORT).show();
+                    }else{
+                        if(jsonObject.names().get(0).equals("empty")) {
+                            Toast.makeText(getApplicationContext(),"EMPTY: "+jsonObject.getString("empty"),Toast.LENGTH_SHORT).show();
+                        }else {
+                            Toast.makeText(getApplicationContext(), "ERROR: " + jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }catch(JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener(){
+            @Override
+            public void onErrorResponse(VolleyError error){
+
+            }
+
+        });
+
+        requestQueue.add(request);
+        String[] from = {"orgname", "servicedate", "description", "uniqueid"};
+        int[] to = {R.id.titleLogItem, R.id.dateLogItem, R.id.textLogItem, R.id.idLogItem};
+        SimpleAdapter simpleAdapter = new SimpleAdapter(this, deniedList,
+                R.layout.denied_list_items,
+                from, to);
+        tab2.setAdapter(simpleAdapter);
+
+        //perform listView item click event
+        tab2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(getApplicationContext(), "denied", Toast.LENGTH_LONG).show();//show the selected image in toast according to position
+            }
+        });
+    }
+
+    public void getPendingContent(String url) {
+        request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try{
+                    pendingList.clear();
+                    JSONObject jsonObject = new JSONObject(response);
+                    if(jsonObject.names().get(0).equals("success")){
+                        int length = jsonObject.getInt("length");
+                        for(int i = 0; i < length; i++) {
+
+                            JSONObject row = jsonObject.getJSONObject(i+"");
+                            String uniqueid = row.getString("uniqueid");
+                            String servicedate = row.getString("servicedate");
+                            int hours = row.getInt("hours");
+                            String description = row.getString("description");
+                            String orgname = row.getString("orgname");
+                            String conname = row.getString("conname");
+
+                            pendingList.add(createForm(uniqueid, servicedate, description, orgname));
+                        }
+                        Toast.makeText(getApplicationContext(), "SUCCESS: " + jsonObject.getString("success"), Toast.LENGTH_SHORT).show();
+                    }else{
+                        if(jsonObject.names().get(0).equals("empty")) {
+                            Toast.makeText(getApplicationContext(),"EMPTY: "+jsonObject.getString("empty"),Toast.LENGTH_SHORT).show();
+                        }else {
+                            Toast.makeText(getApplicationContext(), "ERROR: " + jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }catch(JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener(){
+            @Override
+            public void onErrorResponse(VolleyError error){
+
+            }
+
+        });
+
+        requestQueue.add(request);
+        String[] from = {"orgname", "servicedate", "description", "uniqueid"};
+        int[] to = {R.id.titleLogItem, R.id.dateLogItem, R.id.textLogItem, R.id.idLogItem};
+        SimpleAdapter simpleAdapter = new SimpleAdapter(this, pendingList,
+                R.layout.pending_list_items,
+                from, to);
+        tab3.setAdapter(simpleAdapter);
+
+        //perform listView item click event
+        tab3.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(getApplicationContext(), "pending", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+
+    private HashMap<String, String> createForm(String uniqueid, String servicedate, String description, String orgname) {
+        HashMap<String, String> formNameID = new HashMap<String, String>();
+        formNameID.put("orgname", orgname);
+        formNameID.put("servicedate", servicedate);
+        formNameID.put("description", description);
+        formNameID.put("uniqueid", uniqueid);
+        return formNameID;
     }
 }
