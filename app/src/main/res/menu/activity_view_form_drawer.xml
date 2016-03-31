@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home_form"
+            android:title="@string/home" />
+        <item
+            android:id="@+id/nav_profile_form"
+            android:title="@string/profile" />
+        <item
+            android:id="@+id/nav_create_form"
+            android:title="@string/create" />
+        <item
+            android:id="@+id/nav_drafts_form"
+            android:title="@string/drafts" />
+        <item
+            android:id="@+id/nav_log_form"
+            android:title="@string/log" />
+        <item
+            android:id="@+id/nav_logout_form"
+            android:title="@string/logout" />
+    </group>
+
+</menu>

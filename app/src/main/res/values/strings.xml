@@ -53,5 +53,6 @@
     <string name="title_activity_tab_approved">TabApprovedActivity</string>
     <string name="title_activity_tab_denied">TabDeniedActivity</string>
     <string name="title_activity_tab_pending">TabPendingActivity</string>
+    <string name="title_activity_view_form">ViewForm</string>
 
 </resources>

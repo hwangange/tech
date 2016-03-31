@@ -47,6 +47,7 @@ import java.util.Map;
 public class Log extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    public final static String EXTRA_MESSAGE = "com.example.angela.MESSAGE";
     private RequestQueue requestQueue;
 
     private StringRequest request;
@@ -63,6 +64,8 @@ public class Log extends AppCompatActivity
     private RelativeLayout view1, view2, view3;
 
     List<Map<String, String>> approvedList, deniedList, pendingList;
+
+    private ArrayList approvedID, deniedID, pendingID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +94,10 @@ public class Log extends AppCompatActivity
         approvedList = new ArrayList<Map<String, String>>();
         deniedList = new ArrayList<Map<String, String>>();
         pendingList = new ArrayList<Map<String, String>>();
+
+        approvedID = new ArrayList<String>();
+        deniedID = new ArrayList<String>();
+        pendingID = new ArrayList<String>();
 
         tabhost = (TabHost) findViewById(R.id.tabHost);
         tabhost.setup();
@@ -200,6 +207,8 @@ public class Log extends AppCompatActivity
 
                             JSONObject row = jsonObject.getJSONObject(i+"");
                             String uniqueid = row.getString("uniqueid");
+                            approvedID.add(uniqueid);
+
                             String servicedate = row.getString("servicedate");
                             int hours = row.getInt("hours");
                             String description = row.getString("description");
@@ -240,7 +249,9 @@ public class Log extends AppCompatActivity
         tab1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getApplicationContext(), "approved", Toast.LENGTH_LONG).show();//show the selected image in toast according to position
+                Intent intent = new Intent(getApplicationContext(), ViewForm.class);
+                intent.putExtra(EXTRA_MESSAGE, approvedID.get(i).toString());
+                startActivity(intent);
             }
         });
     }
@@ -259,6 +270,8 @@ public class Log extends AppCompatActivity
 
                             JSONObject row = jsonObject.getJSONObject(i+"");
                             String uniqueid = row.getString("uniqueid");
+                            deniedID.add(uniqueid);
+
                             String servicedate = row.getString("servicedate");
                             int hours = row.getInt("hours");
                             String description = row.getString("description");
@@ -299,7 +312,9 @@ public class Log extends AppCompatActivity
         tab2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getApplicationContext(), "denied", Toast.LENGTH_LONG).show();//show the selected image in toast according to position
+                Intent intent = new Intent(getApplicationContext(), ViewForm.class);
+                intent.putExtra(EXTRA_MESSAGE, deniedID.get(i).toString());
+                startActivity(intent);
             }
         });
     }
@@ -317,6 +332,7 @@ public class Log extends AppCompatActivity
 
                             JSONObject row = jsonObject.getJSONObject(i+"");
                             String uniqueid = row.getString("uniqueid");
+                            pendingID.add(uniqueid);
                             String servicedate = row.getString("servicedate");
                             int hours = row.getInt("hours");
                             String description = row.getString("description");
@@ -357,7 +373,9 @@ public class Log extends AppCompatActivity
         tab3.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getApplicationContext(), "pending", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getApplicationContext(), ViewForm.class);
+                intent.putExtra(EXTRA_MESSAGE, pendingID.get(i).toString());
+                startActivity(intent);
             }
         });
     }

@@ -66,6 +66,10 @@
         <activity
             android:name=".TabPendingActivity"
             android:label="@string/title_activity_tab_pending"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ViewForm"
+            android:label="@string/title_activity_view_form"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
