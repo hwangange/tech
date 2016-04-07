@@ -13,15 +13,59 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.BaseAdapter;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.github.gcacace.signaturepad.views.SignaturePad;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.StringTokenizer;
 
 public class ViewForm extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private SessionManagement session;
     private String username, email, name;
+
+    private TextView first, last, id, classof, teacher, servicedate, hours, description, orgname, phonenum, website, address, conname, conemail, condate;
+    private SignaturePad studentsig, consig, parentsig;
+
+    private String URL = "";
+
+    String[] from = {"first", "last"};
+    int[] to = {R.id.first_sub, R.id.last_sub};
+
+    BaseAdapter simpleAdapter;
+
+    private RequestQueue requestQueue;
+    private StringRequest request;
+
+    private String database = "";
+    private String uniqueIDmessage = "";
+
+    private ListView tab1;
+
+    private HashMap<String, String> finalForm;
+
+    List<Map<String, String>> list = new ArrayList<Map<String, String>>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +86,13 @@ public class ViewForm extends AppCompatActivity
         session = new SessionManagement(getApplicationContext());
         session.checkLogin();
 
+        tab1 = (ListView) findViewById(R.id.tab1);
+
+        simpleAdapter = new SimpleAdapter(this, list, R.layout.view_form_layout, from, to);
+        tab1.setAdapter(simpleAdapter);
+
+        requestQueue = Volley.newRequestQueue(this);
+
         HashMap<String, String> user = session.getUserDetails();
         username = user.get(SessionManagement.KEY_USERNAME);
         name = user.get(SessionManagement.KEY_NAME);
@@ -49,7 +100,13 @@ public class ViewForm extends AppCompatActivity
 
         Intent intent = getIntent();
         String message = intent.getStringExtra(Log.EXTRA_MESSAGE);
-        Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+     //   Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+        StringTokenizer st = new StringTokenizer(message);
+        database = st.nextToken();
+        uniqueIDmessage = st.nextToken();
+        URL = "http://ajuj.comlu.com/ViewForm.php/?database="+database+"&uniqueIDmessage="+uniqueIDmessage;
+
+        getForm(database, uniqueIDmessage);
     }
 
     @Override
@@ -107,5 +164,116 @@ public class ViewForm extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void getForm(final String database, final String uniqueIDmessage) {
+
+        final List<Map<String, String>> temp = new ArrayList<Map<String, String>>();
+
+        request = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try{
+
+                    JSONObject jsonObject = new JSONObject(response);
+                    if(jsonObject.names().get(0).equals("success")){
+                      //  Toast.makeText(getApplicationContext(),"SUCCESS: "+jsonObject.getString("success"),Toast.LENGTH_SHORT).show();
+                        for(int i = 0; i < 1; i++) {
+                            JSONObject row = jsonObject.getJSONObject(i + "");
+                            String username = row.getString("username");
+                            String first = row.getString("first");
+                            String last = row.getString("last");
+                            String id = String.valueOf(row.getInt("id"));
+                            String classThird = String.valueOf(row.getInt("class"));
+                            String teacher = row.getString("teacher");
+                            String servicedate = row.getString("servicedate");
+                            String hours = String.valueOf(row.getInt("hours"));
+                            String description = row.getString("description");
+                            String studentsig = row.getString("studentsig");
+                            String orgname = row.getString("orgname");
+                            String phonenum = String.valueOf(row.getInt("phonenum"));
+                            String website = row.getString("website");
+                            String address = row.getString("address");
+                            String conname = row.getString("conname");
+                            String conemail = row.getString("conemail");
+                            String consig = row.getString("consig");
+                            String date = row.getString("date");
+                            String parsig = row.getString("parsig");
+
+                            list.add(createForm(first, last , id, classThird, teacher, servicedate, hours, description, orgname, phonenum, website, address, conname, conemail, date));
+
+                            simpleAdapter.notifyDataSetChanged();
+
+                        }
+
+                    }else{
+                        Toast.makeText(getApplicationContext(),"ERROR: "+jsonObject.getString("error"),Toast.LENGTH_SHORT).show();
+                    }
+                }catch(JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener(){
+            @Override
+            public void onErrorResponse(VolleyError error){
+
+            }
+
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String,String> hashMap=new HashMap<String,String>();
+                hashMap.put("database", database);
+                hashMap.put("uniqueIDmessage",uniqueIDmessage);
+
+                return hashMap;
+            }
+
+        };
+        //, "id", "classof", "teacher", "servicedate", "hours", "description", "orgname", "phonenum", "website", "address", "conname", "conemail", "condate"
+        //, R.id.id_sub, R.id.classof_sub, R.id.teacher, R.id.servicedate_sub, R.id.hours_sub, R.id.description_sub,R.id.orgname_sub, R.id.phonenum_sub, R.id.website_sub, R.id.address_sub, R.id.conname_sub, R.id.conemail_sub, R.id.condate_sub
+        list.clear();
+
+       // String[] from = {"first", "last"};
+       // int[] to = {R.id.first_sub, R.id.last_sub};
+        //simpleAdapter = new SimpleAdapter(this, list, R.layout.view_form_layout, from, to);
+      //  simpleAdapter.notifyDataSetChanged();
+       // tab1.setAdapter(simpleAdapter);
+
+
+
+        list.add(createForm("first", "last", "id", "classthird", "teacher", "date", "horus", "desc", "orgna", "phone", "website", "add", "conname", "conemail", "date"));
+
+        Toast.makeText(getApplicationContext(),"Length: " + list.size(),Toast.LENGTH_LONG).show();
+      /*  if(simpleAdapter == null) {
+            simpleAdapter = new SimpleAdapter(this, list, R.layout.view_form_layout, from, to);
+            tab1.setAdapter(simpleAdapter);
+        } else {
+            simpleAdapter.notifyDataSetChanged();
+        } */
+
+
+        requestQueue.add(request);
+
+    }
+
+    private HashMap<String, String> createForm(String first, String last , String id, String classThird, String teacher, String servicedate, String hours, String description, String orgname, String phonenum, String website, String address, String conname, String conemail, String date) {
+        HashMap<String, String> formNameID = new HashMap<String, String>();
+        formNameID.put("first", first);
+        formNameID.put("last", last);
+        formNameID.put("id", id);
+        formNameID.put("classThird", classThird);
+        formNameID.put("teacher", teacher);
+        formNameID.put("servicedate", servicedate);
+        formNameID.put("hours", hours);
+        formNameID.put("description", description);
+        formNameID.put("orgname", orgname);
+        formNameID.put("phonenum", phonenum);
+        formNameID.put("website", website);
+        formNameID.put("address", address);
+        formNameID.put("conname", conname);
+        formNameID.put("conemail", conemail);
+        formNameID.put("date", date);
+        return formNameID;
     }
 }

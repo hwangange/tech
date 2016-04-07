@@ -70,6 +70,10 @@
         <activity
             android:name=".ViewForm"
             android:label="@string/title_activity_view_form"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Drafts"
+            android:label="@string/title_activity_drafts"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

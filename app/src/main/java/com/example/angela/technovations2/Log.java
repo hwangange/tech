@@ -250,7 +250,7 @@ public class Log extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getApplicationContext(), ViewForm.class);
-                intent.putExtra(EXTRA_MESSAGE, approvedID.get(i).toString());
+                intent.putExtra(EXTRA_MESSAGE, "approved " + approvedID.get(i).toString());
                 startActivity(intent);
             }
         });
@@ -313,7 +313,7 @@ public class Log extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getApplicationContext(), ViewForm.class);
-                intent.putExtra(EXTRA_MESSAGE, deniedID.get(i).toString());
+                intent.putExtra(EXTRA_MESSAGE, "denied " + deniedID.get(i).toString());
                 startActivity(intent);
             }
         });
@@ -374,7 +374,7 @@ public class Log extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getApplicationContext(), ViewForm.class);
-                intent.putExtra(EXTRA_MESSAGE, pendingID.get(i).toString());
+                intent.putExtra(EXTRA_MESSAGE, "submission " + pendingID.get(i).toString());
                 startActivity(intent);
             }
         });
