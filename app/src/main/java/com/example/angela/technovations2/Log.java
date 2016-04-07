@@ -238,8 +238,8 @@ public class Log extends AppCompatActivity
         });
 
         requestQueue.add(request);
-        String[] from = {"orgname", "servicedate", "description", "uniqueid"};
-        int[] to = {R.id.titleLogItem, R.id.dateLogItem, R.id.textLogItem, R.id.idLogItem};
+        String[] from = {"orgname", "servicedate", "description"};
+        int[] to = {R.id.titleLogItem, R.id.dateLogItem, R.id.textLogItem};
         SimpleAdapter simpleAdapter = new SimpleAdapter(this, approvedList,
                 R.layout.approved_list_items,
                 from, to);
@@ -301,8 +301,8 @@ public class Log extends AppCompatActivity
         });
 
         requestQueue.add(request);
-        String[] from = {"orgname", "servicedate", "description", "uniqueid"};
-        int[] to = {R.id.titleLogItem, R.id.dateLogItem, R.id.textLogItem, R.id.idLogItem};
+        String[] from = {"orgname", "servicedate", "description"};
+        int[] to = {R.id.titleLogItem, R.id.dateLogItem, R.id.textLogItem};
         SimpleAdapter simpleAdapter = new SimpleAdapter(this, deniedList,
                 R.layout.denied_list_items,
                 from, to);
@@ -362,8 +362,8 @@ public class Log extends AppCompatActivity
         });
 
         requestQueue.add(request);
-        String[] from = {"orgname", "servicedate", "description", "uniqueid"};
-        int[] to = {R.id.titleLogItem, R.id.dateLogItem, R.id.textLogItem, R.id.idLogItem};
+        String[] from = {"orgname", "servicedate", "description"};
+        int[] to = {R.id.titleLogItem, R.id.dateLogItem, R.id.textLogItem};
         SimpleAdapter simpleAdapter = new SimpleAdapter(this, pendingList,
                 R.layout.pending_list_items,
                 from, to);
