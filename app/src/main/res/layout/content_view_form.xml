@@ -17,6 +17,7 @@
         android:layout_height="match_parent"
         android:id="@+id/tab1"
         android:divider="#000"
-        android:dividerHeight="2dp" />
+        android:dividerHeight="2dp"
+        android:listSelector="@android:color/transparent"/>
 
 </LinearLayout>

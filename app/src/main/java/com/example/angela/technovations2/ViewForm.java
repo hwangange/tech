@@ -50,8 +50,8 @@ public class ViewForm extends AppCompatActivity
 
     private String URL = "";
 
-    String[] from = {"first", "last"};
-    int[] to = {R.id.first_sub, R.id.last_sub};
+    String[] from = {"first", "last", "id", "classof", "teacher", "servicedate", "hours", "description", "orgname", "phonenum", "website", "address", "conname", "conemail", "condate"};
+    int[] to = {R.id.first_sub, R.id.last_sub, R.id.id_sub, R.id.classof_sub, R.id.teacher, R.id.servicedate_sub, R.id.hours_sub, R.id.description_sub,R.id.orgname_sub, R.id.phonenum_sub, R.id.website_sub, R.id.address_sub, R.id.conname_sub, R.id.conemail_sub, R.id.condate_sub};
 
     BaseAdapter simpleAdapter;
 
@@ -234,23 +234,9 @@ public class ViewForm extends AppCompatActivity
         //, R.id.id_sub, R.id.classof_sub, R.id.teacher, R.id.servicedate_sub, R.id.hours_sub, R.id.description_sub,R.id.orgname_sub, R.id.phonenum_sub, R.id.website_sub, R.id.address_sub, R.id.conname_sub, R.id.conemail_sub, R.id.condate_sub
         list.clear();
 
-       // String[] from = {"first", "last"};
-       // int[] to = {R.id.first_sub, R.id.last_sub};
-        //simpleAdapter = new SimpleAdapter(this, list, R.layout.view_form_layout, from, to);
-      //  simpleAdapter.notifyDataSetChanged();
-       // tab1.setAdapter(simpleAdapter);
+       // list.add(createForm("first", "last", "id", "classthird", "teacher", "date", "horus", "desc", "orgna", "phone", "website", "add", "conname", "conemail", "date"));
 
-
-
-        list.add(createForm("first", "last", "id", "classthird", "teacher", "date", "horus", "desc", "orgna", "phone", "website", "add", "conname", "conemail", "date"));
-
-        Toast.makeText(getApplicationContext(),"Length: " + list.size(),Toast.LENGTH_LONG).show();
-      /*  if(simpleAdapter == null) {
-            simpleAdapter = new SimpleAdapter(this, list, R.layout.view_form_layout, from, to);
-            tab1.setAdapter(simpleAdapter);
-        } else {
-            simpleAdapter.notifyDataSetChanged();
-        } */
+        //Toast.makeText(getApplicationContext(),"Length: " + list.size(),Toast.LENGTH_LONG).show();
 
 
         requestQueue.add(request);
@@ -262,7 +248,7 @@ public class ViewForm extends AppCompatActivity
         formNameID.put("first", first);
         formNameID.put("last", last);
         formNameID.put("id", id);
-        formNameID.put("classThird", classThird);
+        formNameID.put("classof", classThird);
         formNameID.put("teacher", teacher);
         formNameID.put("servicedate", servicedate);
         formNameID.put("hours", hours);
@@ -273,7 +259,7 @@ public class ViewForm extends AppCompatActivity
         formNameID.put("address", address);
         formNameID.put("conname", conname);
         formNameID.put("conemail", conemail);
-        formNameID.put("date", date);
+        formNameID.put("condate", date);
         return formNameID;
     }
 }
