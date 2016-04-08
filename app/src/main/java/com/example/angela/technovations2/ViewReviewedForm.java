@@ -112,13 +112,10 @@ public class ViewReviewedForm extends AppCompatActivity
         navDrawerStudentUsername.setText(username);
 
         Intent intent = getIntent();
-        String message = intent.getStringExtra(AdminReview.EXTRA_MESSAGE);
-        StringTokenizer st = new StringTokenizer(message);
-        database = st.nextToken();
-        uniqueIDmessage = st.nextToken();
-        URL = "http://ajuj.comlu.com/ViewReviewedForm.php/?database="+database+"&uniqueIDmessage="+uniqueIDmessage;
+        uniqueIDmessage = intent.getStringExtra(AdminReview.EXTRA_MESSAGE);
+        URL = "http://ajuj.comlu.com/ViewReviewedForm.php/?uniqueIDmessage="+uniqueIDmessage;
 
-        getForm(database, uniqueIDmessage);
+        getForm();
     }
 
     @Override
@@ -174,7 +171,7 @@ public class ViewReviewedForm extends AppCompatActivity
         return true;
     }
 
-    public void getForm(final String database, final String uniqueIDmessage) {
+    public void getForm() {
 
         final List<Map<String, String>> temp = new ArrayList<Map<String, String>>();
 
@@ -231,7 +228,6 @@ public class ViewReviewedForm extends AppCompatActivity
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String,String> hashMap=new HashMap<String,String>();
-                hashMap.put("database", database);
                 hashMap.put("uniqueIDmessage",uniqueIDmessage);
 
                 return hashMap;

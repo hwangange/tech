@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -69,6 +70,7 @@ public class AdminReview extends AppCompatActivity
     private ArrayList reviewedID;
 
     private BaseAdapter simpleAdapter;
+    private TextView navDrawerStudentName, navDrawerStudentUsername;
 
     String[] from = {"orgname", "servicedate", "description"};
     int[] to = {R.id.titleLogItem, R.id.dateLogItem, R.id.textLogItem};
@@ -96,6 +98,16 @@ public class AdminReview extends AppCompatActivity
         username = user.get(SessionManagement.KEY_USERNAME);
         name = user.get(SessionManagement.KEY_NAME);
         email = user.get(SessionManagement.KEY_EMAIL);
+
+        View header = LayoutInflater.from(this).inflate(R.layout.nav_header_welcome_nav, null);
+        navigationView.addHeaderView(header);
+
+
+        navDrawerStudentName = (TextView) header.findViewById(R.id.navDrawerStudentName);
+        navDrawerStudentUsername = (TextView) header.findViewById(R.id.navDrawerStudentUsername);
+
+        navDrawerStudentName.setText(name);
+        navDrawerStudentUsername.setText(username);
 
         reviewedList = new ArrayList<Map<String, String>>();
 
@@ -224,9 +236,9 @@ public class AdminReview extends AppCompatActivity
         tab1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-               /* Intent intent = new Intent(getApplicationContext(), ViewReviewedForm.class);
-                intent.putExtra(EXTRA_MESSAGE, "reviewed " + reviewedID.get(i).toString());
-                startActivity(intent); */
+                Intent intent = new Intent(getApplicationContext(), ViewReviewedForm.class);
+                intent.putExtra(EXTRA_MESSAGE, reviewedID.get(i).toString());
+                startActivity(intent);
             }
         });
     }
