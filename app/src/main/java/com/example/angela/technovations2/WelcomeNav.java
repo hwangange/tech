@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.text.Html;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -48,12 +49,18 @@ public class WelcomeNav extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        navDrawerStudentName = (TextView) findViewById(R.id.navDrawerStudentName);
-        navDrawerStudentUsername = (TextView) findViewById(R.id.navDrawerStudentUsername);
+        View header = LayoutInflater.from(this).inflate(R.layout.nav_header_welcome_nav, null);
+        navigationView.addHeaderView(header);
+
+
+        navDrawerStudentName = (TextView) header.findViewById(R.id.navDrawerStudentName);
+        navDrawerStudentUsername = (TextView) header.findViewById(R.id.navDrawerStudentUsername);
+
+
         navDrawerWelcome = (TextView) findViewById(R.id.navDrawerWelcome);
 
-     //   navDrawerStudentName.setText(Html.fromHtml("" + name)); //i   crie
-       // navDrawerStudentUsername.setText(Html.fromHtml(username));
+        navDrawerStudentName.setText(name); //i   crie
+        navDrawerStudentUsername.setText(username);
         navDrawerWelcome.setText(Html.fromHtml("Welcome <b>" + username + "</b>"));
     }
 

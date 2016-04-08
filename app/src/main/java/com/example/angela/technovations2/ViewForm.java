@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -67,6 +68,8 @@ public class ViewForm extends AppCompatActivity
 
     List<Map<String, String>> list = new ArrayList<Map<String, String>>();
 
+    private TextView navDrawerStudentName, navDrawerStudentUsername;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,6 +100,16 @@ public class ViewForm extends AppCompatActivity
         username = user.get(SessionManagement.KEY_USERNAME);
         name = user.get(SessionManagement.KEY_NAME);
         email = user.get(SessionManagement.KEY_EMAIL);
+
+        View header = LayoutInflater.from(this).inflate(R.layout.nav_header_welcome_nav, null);
+        navigationView.addHeaderView(header);
+
+
+        navDrawerStudentName = (TextView) header.findViewById(R.id.navDrawerStudentName);
+        navDrawerStudentUsername = (TextView) header.findViewById(R.id.navDrawerStudentUsername);
+
+        navDrawerStudentName.setText(name);
+        navDrawerStudentUsername.setText(username);
 
         Intent intent = getIntent();
         String message = intent.getStringExtra(Log.EXTRA_MESSAGE);

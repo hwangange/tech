@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -67,6 +69,13 @@ public class Log extends AppCompatActivity
 
     private ArrayList approvedID, deniedID, pendingID;
 
+    private String[] from = {"orgname", "servicedate", "description"};
+    private int[] to = {R.id.titleLogItem, R.id.dateLogItem, R.id.textLogItem};
+
+    private BaseAdapter simpleAdapterPending, simpleAdapterApproved, simpleAdapterDenied;
+
+    private TextView navDrawerStudentName, navDrawerStudentUsername;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +99,16 @@ public class Log extends AppCompatActivity
         username = user.get(SessionManagement.KEY_USERNAME);
         name = user.get(SessionManagement.KEY_NAME);
         email = user.get(SessionManagement.KEY_EMAIL);
+
+        View header = LayoutInflater.from(this).inflate(R.layout.nav_header_welcome_nav, null);
+        navigationView.addHeaderView(header);
+
+
+        navDrawerStudentName = (TextView) header.findViewById(R.id.navDrawerStudentName);
+        navDrawerStudentUsername = (TextView) header.findViewById(R.id.navDrawerStudentUsername);
+
+        navDrawerStudentName.setText(name);
+        navDrawerStudentUsername.setText(username);
 
         approvedList = new ArrayList<Map<String, String>>();
         deniedList = new ArrayList<Map<String, String>>();
@@ -115,6 +134,21 @@ public class Log extends AppCompatActivity
         view1 = new RelativeLayout(getApplicationContext());
         view2 = new RelativeLayout(getApplicationContext());
         view3 = new RelativeLayout(getApplicationContext());
+
+        simpleAdapterApproved = new SimpleAdapter(this, approvedList,
+                R.layout.approved_list_items,
+                from, to);
+        tab1.setAdapter(simpleAdapterApproved);
+
+        simpleAdapterDenied = new SimpleAdapter(this, deniedList,
+                R.layout.denied_list_items,
+                from, to);
+        tab2.setAdapter(simpleAdapterDenied);
+
+        simpleAdapterPending = new SimpleAdapter(this, pendingList,
+                R.layout.pending_list_items,
+                from, to);
+        tab3.setAdapter(simpleAdapterPending);
 
 
         String approved_url = "http://ajuj.comlu.com/approved.php/?user=" + username;
@@ -216,8 +250,9 @@ public class Log extends AppCompatActivity
                             String conname = row.getString("conname");
 
                             approvedList.add(createForm(uniqueid, servicedate, description, orgname));
+                            simpleAdapterApproved.notifyDataSetChanged();
                         }
-                        Toast.makeText(getApplicationContext(), "SUCCESS: " + jsonObject.getString("success"), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), "SUCCESS: " + jsonObject.getString("success"), Toast.LENGTH_SHORT).show();
                     }else{
                         if(jsonObject.names().get(0).equals("empty")) {
                             Toast.makeText(getApplicationContext(),"EMPTY: "+jsonObject.getString("empty"),Toast.LENGTH_SHORT).show();
@@ -238,12 +273,6 @@ public class Log extends AppCompatActivity
         });
 
         requestQueue.add(request);
-        String[] from = {"orgname", "servicedate", "description"};
-        int[] to = {R.id.titleLogItem, R.id.dateLogItem, R.id.textLogItem};
-        SimpleAdapter simpleAdapter = new SimpleAdapter(this, approvedList,
-                R.layout.approved_list_items,
-                from, to);
-        tab1.setAdapter(simpleAdapter);
 
         //perform listView item click event
         tab1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -279,8 +308,9 @@ public class Log extends AppCompatActivity
                             String conname = row.getString("conname");
 
                             deniedList.add(createForm(uniqueid, servicedate, description, orgname));
+                            simpleAdapterDenied.notifyDataSetChanged();
                         }
-                        Toast.makeText(getApplicationContext(), "SUCCESS: " + jsonObject.getString("success"), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), "SUCCESS: " + jsonObject.getString("success"), Toast.LENGTH_SHORT).show();
                     }else{
                         if(jsonObject.names().get(0).equals("empty")) {
                             Toast.makeText(getApplicationContext(),"EMPTY: "+jsonObject.getString("empty"),Toast.LENGTH_SHORT).show();
@@ -301,12 +331,6 @@ public class Log extends AppCompatActivity
         });
 
         requestQueue.add(request);
-        String[] from = {"orgname", "servicedate", "description"};
-        int[] to = {R.id.titleLogItem, R.id.dateLogItem, R.id.textLogItem};
-        SimpleAdapter simpleAdapter = new SimpleAdapter(this, deniedList,
-                R.layout.denied_list_items,
-                from, to);
-        tab2.setAdapter(simpleAdapter);
 
         //perform listView item click event
         tab2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -340,8 +364,9 @@ public class Log extends AppCompatActivity
                             String conname = row.getString("conname");
 
                             pendingList.add(createForm(uniqueid, servicedate, description, orgname));
+                            simpleAdapterPending.notifyDataSetChanged();
                         }
-                        Toast.makeText(getApplicationContext(), "SUCCESS: " + jsonObject.getString("success"), Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(getApplicationContext(), "SUCCESS: " + jsonObject.getString("success"), Toast.LENGTH_SHORT).show();
                     }else{
                         if(jsonObject.names().get(0).equals("empty")) {
                             Toast.makeText(getApplicationContext(),"EMPTY: "+jsonObject.getString("empty"),Toast.LENGTH_SHORT).show();
@@ -362,12 +387,6 @@ public class Log extends AppCompatActivity
         });
 
         requestQueue.add(request);
-        String[] from = {"orgname", "servicedate", "description"};
-        int[] to = {R.id.titleLogItem, R.id.dateLogItem, R.id.textLogItem};
-        SimpleAdapter simpleAdapter = new SimpleAdapter(this, pendingList,
-                R.layout.pending_list_items,
-                from, to);
-        tab3.setAdapter(simpleAdapter);
 
         //perform listView item click event
         tab3.setOnItemClickListener(new AdapterView.OnItemClickListener() {
