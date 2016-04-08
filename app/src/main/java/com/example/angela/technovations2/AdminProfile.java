@@ -1,5 +1,6 @@
 package com.example.angela.technovations2;
 
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -19,17 +20,17 @@ import android.widget.TextView;
 
 import java.util.HashMap;
 
-public class Profile extends AppCompatActivity
+public class AdminProfile extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     SessionManagement session;
-    TextView profileUsername, profileName, profileEmail, profileYear, profileHours;
+    TextView profileUsername, profileName, profileEmail;
     private TextView navDrawerStudentName, navDrawerStudentUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_admin_profile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -46,8 +47,6 @@ public class Profile extends AppCompatActivity
         profileUsername = (TextView) findViewById(R.id.profileUsername);
         profileName = (TextView) findViewById(R.id.profileName);
         profileEmail = (TextView) findViewById(R.id.profileEmail);
-        profileYear= (TextView) findViewById(R.id.profileYear);
-        profileHours= (TextView) findViewById(R.id.profileHours);
 
         /**
          * Call this function whenever you want to check user login
@@ -62,7 +61,6 @@ public class Profile extends AppCompatActivity
         String name = user.get(SessionManagement.KEY_NAME);
         String email = user.get(SessionManagement.KEY_EMAIL);
         String year = user.get(SessionManagement.KEY_YEAR);
-        String hours = user.get(SessionManagement.KEY_HOURS);
 
         View header = LayoutInflater.from(this).inflate(R.layout.nav_header_welcome_nav, null);
         navigationView.addHeaderView(header);
@@ -77,8 +75,6 @@ public class Profile extends AppCompatActivity
         profileUsername.setText(Html.fromHtml("<b>User: </b>" + username));
         profileName.setText(Html.fromHtml("<b>Name: </b>" + name));
         profileEmail.setText(Html.fromHtml("<b>Email: </b>" + email));
-        profileYear.setText(Html.fromHtml("<b>Year: </b>" + year));
-        profileHours.setText(Html.fromHtml("<b>Hours: </b> " + hours));
     }
 
     @Override
@@ -94,7 +90,7 @@ public class Profile extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.profile, menu);
+        getMenuInflater().inflate(R.menu.admin_profile, menu);
         return true;
     }
 
@@ -118,17 +114,13 @@ public class Profile extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        if (id == R.id.nav_home_profile) {
-            startActivity(new Intent(getApplicationContext(), WelcomeNav.class));
-        } else if (id == R.id.nav_profile_profile) {
-            startActivity(new Intent(getApplicationContext(), Profile.class));
-        } else if (id == R.id.nav_create_profile) {
-            startActivity(new Intent(getApplicationContext(), Create.class));
-        } else if (id == R.id.nav_drafts_profile) {
-            startActivity(new Intent(getApplicationContext(), Drafts.class));
-        } else if (id == R.id.nav_log_profile) {
-            startActivity(new Intent(getApplicationContext(), Log.class));
-        } else if (id == R.id.nav_logout_profile) {
+        if (id == R.id.nav_admin_home_admin_profile) {
+            startActivity(new Intent(getApplicationContext(), AdminNav.class));
+        } else if (id == R.id.nav_admin_profile_admin_profile) {
+          //  startActivity(new Intent(getApplicationContext(), AdminProfile.class));
+        } else if (id == R.id.nav_admin_review_admin_profile) {
+            startActivity(new Intent(getApplicationContext(), AdminReview.class));
+        } else if (id == R.id.nav_admin_logout_admin_profile) {
             session.logoutUser();
         }
 

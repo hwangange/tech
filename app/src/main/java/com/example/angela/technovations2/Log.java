@@ -215,7 +215,7 @@ public class Log extends AppCompatActivity
         } else if (id == R.id.nav_create_log) {
             startActivity(new Intent(getApplicationContext(), Create.class));
         } else if (id == R.id.nav_drafts_log) {
-
+            startActivity(new Intent(getApplicationContext(), Drafts.class));
         } else if (id == R.id.nav_log_log) {
             //startActivity(new Intent(getApplicationContext(), Log.class));
         } else if (id == R.id.nav_logout_log) {
@@ -255,7 +255,7 @@ public class Log extends AppCompatActivity
                         //Toast.makeText(getApplicationContext(), "SUCCESS: " + jsonObject.getString("success"), Toast.LENGTH_SHORT).show();
                     }else{
                         if(jsonObject.names().get(0).equals("empty")) {
-                            Toast.makeText(getApplicationContext(),"EMPTY: "+jsonObject.getString("empty"),Toast.LENGTH_SHORT).show();
+                           // Toast.makeText(getApplicationContext(),"EMPTY: "+jsonObject.getString("empty"),Toast.LENGTH_SHORT).show();
                         }else {
                             Toast.makeText(getApplicationContext(), "ERROR: " + jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
                         }
@@ -313,7 +313,7 @@ public class Log extends AppCompatActivity
                         //Toast.makeText(getApplicationContext(), "SUCCESS: " + jsonObject.getString("success"), Toast.LENGTH_SHORT).show();
                     }else{
                         if(jsonObject.names().get(0).equals("empty")) {
-                            Toast.makeText(getApplicationContext(),"EMPTY: "+jsonObject.getString("empty"),Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getApplicationContext(),"EMPTY: "+jsonObject.getString("empty"),Toast.LENGTH_SHORT).show();
                         }else {
                             Toast.makeText(getApplicationContext(), "ERROR: " + jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
                         }
@@ -369,7 +369,7 @@ public class Log extends AppCompatActivity
                        // Toast.makeText(getApplicationContext(), "SUCCESS: " + jsonObject.getString("success"), Toast.LENGTH_SHORT).show();
                     }else{
                         if(jsonObject.names().get(0).equals("empty")) {
-                            Toast.makeText(getApplicationContext(),"EMPTY: "+jsonObject.getString("empty"),Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getApplicationContext(),"EMPTY: "+jsonObject.getString("empty"),Toast.LENGTH_SHORT).show();
                         }else {
                             Toast.makeText(getApplicationContext(), "ERROR: " + jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
                         }

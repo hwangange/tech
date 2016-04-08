@@ -19,7 +19,7 @@ header('Content-Type: application/json ');
 				mysqli_close($this->connection);
 			}else{
 				$graduatingYear = intval($year);
-				$query = "Insert into users(first, last, email, graduatingYear, username, password) values ('$first', '$last', '$email', '$graduatingYear', '$username', '$password')";
+				$query = "Insert into users(first, last, email, graduatingYear, username, password, hours) values ('$first', '$last', '$email', '$graduatingYear', '$username', '$password', '0')";
 				$is_inserted = mysqli_query($this->connection, $query);
 				if($is_inserted == 1) {
 					$json['success'] = 'Account created';

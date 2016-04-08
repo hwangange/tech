@@ -22,12 +22,14 @@ header('Content-Type: application/json ');
 					$name = $row['first'] . " " . $row['last']; 
 					$email = $row['email'];
 					$year = $row['graduatingYear'];
+					$hours = $row['hours'];
 				}
 				$json['success'] = 'Welcome '.$username;
 				$json['user'] = $username;
 				$json['name'] = $name;
 				$json['email'] = $email;
 				$json['year'] = $year;
+				$json['hours'] = $hours;
 				echo json_encode($json);
 				mysqli_close($this->connection);
 			}else{

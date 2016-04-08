@@ -25,6 +25,7 @@ public class SessionManagement {
     public static final String KEY_EMAIL = "email";
     public static final String KEY_NAME = "name";
     public static final String KEY_YEAR = "year";
+    public static final String KEY_HOURS = "hour";
 
     // Constructor
     public SessionManagement (Context context) {
@@ -33,15 +34,13 @@ public class SessionManagement {
         editor = pref.edit();
     }
 
-    public void createLoginSession(String username, String name, String email, int year) {
-
-
-
+    public void createLoginSession(String username, String name, String email, int year, int hours) {
         editor.putBoolean(IS_LOGIN, true);
         editor.putString(KEY_USERNAME, username);
         editor.putString(KEY_NAME, name);
         editor.putString(KEY_EMAIL, email);
         editor.putString(KEY_YEAR, String.valueOf(year));
+        editor.putString(KEY_HOURS, String.valueOf(hours));
         editor.commit();
     }
 
@@ -51,7 +50,15 @@ public class SessionManagement {
         user.put(KEY_NAME, pref.getString(KEY_NAME, "null"));
         user.put(KEY_EMAIL, pref.getString(KEY_EMAIL, "null"));
         user.put(KEY_YEAR, pref.getString(KEY_YEAR, "null"));
+        user.put(KEY_HOURS, pref.getString(KEY_HOURS, "null"));
         return user;
+    }
+
+    public void addHours(int hours) {
+        int current = Integer.parseInt(KEY_HOURS);
+        int total = current + hours;
+        editor.putString(KEY_HOURS, String.valueOf(total));
+        editor.commit();
     }
 
     public void checkLogin() {

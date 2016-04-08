@@ -1,10 +1,10 @@
 package com.example.angela.technovations2;
-import android.app.LocalActivityManager;
+
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,16 +14,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
-import android.widget.Spinner;
-import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,47 +30,50 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.github.gcacace.signaturepad.views.SignaturePad;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 
-public class Drafts extends AppCompatActivity
+public class ViewReviewedForm extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private RequestQueue requestQueue;
-
-    private StringRequest request;
-
-    private String EXTRA_MESSAGE = "";
+    private SessionManagement session;
     private String username, email, name;
 
-    private SessionManagement session;
+    private TextView first, last, id, classof, teacher, servicedate, hours, description, orgname, phonenum, website, address, conname, conemail, condate;
+    private SignaturePad studentsig, consig, parentsig;
 
-    private TabHost tabhost;
+    private String URL = "";
 
-    private ListView tab1, tab2;
-
-    private RelativeLayout view1, view2;
-
-    List<Map<String, String>> draftsList, submittedList;
+    String[] from = {"first", "last", "id", "classof", "teacher", "servicedate", "hours", "description", "orgname", "phonenum", "website", "address", "conname", "conemail", "condate"};
+    int[] to = {R.id.first_sub, R.id.last_sub, R.id.id_sub, R.id.classof_sub, R.id.teacher, R.id.servicedate_sub, R.id.hours_sub, R.id.description_sub,R.id.orgname_sub, R.id.phonenum_sub, R.id.website_sub, R.id.address_sub, R.id.conname_sub, R.id.conemail_sub, R.id.condate_sub};
 
     BaseAdapter simpleAdapter;
-    String[] from = {"uniqueid", "servicedate", "description", "orgname"};
-    int[] to = {R.id.idDraftItem, R.id.dateDraftItem, R.id.textDraftItem, R.id.titleDraftItem};
+
+    private RequestQueue requestQueue;
+    private StringRequest request;
+
+    private String database = "";
+    private String uniqueIDmessage = "";
+
+    private ListView tab1;
+
+    private HashMap<String, String> finalForm;
+
+    List<Map<String, String>> list = new ArrayList<Map<String, String>>();
+
+    private TextView navDrawerStudentName, navDrawerStudentUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_drafts);
+        setContentView(R.layout.activity_view_reviewed_form);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -92,29 +89,36 @@ public class Drafts extends AppCompatActivity
         session = new SessionManagement(getApplicationContext());
         session.checkLogin();
 
+        tab1 = (ListView) findViewById(R.id.tab1);
+
+        simpleAdapter = new SimpleAdapter(this, list, R.layout.view_reviewed_form_layout, from, to);
+        tab1.setAdapter(simpleAdapter);
+
+        requestQueue = Volley.newRequestQueue(this);
+
         HashMap<String, String> user = session.getUserDetails();
         username = user.get(SessionManagement.KEY_USERNAME);
         name = user.get(SessionManagement.KEY_NAME);
         email = user.get(SessionManagement.KEY_EMAIL);
 
-        draftsList = new ArrayList<Map<String, String>>();
-
-        requestQueue = Volley.newRequestQueue(this);
-
-        tab1 = (ListView) findViewById(R.id.tab1_draft);
+        View header = LayoutInflater.from(this).inflate(R.layout.nav_header_welcome_nav, null);
+        navigationView.addHeaderView(header);
 
 
-        view1 = new RelativeLayout(getApplicationContext());
-        view2 = new RelativeLayout(getApplicationContext());
+        navDrawerStudentName = (TextView) header.findViewById(R.id.navDrawerStudentName);
+        navDrawerStudentUsername = (TextView) header.findViewById(R.id.navDrawerStudentUsername);
 
-        simpleAdapter = new SimpleAdapter(this, draftsList,
-                R.layout.draft_view_list_items,
-                from, to);
-        tab1.setAdapter(simpleAdapter);
+        navDrawerStudentName.setText(name);
+        navDrawerStudentUsername.setText(username);
 
-        String drafts_url = "http://ajuj.comlu.com/listviewdraft.php/?user=" + username;
-        getDraftsContent(drafts_url);
+        Intent intent = getIntent();
+        String message = intent.getStringExtra(AdminReview.EXTRA_MESSAGE);
+        StringTokenizer st = new StringTokenizer(message);
+        database = st.nextToken();
+        uniqueIDmessage = st.nextToken();
+        URL = "http://ajuj.comlu.com/ViewReviewedForm.php/?database="+database+"&uniqueIDmessage="+uniqueIDmessage;
 
+        getForm(database, uniqueIDmessage);
     }
 
     @Override
@@ -130,7 +134,7 @@ public class Drafts extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.drafts, menu);
+        getMenuInflater().inflate(R.menu.view_reviewed_form, menu);
         return true;
     }
 
@@ -155,17 +159,13 @@ public class Drafts extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_home_draft) {
-            startActivity(new Intent(getApplicationContext(), Welcome.class));
-        } else if (id == R.id.nav_profile_draft) {
-            startActivity(new Intent(getApplicationContext(), Profile.class));
-        } else if (id == R.id.nav_create_draft) {
-            startActivity(new Intent(getApplicationContext(), Create.class));
-        } else if (id == R.id.nav_drafts_draft) {
-            startActivity(new Intent(getApplicationContext(), Drafts.class));
-        } else if (id == R.id.nav_log_draft) {
-            startActivity(new Intent(getApplicationContext(), Log.class));
-        } else if (id == R.id.nav_logout_draft) {
+        if (id == R.id.nav_admin_home_admin_form) {
+            startActivity(new Intent(getApplicationContext(), AdminNav.class));
+        } else if (id == R.id.nav_admin_profile_admin_form) {
+            startActivity(new Intent(getApplicationContext(), AdminProfile.class));
+        } else if (id == R.id.nav_admin_review_admin_form) {
+            startActivity(new Intent(getApplicationContext(), AdminReview.class));
+        } else if (id == R.id.nav_admin_logout_admin_form) {
             session.logoutUser();
         }
 
@@ -174,53 +174,48 @@ public class Drafts extends AppCompatActivity
         return true;
     }
 
-    public void getDraftsContent(String url) {
+    public void getForm(final String database, final String uniqueIDmessage) {
 
-        request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+        final List<Map<String, String>> temp = new ArrayList<Map<String, String>>();
+
+        request = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try{
-                    draftsList.clear();
+
                     JSONObject jsonObject = new JSONObject(response);
                     if(jsonObject.names().get(0).equals("success")){
-                        int length = jsonObject.getInt("length");
-                        for(int i = 0; i < length; i++) {
-
-                            JSONObject row = jsonObject.getJSONObject(i+"");
-                            String uniqueid = row.getString("uniqueid");
-                            EXTRA_MESSAGE = uniqueid;
+                        //  Toast.makeText(getApplicationContext(),"SUCCESS: "+jsonObject.getString("success"),Toast.LENGTH_SHORT).show();
+                        for(int i = 0; i < 1; i++) {
+                            JSONObject row = jsonObject.getJSONObject(i + "");
                             String username = row.getString("username");
                             String first = row.getString("first");
                             String last = row.getString("last");
-                            int id = row.getInt("id");
-                            int classof = row.getInt("class");
+                            String id = String.valueOf(row.getInt("id"));
+                            String classThird = String.valueOf(row.getInt("class"));
                             String teacher = row.getString("teacher");
                             String servicedate = row.getString("servicedate");
-                            int hours = row.getInt("hours");
-                            String log = row.getString("log");
+                            String hours = String.valueOf(row.getInt("hours"));
                             String description = row.getString("description");
-                            String paid = row.getString("paid");
                             String studentsig = row.getString("studentsig");
                             String orgname = row.getString("orgname");
-                            String phonenum = row.getString("phonenum");
+                            String phonenum = String.valueOf(row.getInt("phonenum"));
                             String website = row.getString("website");
                             String address = row.getString("address");
                             String conname = row.getString("conname");
                             String conemail = row.getString("conemail");
                             String consig = row.getString("consig");
-                            String condate = row.getString("date");
+                            String date = row.getString("date");
                             String parsig = row.getString("parsig");
 
-                            draftsList.add(createForm(uniqueid, servicedate, description, orgname));
+                            list.add(createForm(first, last , id, classThird, teacher, servicedate, hours, description, orgname, phonenum, website, address, conname, conemail, date));
+
                             simpleAdapter.notifyDataSetChanged();
+
                         }
-                        Toast.makeText(getApplicationContext(), "SUCCESS: " + jsonObject.getString("success"), Toast.LENGTH_SHORT).show();
+
                     }else{
-                        if(jsonObject.names().get(0).equals("empty")) {
-                            Toast.makeText(getApplicationContext(),"EMPTY: "+jsonObject.getString("empty"),Toast.LENGTH_SHORT).show();
-                        }else {
-                            Toast.makeText(getApplicationContext(), "ERROR: " + jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
-                        }
+                        Toast.makeText(getApplicationContext(),"ERROR: "+jsonObject.getString("error"),Toast.LENGTH_SHORT).show();
                     }
                 }catch(JSONException e) {
                     e.printStackTrace();
@@ -232,28 +227,41 @@ public class Drafts extends AppCompatActivity
 
             }
 
-        });
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String,String> hashMap=new HashMap<String,String>();
+                hashMap.put("database", database);
+                hashMap.put("uniqueIDmessage",uniqueIDmessage);
 
+                return hashMap;
+            }
+
+        };
+        list.clear();
+
+        // list.add(createForm("first", "last", "id", "classthird", "teacher", "date", "horus", "desc", "orgna", "phone", "website", "add", "conname", "conemail", "date"));
         requestQueue.add(request);
 
-        //perform listView item click event
-        tab1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getApplicationContext(), "drafts", Toast.LENGTH_LONG).show();//show the selected image in toast according to position
-                Intent intent = new Intent(getApplicationContext(), viewDraft.class);
-                intent.putExtra("UNIQUE_ID",EXTRA_MESSAGE);
-                startActivity(intent);
-            }
-        });
     }
 
-    private HashMap<String, String> createForm(String uniqueid, String servicedate, String description, String orgname) {
+    private HashMap<String, String> createForm(String first, String last , String id, String classThird, String teacher, String servicedate, String hours, String description, String orgname, String phonenum, String website, String address, String conname, String conemail, String date) {
         HashMap<String, String> formNameID = new HashMap<String, String>();
-        formNameID.put("orgname", orgname);
+        formNameID.put("first", first);
+        formNameID.put("last", last);
+        formNameID.put("id", id);
+        formNameID.put("classof", classThird);
+        formNameID.put("teacher", teacher);
         formNameID.put("servicedate", servicedate);
+        formNameID.put("hours", hours);
         formNameID.put("description", description);
-        formNameID.put("uniqueid", uniqueid);
+        formNameID.put("orgname", orgname);
+        formNameID.put("phonenum", phonenum);
+        formNameID.put("website", website);
+        formNameID.put("address", address);
+        formNameID.put("conname", conname);
+        formNameID.put("conemail", conemail);
+        formNameID.put("condate", date);
         return formNameID;
     }
 }

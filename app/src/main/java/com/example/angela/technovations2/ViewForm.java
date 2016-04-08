@@ -167,7 +167,7 @@ public class ViewForm extends AppCompatActivity
         } else if (id == R.id.nav_create_form) {
             startActivity(new Intent(getApplicationContext(), Create.class));
         } else if (id == R.id.nav_drafts_form) {
-
+            startActivity(new Intent(getApplicationContext(), Drafts.class));
         } else if (id == R.id.nav_log_form) {
             startActivity(new Intent(getApplicationContext(), Log.class));
         } else if (id == R.id.nav_logout_form) {

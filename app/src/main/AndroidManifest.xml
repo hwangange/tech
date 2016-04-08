@@ -74,6 +74,26 @@
         <activity
             android:name=".Drafts"
             android:label="@string/title_activity_drafts"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AdminNav"
+            android:label="@string/title_activity_admin_nav"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AdminProfile"
+            android:label="@string/title_activity_admin_profile"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AdminReview"
+            android:label="@string/title_activity_admin_review"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".viewDraft"
+            android:label="@string/title_activity_view_draft"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ViewReviewedForm"
+            android:label="@string/title_activity_view_reviewed_form"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

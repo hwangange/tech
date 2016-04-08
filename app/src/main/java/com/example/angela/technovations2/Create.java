@@ -348,7 +348,7 @@ public class Create extends AppCompatActivity
         } else if (id == R.id.nav_create_create) {
            // startActivity(new Intent(getApplicationContext(), Create.class));
         } else if (id == R.id.nav_drafts_create) {
-
+            startActivity(new Intent(getApplicationContext(), Drafts.class));
         } else if (id == R.id.nav_log_create) {
             startActivity(new Intent(getApplicationContext(), Log.class));
         } else if (id == R.id.nav_logout_create) {

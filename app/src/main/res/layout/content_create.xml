@@ -121,17 +121,6 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:text="Were you paid, rewarded or required to to do this service?"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"/>
-
-            <Spinner
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/paid_spinner" />
-
-            <TextView
-                android:layout_width="match_parent"
                 android:text="SIGNATURE OF STUDENT"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"/>
