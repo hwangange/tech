@@ -213,6 +213,18 @@
     </LinearLayout>
 
     <!--student sig -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Student Signature"
+        android:id="@+id/studentsig_label"
+        android:paddingLeft = "16dp"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/studentsig" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -406,6 +418,30 @@
             android:paddingRight="16dp"
             android:paddingBottom="10dp"/>
     </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Sponsor Signature"
+        android:paddingLeft = "16dp"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/consig" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Parent Signature"
+        android:paddingLeft = "16dp"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/parentsig" />
 
 
 </LinearLayout>

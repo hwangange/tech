@@ -10,14 +10,50 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.angela.Technovation2.ViewReviewedForm"
-    tools:showIn="@layout/app_bar_view_reviewed_form">
+    tools:showIn="@layout/app_bar_view_reviewed_form"
+    android:orientation="vertical">
 
-    <ListView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/tab1"
-        android:divider="#000"
-        android:dividerHeight="2dp"
-        android:listSelector="@android:color/transparent"/>
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/tab1"
+                android:divider="#000"
+                android:dividerHeight="2dp"
+                android:listSelector="@android:color/transparent"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/approve_review"
+                    android:text="Approve"
+                    />
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/deny_review"
+                    android:text="Deny"/>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
 
 </LinearLayout>

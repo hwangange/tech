@@ -1,9 +1,12 @@
 package com.example.angela.technovations2;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -34,6 +37,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -51,8 +55,8 @@ public class ViewReviewedForm extends AppCompatActivity
 
     private String URL = "";
 
-    String[] from = {"first", "last", "id", "classof", "teacher", "servicedate", "hours", "description", "orgname", "phonenum", "website", "address", "conname", "conemail", "condate"};
-    int[] to = {R.id.first_sub, R.id.last_sub, R.id.id_sub, R.id.classof_sub, R.id.teacher, R.id.servicedate_sub, R.id.hours_sub, R.id.description_sub,R.id.orgname_sub, R.id.phonenum_sub, R.id.website_sub, R.id.address_sub, R.id.conname_sub, R.id.conemail_sub, R.id.condate_sub};
+    String[] from = {"first", "last", "id", "classof", "teacher", "servicedate", "hours", "description", "studentsig", "orgname", "phonenum", "website", "address", "conname", "conemail", "condate", "consig", "parentsig"};
+    int[] to = {R.id.first_sub, R.id.last_sub, R.id.id_sub, R.id.classof_sub, R.id.teacher, R.id.servicedate_sub, R.id.hours_sub, R.id.description_sub, R.id.studentsig, R.id.orgname_sub, R.id.phonenum_sub, R.id.website_sub, R.id.address_sub, R.id.conname_sub, R.id.conemail_sub, R.id.condate_sub, R.id.consig, R.id.parentsig};
 
     BaseAdapter simpleAdapter;
 
@@ -91,7 +95,7 @@ public class ViewReviewedForm extends AppCompatActivity
 
         tab1 = (ListView) findViewById(R.id.tab1);
 
-        simpleAdapter = new SimpleAdapter(this, list, R.layout.view_reviewed_form_layout, from, to);
+        simpleAdapter = new SimpleAdapterEx(this, list, R.layout.view_reviewed_form_layout, from, to);
         tab1.setAdapter(simpleAdapter);
 
         requestQueue = Volley.newRequestQueue(this);
@@ -203,9 +207,9 @@ public class ViewReviewedForm extends AppCompatActivity
                             String conemail = row.getString("conemail");
                             String consig = row.getString("consig");
                             String date = row.getString("date");
-                            String parsig = row.getString("parsig");
+                            String parentsig = row.getString("parsig");
 
-                            list.add(createForm(first, last , id, classThird, teacher, servicedate, hours, description, orgname, phonenum, website, address, conname, conemail, date));
+                            list.add(createForm(first, last , id, classThird, teacher, servicedate, hours, description, studentsig, orgname, phonenum, website, address, conname, conemail, date, consig, parentsig));
 
                             simpleAdapter.notifyDataSetChanged();
 
@@ -241,7 +245,16 @@ public class ViewReviewedForm extends AppCompatActivity
 
     }
 
-    private HashMap<String, String> createForm(String first, String last , String id, String classThird, String teacher, String servicedate, String hours, String description, String orgname, String phonenum, String website, String address, String conname, String conemail, String date) {
+    public String convert(Bitmap bitmap) { //bitmap->byte array->base64 string
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 0 /*ignored for PNG*/, bos);
+        byte[] bitmapdata = bos.toByteArray();
+        int flags = Base64.NO_WRAP | Base64.URL_SAFE;
+        String str = Base64.encodeToString(bitmapdata, flags);
+        return str;
+    }
+
+    private HashMap<String, String> createForm(String first, String last , String id, String classThird, String teacher, String servicedate, String hours, String description, String studentsig, String orgname, String phonenum, String website, String address, String conname, String conemail, String date, String consig, String parentsig) {
         HashMap<String, String> formNameID = new HashMap<String, String>();
         formNameID.put("first", first);
         formNameID.put("last", last);
@@ -251,6 +264,7 @@ public class ViewReviewedForm extends AppCompatActivity
         formNameID.put("servicedate", servicedate);
         formNameID.put("hours", hours);
         formNameID.put("description", description);
+        formNameID.put("studentsig", studentsig);
         formNameID.put("orgname", orgname);
         formNameID.put("phonenum", phonenum);
         formNameID.put("website", website);
@@ -258,6 +272,8 @@ public class ViewReviewedForm extends AppCompatActivity
         formNameID.put("conname", conname);
         formNameID.put("conemail", conemail);
         formNameID.put("condate", date);
+        formNameID.put("consig", consig);
+        formNameID.put("parentsig", parentsig);
         return formNameID;
     }
 }

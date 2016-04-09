@@ -17,4 +17,5 @@
         android:id="@+id/tab1"
         android:divider="#000"
         android:dividerHeight="2dp" />
+
 </RelativeLayout>
