@@ -15,9 +15,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class Profile extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -25,6 +39,12 @@ public class Profile extends AppCompatActivity
     SessionManagement session;
     TextView profileUsername, profileName, profileEmail, profileYear, profileHours;
     private TextView navDrawerStudentName, navDrawerStudentUsername;
+    private Button checkHours;
+    String username;
+
+    String URL = "http://ajuj.comlu.com/checkHours.php";
+    private RequestQueue requestQueue;
+    private StringRequest request;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,11 +78,11 @@ public class Profile extends AppCompatActivity
 
         // get user data from session
         HashMap<String, String> user = session.getUserDetails();
-        String username = user.get(SessionManagement.KEY_USERNAME);
+        username = user.get(SessionManagement.KEY_USERNAME);
         String name = user.get(SessionManagement.KEY_NAME);
         String email = user.get(SessionManagement.KEY_EMAIL);
         String year = user.get(SessionManagement.KEY_YEAR);
-        String hours = user.get(SessionManagement.KEY_HOURS);
+        final String hours = user.get(SessionManagement.KEY_HOURS);
 
         View header = LayoutInflater.from(this).inflate(R.layout.nav_header_welcome_nav, null);
         navigationView.addHeaderView(header);
@@ -79,6 +99,59 @@ public class Profile extends AppCompatActivity
         profileEmail.setText(Html.fromHtml("<b>Email: </b>" + email));
         profileYear.setText(Html.fromHtml("<b>Year: </b>" + year));
         profileHours.setText(Html.fromHtml("<b>Hours: </b> " + hours));
+
+        requestQueue = Volley.newRequestQueue(this);
+        checkHours = (Button) findViewById(R.id.hoursButton);
+        checkHours.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                checkHours(Integer.parseInt(hours));
+            }
+        });
+
+
+    }
+
+    public void checkHours(final int hours) {
+        request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try{
+                    Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT).show();
+                    JSONObject jsonObject = new JSONObject(response);
+                    int length = jsonObject.length();
+                    for(int x = 0; x < length; x++) {
+                        String name = jsonObject.names().get(x).toString();
+                        Toast.makeText(getApplicationContext(),jsonObject.getString(name),Toast.LENGTH_SHORT).show();
+                        if(name.equals("successUpdate")) {
+                            String newHours = jsonObject.getString("totalHours");
+                            session.updateHours(newHours);
+                            profileHours.setText(Html.fromHtml("<b>Hours: </b> " + newHours));
+                        }
+                    }
+                }catch(JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener(){
+            @Override
+            public void onErrorResponse(VolleyError error){
+
+            }
+
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String,String> hashMap=new HashMap<String,String>();
+                hashMap.put("username",username);
+                hashMap.put("hours", String.valueOf(hours));
+
+                return hashMap;
+            }
+
+        };
+
+        requestQueue.add(request);
     }
 
     @Override

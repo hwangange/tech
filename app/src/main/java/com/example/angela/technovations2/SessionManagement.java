@@ -54,10 +54,8 @@ public class SessionManagement {
         return user;
     }
 
-    public void addHours(int hours) {
-        int current = Integer.parseInt(KEY_HOURS);
-        int total = current + hours;
-        editor.putString(KEY_HOURS, String.valueOf(total));
+    public void updateHours(String hours) {
+        editor.putString(KEY_HOURS, hours);
         editor.commit();
     }
 

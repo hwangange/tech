@@ -120,7 +120,7 @@ public class ViewReviewedForm extends AppCompatActivity
 
         Intent intent = getIntent();
         uniqueIDmessage = intent.getStringExtra(AdminReview.EXTRA_MESSAGE);
-        approve_url = "http://ajuj.comlu.com/adminapprove_angela.php";
+        approve_url = "http://ajuj.comlu.com/adminapprove_angela_update.php";
         deny_url = "http://ajuj.comlu.com/admindeny_angela.php";
         URL = "http://ajuj.comlu.com/ViewReviewedForm.php/?uniqueIDmessage=" + uniqueIDmessage;
 
@@ -230,6 +230,8 @@ public class ViewReviewedForm extends AppCompatActivity
                             String date = row.getString("date");
                             String parentsig = row.getString("parsig");
 
+                            //after dance: fix adminapprove_angie.php to include updating user hours
+
                             list.add(createForm(first, last , id, classThird, teacher, servicedate, hours, description, studentsig, orgname, phonenum, website, address, conname, conemail, date, consig, parentsig));
 
                             simpleAdapter.notifyDataSetChanged();
@@ -273,17 +275,12 @@ public class ViewReviewedForm extends AppCompatActivity
                 try{
                     Toast.makeText(getApplicationContext(),response,Toast.LENGTH_SHORT).show();
                     JSONObject jsonObject = new JSONObject(response);
-                    if(jsonObject.names().get(0).equals("successInsert")){
-                        Toast.makeText(getApplicationContext(),"successInsert: "+jsonObject.getString("successInsert"),Toast.LENGTH_SHORT).show();
-                        if(jsonObject.names().get(1).equals("successDelete")) {
-                            Toast.makeText(getApplicationContext(),"successDelete: "+jsonObject.getString("successDelete"),Toast.LENGTH_SHORT).show();
+                    int length = jsonObject.length();
+                    for(int x = 0; x < length; x++) {
+                        String name = jsonObject.names().get(x).toString();
+                        Toast.makeText(getApplicationContext(),jsonObject.getString(name),Toast.LENGTH_SHORT).show();
+                        if(name.equals("successDelete"))
                             startActivity(new Intent(getApplicationContext(),AdminReview.class));
-                        }
-                        else if(jsonObject.names().get(1).equals("errorDelete")) {
-                            Toast.makeText(getApplicationContext(),"errorDelete: "+jsonObject.getString("errorDelete"),Toast.LENGTH_SHORT).show();
-                        }
-                    }else{
-                        Toast.makeText(getApplicationContext(),"ERROR: "+jsonObject.getString("errorInsert"),Toast.LENGTH_SHORT).show();
                     }
                 }catch(JSONException e) {
                     e.printStackTrace();

@@ -14,22 +14,25 @@
 				$result = mysqli_query($this->connection, $query);
 
 				if(mysqli_num_rows($result)==0){
-					$data['submissionSelectEmpty'] = ['Could\'t find form in submission table using unique ID.'];
+					$data['submissionSelectEmpty'] = 'Could\'t find form in submission table using unique ID.';
 					
 							
 				}else{
 					$data['submissionSelectSuccess'] = 'Results found.';
+                                        $username = "";
 
 					while ($row = $result->fetch_assoc()) {
 						$submitHours = $row['hours'];
 						$username = $row['username'];
 					}
 
+                                        $data['username'] = "Username = " . $username;
+
 					$query = "SELECT * from users WHERE username = '$username'";
 					$result = mysqli_query($this->connection, $query);
 
 					if(mysqli_num_rows($result)==0){
-						$data['userSelectEmpty'] = ['User not found in users table.'];
+						$data['userSelectEmpty'] = 'User not found in users table.';
 						echo json_encode($data);
 						mysqli_close($this->connection);
 								
@@ -43,8 +46,9 @@
 						}
 
 						$newHours = $submitHours + $currentHours;
+                                                $data['hours'] = $newHours;
 
-						$query = "UPDATE users SET hours = '$newHours' WHERE user = '$user'";
+						$query = "UPDATE users SET hours = " . $newHours . " WHERE username = '$username'";
 						$result = mysqli_query($this->connection, $query);
 						if($result== TRUE) {
 							$data['successUpdate'] = 'Successfully updated hours.';
@@ -61,7 +65,7 @@
 								}
 
 								else {
-									$data['errorInsert'] 'Couldn\'t delete from submission table.';
+									$data['errorInsert'] = 'Couldn\'t delete from submission table.';
 								}
 							}
 
