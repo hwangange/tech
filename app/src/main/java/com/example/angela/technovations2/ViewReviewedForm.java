@@ -18,6 +18,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -53,7 +54,7 @@ public class ViewReviewedForm extends AppCompatActivity
     private TextView first, last, id, classof, teacher, servicedate, hours, description, orgname, phonenum, website, address, conname, conemail, condate;
     private SignaturePad studentsig, consig, parentsig;
 
-    private String URL = "";
+    private String URL, approve_url, deny_url;
 
     String[] from = {"first", "last", "id", "classof", "teacher", "servicedate", "hours", "description", "studentsig", "orgname", "phonenum", "website", "address", "conname", "conemail", "condate", "consig", "parentsig"};
     int[] to = {R.id.first_sub, R.id.last_sub, R.id.id_sub, R.id.classof_sub, R.id.teacher, R.id.servicedate_sub, R.id.hours_sub, R.id.description_sub, R.id.studentsig, R.id.orgname_sub, R.id.phonenum_sub, R.id.website_sub, R.id.address_sub, R.id.conname_sub, R.id.conemail_sub, R.id.condate_sub, R.id.consig, R.id.parentsig};
@@ -73,6 +74,8 @@ public class ViewReviewedForm extends AppCompatActivity
     List<Map<String, String>> list = new ArrayList<Map<String, String>>();
 
     private TextView navDrawerStudentName, navDrawerStudentUsername;
+
+    private Button approve, deny;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,9 +120,27 @@ public class ViewReviewedForm extends AppCompatActivity
 
         Intent intent = getIntent();
         uniqueIDmessage = intent.getStringExtra(AdminReview.EXTRA_MESSAGE);
-        URL = "http://ajuj.comlu.com/ViewReviewedForm.php/?uniqueIDmessage="+uniqueIDmessage;
+        approve_url = "http://ajuj.comlu.com/adminapprove_angela.php";
+        deny_url = "http://ajuj.comlu.com/admindeny_angela.php";
+        URL = "http://ajuj.comlu.com/ViewReviewedForm.php/?uniqueIDmessage=" + uniqueIDmessage;
 
         getForm();
+
+        approve = (Button) findViewById(R.id.approve);
+        approve.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                approve(uniqueIDmessage);
+            }
+        });
+
+        deny = (Button) findViewById(R.id.deny);
+        deny.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                deny(uniqueIDmessage);
+            }
+        });
     }
 
     @Override
@@ -243,6 +264,92 @@ public class ViewReviewedForm extends AppCompatActivity
         // list.add(createForm("first", "last", "id", "classthird", "teacher", "date", "horus", "desc", "orgna", "phone", "website", "add", "conname", "conemail", "date"));
         requestQueue.add(request);
 
+    }
+
+    public void approve(final String uniqueIDmessage) {
+        request = new StringRequest(Request.Method.POST, approve_url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try{
+                    Toast.makeText(getApplicationContext(),response,Toast.LENGTH_SHORT).show();
+                    JSONObject jsonObject = new JSONObject(response);
+                    if(jsonObject.names().get(0).equals("successInsert")){
+                        Toast.makeText(getApplicationContext(),"successInsert: "+jsonObject.getString("successInsert"),Toast.LENGTH_SHORT).show();
+                        if(jsonObject.names().get(1).equals("successDelete")) {
+                            Toast.makeText(getApplicationContext(),"successDelete: "+jsonObject.getString("successDelete"),Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(getApplicationContext(),AdminReview.class));
+                        }
+                        else if(jsonObject.names().get(1).equals("errorDelete")) {
+                            Toast.makeText(getApplicationContext(),"errorDelete: "+jsonObject.getString("errorDelete"),Toast.LENGTH_SHORT).show();
+                        }
+                    }else{
+                        Toast.makeText(getApplicationContext(),"ERROR: "+jsonObject.getString("errorInsert"),Toast.LENGTH_SHORT).show();
+                    }
+                }catch(JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener(){
+            @Override
+            public void onErrorResponse(VolleyError error){
+
+            }
+
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String,String> hashMap=new HashMap<String,String>();
+                hashMap.put("uniqueIDmessage",uniqueIDmessage);
+
+                return hashMap;
+            }
+
+        };
+
+        requestQueue.add(request);
+    }
+
+    public void deny(final String uniqueIDmessage) {
+        request = new StringRequest(Request.Method.POST, deny_url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try{
+                    Toast.makeText(getApplicationContext(),response,Toast.LENGTH_SHORT).show();
+                    JSONObject jsonObject = new JSONObject(response);
+                    if(jsonObject.names().get(0).equals("successInsert")){
+                        Toast.makeText(getApplicationContext(),"successInsert: "+jsonObject.getString("successInsert"),Toast.LENGTH_SHORT).show();
+                        if(jsonObject.names().get(1).equals("successDelete")) {
+                            Toast.makeText(getApplicationContext(),"successDelete: "+jsonObject.getString("successDelete"),Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(getApplicationContext(),AdminReview.class));
+                        }
+                        else if(jsonObject.names().get(1).equals("errorDelete")) {
+                            Toast.makeText(getApplicationContext(),"errorDelete: "+jsonObject.getString("errorDelete"),Toast.LENGTH_SHORT).show();
+                        }
+                    }else{
+                        Toast.makeText(getApplicationContext(),"ERROR: "+jsonObject.getString("errorInsert"),Toast.LENGTH_SHORT).show();
+                    }
+                }catch(JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener(){
+            @Override
+            public void onErrorResponse(VolleyError error){
+
+            }
+
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String,String> hashMap=new HashMap<String,String>();
+                hashMap.put("uniqueIDmessage",uniqueIDmessage);
+
+                return hashMap;
+            }
+
+        };
+
+        requestQueue.add(request);
     }
 
     public String convert(Bitmap bitmap) { //bitmap->byte array->base64 string

@@ -39,7 +39,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:id="@+id/approve_review"
+                    android:id="@+id/approve"
                     android:text="Approve"
                     />
 
@@ -47,7 +47,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:id="@+id/deny_review"
+                    android:id="@+id/deny"
                     android:text="Deny"/>
 
             </LinearLayout>
