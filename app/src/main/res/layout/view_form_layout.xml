@@ -431,5 +431,11 @@
     <!--Sponsor sig-->
     <!-- Parent sig -->
 
+    <TextView
+        android:id="@+id/comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
 
 </LinearLayout>

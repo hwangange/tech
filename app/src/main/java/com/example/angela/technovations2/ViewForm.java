@@ -51,8 +51,8 @@ public class ViewForm extends AppCompatActivity
 
     private String URL = "";
 
-    String[] from = {"first", "last", "id", "classof", "teacher", "servicedate", "hours", "description", "orgname", "phonenum", "website", "address", "conname", "conemail", "condate"};
-    int[] to = {R.id.first_sub, R.id.last_sub, R.id.id_sub, R.id.classof_sub, R.id.teacher, R.id.servicedate_sub, R.id.hours_sub, R.id.description_sub,R.id.orgname_sub, R.id.phonenum_sub, R.id.website_sub, R.id.address_sub, R.id.conname_sub, R.id.conemail_sub, R.id.condate_sub};
+    String[] from = {"first", "last", "id", "classof", "teacher", "servicedate", "hours", "description", "orgname", "phonenum", "website", "address", "conname", "conemail", "condate", "comment"};
+    int[] to = {R.id.first_sub, R.id.last_sub, R.id.id_sub, R.id.classof_sub, R.id.teacher, R.id.servicedate_sub, R.id.hours_sub, R.id.description_sub,R.id.orgname_sub, R.id.phonenum_sub, R.id.website_sub, R.id.address_sub, R.id.conname_sub, R.id.conemail_sub, R.id.condate_sub, R.id.comment};
 
     BaseAdapter simpleAdapter;
 
@@ -212,8 +212,12 @@ public class ViewForm extends AppCompatActivity
                             String consig = row.getString("consig");
                             String date = row.getString("date");
                             String parsig = row.getString("parsig");
+                            String comment = row.getString("comment");
 
-                            list.add(createForm(first, last , id, classThird, teacher, servicedate, hours, description, orgname, phonenum, website, address, conname, conemail, date));
+                            if(database.equals("denied"))
+                                comment = "Comments: " + comment;
+
+                            list.add(createForm(first, last , id, classThird, teacher, servicedate, hours, description, orgname, phonenum, website, address, conname, conemail, date, comment));
 
                             simpleAdapter.notifyDataSetChanged();
 
@@ -256,7 +260,7 @@ public class ViewForm extends AppCompatActivity
 
     }
 
-    private HashMap<String, String> createForm(String first, String last , String id, String classThird, String teacher, String servicedate, String hours, String description, String orgname, String phonenum, String website, String address, String conname, String conemail, String date) {
+    private HashMap<String, String> createForm(String first, String last , String id, String classThird, String teacher, String servicedate, String hours, String description, String orgname, String phonenum, String website, String address, String conname, String conemail, String date, String comment) {
         HashMap<String, String> formNameID = new HashMap<String, String>();
         formNameID.put("first", first);
         formNameID.put("last", last);
@@ -273,6 +277,7 @@ public class ViewForm extends AppCompatActivity
         formNameID.put("conname", conname);
         formNameID.put("conemail", conemail);
         formNameID.put("condate", date);
+        formNameID.put("comment", comment);
         return formNameID;
     }
 }

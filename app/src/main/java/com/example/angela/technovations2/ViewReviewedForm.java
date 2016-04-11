@@ -1,11 +1,14 @@
 package com.example.angela.technovations2;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.text.Html;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -77,6 +80,8 @@ public class ViewReviewedForm extends AppCompatActivity
 
     private Button approve, deny;
 
+    private TextView commentResultText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,6 +129,8 @@ public class ViewReviewedForm extends AppCompatActivity
         deny_url = "http://ajuj.comlu.com/admindeny_angela.php";
         URL = "http://ajuj.comlu.com/ViewReviewedForm.php/?uniqueIDmessage=" + uniqueIDmessage;
 
+        commentResultText = (TextView) findViewById(R.id.commentResult);
+
         getForm();
 
         approve = (Button) findViewById(R.id.approve);
@@ -138,7 +145,7 @@ public class ViewReviewedForm extends AppCompatActivity
         deny.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                deny(uniqueIDmessage);
+                showInputDialog();
             }
         });
     }
@@ -306,24 +313,20 @@ public class ViewReviewedForm extends AppCompatActivity
         requestQueue.add(request);
     }
 
-    public void deny(final String uniqueIDmessage) {
+    public void deny(final String uniqueIDmessage, final String comment) {
         request = new StringRequest(Request.Method.POST, deny_url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try{
-                    Toast.makeText(getApplicationContext(),response,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
                     JSONObject jsonObject = new JSONObject(response);
-                    if(jsonObject.names().get(0).equals("successInsert")){
-                        Toast.makeText(getApplicationContext(),"successInsert: "+jsonObject.getString("successInsert"),Toast.LENGTH_SHORT).show();
-                        if(jsonObject.names().get(1).equals("successDelete")) {
-                            Toast.makeText(getApplicationContext(),"successDelete: "+jsonObject.getString("successDelete"),Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(),AdminReview.class));
+                    int length = jsonObject.length();
+                    for(int x = 0; x < length; x++) {
+                        String name = jsonObject.names().get(x).toString();
+                        Toast.makeText(getApplicationContext(),jsonObject.getString(name),Toast.LENGTH_SHORT).show();
+                        if(name.equals("successDelete")) {
+                            startActivity(new Intent(getApplicationContext(), AdminReview.class));
                         }
-                        else if(jsonObject.names().get(1).equals("errorDelete")) {
-                            Toast.makeText(getApplicationContext(),"errorDelete: "+jsonObject.getString("errorDelete"),Toast.LENGTH_SHORT).show();
-                        }
-                    }else{
-                        Toast.makeText(getApplicationContext(),"ERROR: "+jsonObject.getString("errorInsert"),Toast.LENGTH_SHORT).show();
                     }
                 }catch(JSONException e) {
                     e.printStackTrace();
@@ -340,6 +343,7 @@ public class ViewReviewedForm extends AppCompatActivity
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String,String> hashMap=new HashMap<String,String>();
                 hashMap.put("uniqueIDmessage",uniqueIDmessage);
+                hashMap.put("comment", comment);
 
                 return hashMap;
             }
@@ -347,6 +351,35 @@ public class ViewReviewedForm extends AppCompatActivity
         };
 
         requestQueue.add(request);
+    }
+
+    protected void showInputDialog() {
+
+        // get prompts.xml view
+        LayoutInflater layoutInflater = LayoutInflater.from(ViewReviewedForm.this);
+        View promptView = layoutInflater.inflate(R.layout.input_dialog, null);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ViewReviewedForm.this);
+        alertDialogBuilder.setView(promptView);
+
+        final EditText comment = (EditText) promptView.findViewById(R.id.comment);
+        // setup a dialog window
+        alertDialogBuilder.setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        commentResultText.setText("Comment: " + comment.getText());
+                        deny(uniqueIDmessage, comment.getText().toString());
+                    }
+                })
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+        // create an alert dialog
+        AlertDialog alert = alertDialogBuilder.create();
+        alert.show();
     }
 
     public String convert(Bitmap bitmap) { //bitmap->byte array->base64 string

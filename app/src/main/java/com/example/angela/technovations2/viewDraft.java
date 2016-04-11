@@ -50,7 +50,7 @@ public class viewDraft extends AppCompatActivity
     private Button submit, drafts;
     private RequestQueue requestQueue;
 
-    private StringRequest request;
+    private StringRequest request, request1, request2;
 
     private String URL = "", uniqueId;
 
@@ -142,8 +142,8 @@ public class viewDraft extends AppCompatActivity
         consig = (SignaturePad) findViewById(R.id.consig);
         parentsig = (SignaturePad) findViewById(R.id.parentsig);
 
-        //submit = (Button) findViewById(R.id.submit_sub);
-        //drafts = (Button) findViewById(R.id.drafts_button);
+        submit = (Button) findViewById(R.id.submit_sub);
+        drafts = (Button) findViewById(R.id.drafts_button);
 
         requestQueue = Volley.newRequestQueue(this);
 
@@ -152,31 +152,12 @@ public class viewDraft extends AppCompatActivity
         getDraftInfo(drafts_url, uniqueId);
 
 
-
-
-        /*first.setText(first1+"");
-        last.setText(last1+"");
-        id.setText(id1+"");
-        classof.setText(classof1+"");
-        teacher.setText(teacher1+"");
-        servicedate.setText(servicedate1+"");
-        hours.setText(hours1+"");
-        //log.setText(log1+"");
-        description.setText(description1+"");
-        orgname.setText(orgname1+"");
-        phonenum.setText(phonenum1+"");
-        website.setText(website1+"");
-        address.setText(address1+"");
-        conname.setText(conname1+"");
-        conemail.setText(conemail1+"");
-        condate.setText(condate1+"");*/
-
-        /*submit.setOnClickListener(new View.OnClickListener(){
+        submit.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View view){
 
-                URL = "http://ajuj.comlu.com/submission.php";
+                URL = "http://ajuj.comlu.com/deleteDraft.php";
 
                 Bitmap studentBitmap = studentsig.getSignatureBitmap();
                 final String student_signature = convert(studentBitmap);
@@ -196,7 +177,7 @@ public class viewDraft extends AppCompatActivity
                             JSONObject jsonObject = new JSONObject(response);
                             if(jsonObject.names().get(0).equals("success")){
                                 Toast.makeText(getApplicationContext(), "SUCCESS: " + jsonObject.getString("success"), Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(getApplicationContext(),Welcome.class));
+                                startActivity(new Intent(getApplicationContext(),WelcomeNav.class));
                             }else{
                                 Toast.makeText(getApplicationContext(),"ERROR: "+jsonObject.getString("error"),Toast.LENGTH_SHORT).show();
                             }
@@ -214,6 +195,7 @@ public class viewDraft extends AppCompatActivity
                     @Override
                     protected Map<String, String> getParams() throws AuthFailureError {
                         HashMap<String,String> hashMap=new HashMap<String,String>();
+                        hashMap.put("uniqueIDmessage", uniqueId);
                         hashMap.put("username",username);
                         hashMap.put("first",first.getText().toString());
                         hashMap.put("last",last.getText().toString());
@@ -244,12 +226,14 @@ public class viewDraft extends AppCompatActivity
             }
         });
 
+
+
         drafts.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
 
-                URL = "http://ajuj.comlu.com/draft.php";
+                URL = "http://ajuj.comlu.com/resubmitDraft.php";
 
                 Bitmap studentBitmap = studentsig.getSignatureBitmap();
                 final String student_signature = convert(studentBitmap);
@@ -269,7 +253,7 @@ public class viewDraft extends AppCompatActivity
                             JSONObject jsonObject = new JSONObject(response);
                             if (jsonObject.names().get(0).equals("success")) {
                                 Toast.makeText(getApplicationContext(), "SUCCESS: " + jsonObject.getString("success"), Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(getApplicationContext(), Welcome.class));
+                                startActivity(new Intent(getApplicationContext(), WelcomeNav.class));
                             } else {
                                 Toast.makeText(getApplicationContext(), "ERROR: " + jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
                             }
@@ -287,6 +271,7 @@ public class viewDraft extends AppCompatActivity
                     @Override
                     protected Map<String, String> getParams() throws AuthFailureError {
                         HashMap<String, String> hashMap = new HashMap<String, String>();
+                        hashMap.put("uniqueIDmessage",uniqueId);
                         hashMap.put("username", username);
                         hashMap.put("first", first.getText().toString());
                         hashMap.put("last", last.getText().toString() + "");
@@ -315,124 +300,12 @@ public class viewDraft extends AppCompatActivity
 
                 requestQueue.add(request);
             }
-        });*/
-
-
-
+        });
 
     }
 
+
     public void getDraftInfo(String url, final String uniqueIDmessage){
-
-        /*request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-
-            @Override
-            public void onResponse(String response) {
-                Toast.makeText(getApplicationContext(),""+response,Toast.LENGTH_SHORT).show();
-                try{
-                    Toast.makeText(getApplicationContext(),""+response,Toast.LENGTH_SHORT).show();
-                    JSONObject jsonObject = new JSONObject(response);
-                    int length = jsonObject.getInt("length");
-
-                    //for(int i = 0;i<length;i++) {
-                        JSONObject r = jsonObject.getJSONObject("0");
-                        //String uniqueid1 = r.getString("uniqueid");
-                        if(jsonObject.names().get(0).equals("success")){
-                            Toast.makeText(getApplicationContext(), "UNIQUE ID"+uniqueId, Toast.LENGTH_SHORT).show();
-                            first.setText(r.getString("first"), TextView.BufferType.EDITABLE);
-                            last.setText(r.getString("last"), TextView.BufferType.EDITABLE);
-                            id.setText(r.getString("id"), TextView.BufferType.EDITABLE);
-                            classof.setText(r.getString("class"), TextView.BufferType.EDITABLE);
-                            teacher.setText(r.getString("teacher"), TextView.BufferType.EDITABLE);
-                            servicedate.setText(r.getString("servicedate"), TextView.BufferType.EDITABLE);
-                            hours.setText(r.getString("hours"), TextView.BufferType.EDITABLE);
-                            description.setText(r.getString("description"), TextView.BufferType.EDITABLE);
-                            orgname.setText(r.getString("orgname"), TextView.BufferType.EDITABLE);
-                            phonenum.setText(r.getString("phonenum"), TextView.BufferType.EDITABLE);
-                            website.setText(r.getString("website"), TextView.BufferType.EDITABLE);
-                            address.setText(r.getString("address"), TextView.BufferType.EDITABLE);
-                            conname.setText(r.getString("conname"), TextView.BufferType.EDITABLE);
-                            conemail.setText(r.getString("conemail"), TextView.BufferType.EDITABLE);
-                            condate.setText(r.getString("date"), TextView.BufferType.EDITABLE);
-                            String username1 = r.getString("username");
-                            String first1 = r.getString("first");
-                            String last1 = r.getString("last");
-                            String id1 = r.getString("id");
-                            String classof1 = r.getString("class");
-                            String teacher1 = r.getString("teacher");
-                            String servicedate1 = r.getString("servicedate");
-                            String hours1 = r.getString("hours");
-                            String description1 = r.getString("description");
-                            String orgname1 = r.getString("orgname");
-                            String phonenum1 = r.getString("phonenum");
-                            String website1 = r.getString("website");
-                            String address1 = r.getString("address");
-                            String conname1 = r.getString("conname");
-                            String conemail1 = r.getString("conemail");
-                            String condate1 = r.getString("date");
-
-                            first.setText(first1+"");
-                            last.setText(last1+"");
-                            id.setText(id1+"");
-                            classof.setText(classof1+"");
-                            teacher.setText(teacher1+"");
-                            servicedate.setText(servicedate1+"");
-                            hours.setText(hours1+"");
-                            //log.setText(log1+"");
-                            description.setText(description1+"");
-                            orgname.setText(orgname1+"");
-                            phonenum.setText(phonenum1+"");
-                            website.setText(website1+"");
-                            address.setText(address1+"");
-                            conname.setText(conname1+"");
-                            conemail.setText(conemail1+"");
-                            condate.setText(condate1+"");
-
-                            first.setText(first1);
-                            last.setText(last1);
-                            id.setText(id1);
-                            classof.setText(classof1);
-                            teacher.setText(teacher1);
-                            servicedate.setText(servicedate1);
-                            hours.setText(hours1);
-                            //log.setText(log1+"");
-                            description.setText(description1);
-                            orgname.setText(orgname1);
-                            phonenum.setText(phonenum1);
-                            website.setText(website1);
-                            address.setText(address1);
-                            conname.setText(conname1);
-                            conemail.setText(conemail1);
-                            condate.setText(condate1);
-
-                            //Toast.makeText(getApplicationContext(), "MadefORM", Toast.LENGTH_SHORT).show();
-                            draftsList.add(createForm(username1, first1, last1, id1, classof1, teacher1, servicedate1,
-                                    hours1, description1, orgname1, phonenum1, website1, address1, conname1,
-                                    conemail1, condate1));
-
-                            Toast.makeText(getApplicationContext(), "SUCCESS: " + jsonObject.getString("success"), Toast.LENGTH_SHORT).show();
-                        }else{
-                            if(jsonObject.names().get(0).equals("empty")) {
-                            Toast.makeText(getApplicationContext(),"EMPTY: "+jsonObject.getString("empty"),Toast.LENGTH_SHORT).show();
-                            }else {
-                            Toast.makeText(getApplicationContext(), "ERROR: " + jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    //}
-                }catch(JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener(){
-            @Override
-            public void onErrorResponse(VolleyError error){
-
-            }
-
-        });
-        requestQueue.add(request);*/
-
-
         request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -444,20 +317,37 @@ public class viewDraft extends AppCompatActivity
                             JSONObject row = jsonObject.getJSONObject(i + "");
                             first.setText(row.getString("first"), TextView.BufferType.EDITABLE);
                             last.setText(row.getString("last"), TextView.BufferType.EDITABLE);
-                            id.setText(String.valueOf(row.getInt("id")), TextView.BufferType.EDITABLE);
-                            classof.setText(row.getString("class"), TextView.BufferType.EDITABLE);
+                            if(String.valueOf(row.getInt("id")).equals("0"))
+                                id.setText("");
+                            else
+                                id.setText(String.valueOf(row.getInt("id")), TextView.BufferType.EDITABLE);
+                            if(String.valueOf(row.getInt("class")).equals("0"))
+                                classof.setText("");
+                            else
+                                classof.setText(String.valueOf(row.getInt("class")), TextView.BufferType.EDITABLE);
                             teacher.setText(row.getString("teacher"), TextView.BufferType.EDITABLE);
-                            servicedate.setText(row.getString("servicedate"), TextView.BufferType.EDITABLE);
-                            hours.setText(String.valueOf(row.getInt("hours")), TextView.BufferType.EDITABLE);
+                            if(row.getString("servicedate").equals("0000-00-00"))
+                                servicedate.setText("");
+                            else
+                                servicedate.setText(row.getString("servicedate"), TextView.BufferType.EDITABLE);
+                            if(String.valueOf(row.getInt("hours")).equals("0"))
+                                hours.setText("");
+                            else
+                                hours.setText(String.valueOf(row.getInt("hours")), TextView.BufferType.EDITABLE);
                             description.setText(row.getString("description"), TextView.BufferType.EDITABLE);
                             orgname.setText(row.getString("orgname"), TextView.BufferType.EDITABLE);
-                            phonenum.setText(String.valueOf(row.getInt("phonenum")), TextView.BufferType.EDITABLE);
+                            if(String.valueOf(row.getInt("phonenum")).equals("0"))
+                                phonenum.setText("");
+                            else
+                                phonenum.setText(String.valueOf(row.getInt("phonenum")), TextView.BufferType.EDITABLE);
                             website.setText(row.getString("website"), TextView.BufferType.EDITABLE);
                             address.setText(row.getString("address"), TextView.BufferType.EDITABLE);
                             conname.setText(row.getString("conname"), TextView.BufferType.EDITABLE);
                             conemail.setText(row.getString("conemail"), TextView.BufferType.EDITABLE);
-                            condate.setText(row.getString("date"), TextView.BufferType.EDITABLE);
-
+                            if(row.getString("date").equals("0000-00-00"))
+                                condate.setText("");
+                            else
+                                condate.setText(row.getString("date"), TextView.BufferType.EDITABLE);
                         }
 
                     }else{
@@ -483,35 +373,9 @@ public class viewDraft extends AppCompatActivity
             }
 
         };
-        //, "id", "classof", "teacher", "servicedate", "hours", "description", "orgname", "phonenum", "website", "address", "conname", "conemail", "condate"
-        //, R.id.id_sub, R.id.classof_sub, R.id.teacher, R.id.servicedate_sub, R.id.hours_sub, R.id.description_sub,R.id.orgname_sub, R.id.phonenum_sub, R.id.website_sub, R.id.address_sub, R.id.conname_sub, R.id.conemail_sub, R.id.condate_sub
-
-        // list.add(createForm("first", "last", "id", "classthird", "teacher", "date", "horus", "desc", "orgna", "phone", "website", "add", "conname", "conemail", "date"));
-
-        //Toast.makeText(getApplicationContext(),"Length: " + list.size(),Toast.LENGTH_LONG).show();
-
 
         requestQueue.add(request);
     }
-
-    public void putInfo(HashMap<String, String> drafts){
-        first.setText(drafts.get("first") + "");
-        /*last.setText(drafts.get("last") + "");
-        id.setText(drafts.get("id") + "");
-        classof.setText(drafts.get("class") + "");
-        teacher.setText(drafts.get("teacher") + "");
-        servicedate.setText(drafts.get("servicedate") + "");
-        hours.setText(drafts.get("hours") + "");
-        description.setText(drafts.get("description") + "");
-        orgname.setText(drafts.get("orgname") + "");
-        phonenum.setText(drafts.get("phonenum") + "");
-        website.setText(drafts.get("website")+"");
-        address.setText(drafts.get("address")+"");
-        conname.setText(drafts.get("conname")+"");
-        conemail.setText(drafts.get("conemail")+"");
-        condate.setText(drafts.get("condate")+"");*/
-    }
-
     public String convert(Bitmap bitmap) { //bitmap->byte array->base64 string
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 0 /*ignored for PNG*/, bos);
@@ -530,48 +394,6 @@ public class viewDraft extends AppCompatActivity
             super.onBackPressed();
         }
     }
-
-    /*public HashMap<String, String> createForm(String username, String first1, String last1, String id1, String classof1,
-                                              String teacher1, String servicedate1, String hours1, String description1,
-                                              String orgname1, String phonenum1, String website1, String address1, String conname1,
-                                              String conemail1,  String condate1) {
-        first.setText(first1+"");
-        last.setText(last1+"");
-        id.setText(id1+"");
-        classof.setText(classof1+"");
-        teacher.setText(teacher1+"");
-        servicedate.setText(servicedate1+"");
-        hours.setText(hours1+"");
-        //log.setText(log1+"");
-        description.setText(description1+"");
-        orgname.setText(orgname1+"");
-        phonenum.setText(phonenum1+"");
-        website.setText(website1+"");
-        address.setText(address1+"");
-        conname.setText(conname1+"");
-        conemail.setText(conemail1+"");
-        condate.setText(condate1+"");
-        Toast.makeText(getApplicationContext(), "MadefORM: ", Toast.LENGTH_SHORT).show();
-        HashMap<String, String> formNameID = new HashMap<String, String>();
-        formNameID.put("username", username);
-        formNameID.put("first", first1);
-        formNameID.put("last", last1);
-        formNameID.put("id", id1);
-        formNameID.put("class", classof1);
-        formNameID.put("teacher", teacher1);
-        formNameID.put("servicedate", servicedate1);
-        formNameID.put("hours", hours1);
-        formNameID.put("description", description1);
-        formNameID.put("orgname", orgname1);
-        formNameID.put("phonenum", phonenum1);
-        formNameID.put("website", website1);
-        formNameID.put("address", address1);
-        formNameID.put("conname", conname1);
-        formNameID.put("conemail", conemail1);
-        formNameID.put("date", condate1);
-        Toast.makeText(getApplicationContext(), "FORM NAME ID MADE", Toast.LENGTH_SHORT).show();
-        return formNameID;
-    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -602,7 +424,7 @@ public class viewDraft extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home_draft) {
-            startActivity(new Intent(getApplicationContext(), Welcome.class));
+            startActivity(new Intent(getApplicationContext(), WelcomeNav.class));
         } else if (id == R.id.nav_profile_draft) {
             startActivity(new Intent(getApplicationContext(), Profile.class));
         } else if (id == R.id.nav_create_draft) {
