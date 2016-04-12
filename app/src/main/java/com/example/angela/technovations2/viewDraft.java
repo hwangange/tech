@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.util.Base64;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -44,8 +45,9 @@ public class viewDraft extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private EditText first, last, id, classof, teacher, servicedate, hours, description, orgname, phonenum, website, address, conname, conemail, condate;
-    private SignaturePad studentsig, consig, parentsig;
+    private SignaturePad studentsig, consig, parentsig, blankpad;
     private Spinner paid_spinner;
+    private String blankpadString;
 
     private Button submit, drafts;
     private RequestQueue requestQueue;
@@ -55,6 +57,7 @@ public class viewDraft extends AppCompatActivity
     private String URL = "", uniqueId;
 
     private SessionManagement session;
+    private TextView navDrawerStudentName, navDrawerStudentUsername;
 
 
 
@@ -90,6 +93,16 @@ public class viewDraft extends AppCompatActivity
         final String username = user.get(SessionManagement.KEY_USERNAME);
         String name = user.get(SessionManagement.KEY_NAME);
         String email = user.get(SessionManagement.KEY_EMAIL);
+
+        View header = LayoutInflater.from(this).inflate(R.layout.nav_header_welcome_nav, null);
+        navigationView.addHeaderView(header);
+
+
+        navDrawerStudentName = (TextView) header.findViewById(R.id.navDrawerStudentName);
+        navDrawerStudentUsername = (TextView) header.findViewById(R.id.navDrawerStudentUsername);
+
+        navDrawerStudentName.setText(name);
+        navDrawerStudentUsername.setText(username);
 
 
         if(savedInstanceState == null) {
@@ -142,6 +155,8 @@ public class viewDraft extends AppCompatActivity
         consig = (SignaturePad) findViewById(R.id.consig);
         parentsig = (SignaturePad) findViewById(R.id.parentsig);
 
+        blankpad = (SignaturePad) findViewById(R.id.blankpad);
+
         submit = (Button) findViewById(R.id.submit_sub);
         drafts = (Button) findViewById(R.id.drafts_button);
 
@@ -168,61 +183,70 @@ public class viewDraft extends AppCompatActivity
                 Bitmap parentBitmap = parentsig.getSignatureBitmap();
                 final String parent_signature = convert(parentBitmap);
 
+                Bitmap blankpadBitmap = blankpad.getSignatureBitmap();
+                blankpadString = convert(blankpadBitmap);
 
-
-                request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try{
-                            JSONObject jsonObject = new JSONObject(response);
-                            if(jsonObject.names().get(0).equals("success")){
-                                Toast.makeText(getApplicationContext(), "SUCCESS: " + jsonObject.getString("success"), Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(getApplicationContext(),WelcomeNav.class));
-                            }else{
-                                Toast.makeText(getApplicationContext(),"ERROR: "+jsonObject.getString("error"),Toast.LENGTH_SHORT).show();
+                if (student_signature.equals(blankpadString))
+                    Toast.makeText(getApplicationContext(), "The student signature is blank.", Toast.LENGTH_LONG).show();
+                else if (con_signature.equals(blankpadString))
+                    Toast.makeText(getApplicationContext(), "The sponsor signature is blank.", Toast.LENGTH_LONG).show();
+                else if (parent_signature.equals(blankpadString))
+                    Toast.makeText(getApplicationContext(), "The parent signature is blank.", Toast.LENGTH_LONG).show();
+                else {
+                    request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(response);
+                                if (jsonObject.names().get(0).equals("success")) {
+                                    Toast.makeText(getApplicationContext(), "SUCCESS: " + jsonObject.getString("success"), Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(getApplicationContext(), WelcomeNav.class));
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "ERROR: " + jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                        }catch(JSONException e) {
-                            e.printStackTrace();
                         }
-                    }
-                }, new Response.ErrorListener(){
-                    @Override
-                    public void onErrorResponse(VolleyError error){
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
 
-                    }
+                        }
 
-                }){
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        HashMap<String,String> hashMap=new HashMap<String,String>();
-                        hashMap.put("uniqueIDmessage", uniqueId);
-                        hashMap.put("username",username);
-                        hashMap.put("first",first.getText().toString());
-                        hashMap.put("last",last.getText().toString());
-                        hashMap.put("id", id.getText().toString());
-                        hashMap.put("class", classof.getText().toString());
-                        hashMap.put("teacher", teacher.getText().toString());
-                        hashMap.put("servicedate", servicedate.getText().toString());
-                        hashMap.put("hours", hours.getText().toString());
-                        hashMap.put("log", "yes");
-                        hashMap.put("description", description.getText().toString());
-                        hashMap.put("paid", "no");
-                        hashMap.put("studentsig",student_signature);
-                        hashMap.put("orgname", orgname.getText().toString());
-                        hashMap.put("phonenum", phonenum.getText().toString());
-                        hashMap.put("website",website.getText().toString());
-                        hashMap.put("address",address.getText().toString());
-                        hashMap.put("conname",conname.getText().toString());
-                        hashMap.put("conemail",conemail.getText().toString());
-                        hashMap.put("consig", con_signature);
-                        hashMap.put("date",condate.getText().toString());
-                        hashMap.put("parsig",parent_signature);
-                        return hashMap;
-                    }
+                    }) {
+                        @Override
+                        protected Map<String, String> getParams() throws AuthFailureError {
+                            HashMap<String, String> hashMap = new HashMap<String, String>();
+                            hashMap.put("uniqueIDmessage", uniqueId);
+                            hashMap.put("username", username);
+                            hashMap.put("first", first.getText().toString());
+                            hashMap.put("last", last.getText().toString());
+                            hashMap.put("id", id.getText().toString());
+                            hashMap.put("class", classof.getText().toString());
+                            hashMap.put("teacher", teacher.getText().toString());
+                            hashMap.put("servicedate", servicedate.getText().toString());
+                            hashMap.put("hours", hours.getText().toString());
+                            hashMap.put("log", "yes");
+                            hashMap.put("description", description.getText().toString());
+                            hashMap.put("paid", "no");
+                            hashMap.put("studentsig", student_signature);
+                            hashMap.put("orgname", orgname.getText().toString());
+                            hashMap.put("phonenum", phonenum.getText().toString());
+                            hashMap.put("website", website.getText().toString());
+                            hashMap.put("address", address.getText().toString());
+                            hashMap.put("conname", conname.getText().toString());
+                            hashMap.put("conemail", conemail.getText().toString());
+                            hashMap.put("consig", con_signature);
+                            hashMap.put("date", condate.getText().toString());
+                            hashMap.put("parsig", parent_signature);
+                            return hashMap;
+                        }
 
-                };
+                    };
 
-                requestQueue.add(request);
+                    requestQueue.add(request);
+                }
             }
         });
 
