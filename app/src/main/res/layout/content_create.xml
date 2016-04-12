@@ -14,249 +14,264 @@
 
     <ScrollView android:id="@+id/ScrollView01"
         android:layout_width="match_parent" android:layout_height="match_parent">
-        <LinearLayout android:id="@+id/LinearLayout02"
+
+        <FrameLayout android:id="@+id/FrameLayout"
             android:layout_width = "match_parent" android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Clements High School Y.E.S. Form"
-                android:id="@+id/textView"
-                android:layout_gravity="center_horizontal" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:text="FIRST NAME"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"/>
-
-
-            <EditText android:id="@+id/first_sub" android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text" android:maxLines="1"
-                android:singleLine="true" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:text="LAST NAME"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"/>
-
-
-            <EditText android:id="@+id/last_sub" android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text" android:maxLines="1"
-                android:singleLine="true" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:text="STUDENT ID# (6 DIGIT #)"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"/>
-
-            <EditText android:id="@+id/id_sub" android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number" android:maxLines="1"
-                android:singleLine="true" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:text="CLASS OF: "
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"/>
-
-            <EditText android:id="@+id/classof_sub" android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number" android:maxLines="1"
-                android:singleLine="true" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:text="3RD PERIOD TEACHER "
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"/>
-
-            <EditText android:id="@+id/teacher" android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text" android:maxLines="1"
-                android:singleLine="true" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:text="DATE(s) SERVICE PERFORMED "
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="date"
-                android:ems="10"
-                android:id="@+id/servicedate_sub"
-                android:layout_gravity="center_horizontal" />
-
-
-            <TextView
-                android:layout_width="match_parent"
-                android:text="NUMBER OF HOURS OF SERVICE "
-                android:layout_height="wrap_content" />
-
-            <EditText android:id="@+id/hours_sub" android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number" android:maxLines="1"
-                android:singleLine="true" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:text="BRIEF DESCRIPTION OF COMMUNITY SERVICE"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"/>
-
-            <EditText android:id="@+id/description_sub" android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:singleLine="true" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:text="SIGNATURE OF STUDENT"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"/>
-
             <com.github.gcacace.signaturepad.views.SignaturePad
                 android:layout_width="fill_parent"
                 android:layout_height="200dp"
-                android:id="@+id/studentsig" />
+                android:id="@+id/blankpad" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Non-Profit Organization/ Agency Information"
-                android:id="@+id/textView2" />
+            <LinearLayout android:id="@+id/LinearLayout02"
+                android:layout_width = "match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:text="NAME OF THE ORGANIZATION"
-                android:layout_height="wrap_content" />
-
-            <EditText android:id="@+id/orgname_sub" android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:singleLine="true" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:text="PHONE NUMBER"
-                android:layout_height="wrap_content" />
-
-            <EditText android:id="@+id/phonenum_sub" android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:singleLine="true" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:text="WEBSITE"
-                android:layout_height="wrap_content" />
-
-            <EditText android:id="@+id/website_sub" android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:singleLine="true" />
-            <TextView
-                android:layout_width="match_parent"
-                android:text="ADDRESS"
-                android:layout_height="wrap_content" />
-
-            <EditText android:id="@+id/address_sub" android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:singleLine="true" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Contact Person Information"
-                android:id="@+id/textView3" />
-            <TextView
-                android:layout_width="match_parent"
-                android:text="NAME (please print)"
-                android:layout_height="wrap_content" />
-
-            <EditText android:id="@+id/conname_sub" android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:singleLine="true" />
-            <TextView
-                android:layout_width="match_parent"
-                android:text="EMAIL ADDRESS"
-                android:layout_height="wrap_content" />
-
-            <EditText android:id="@+id/conemail_sub" android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:singleLine="true" />
-            <TextView
-                android:layout_width="match_parent"
-                android:text="DATE SIGNED"
-                android:layout_height="wrap_content" />
-
-            <EditText android:id="@+id/condate_sub" android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="date"
-                android:singleLine="true" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:text="SPONSOR SIGNATURE"
-                android:layout_height="wrap_content" />
-
-            <com.github.gcacace.signaturepad.views.SignaturePad
-                android:layout_width="fill_parent"
-                android:layout_height="200dp"
-                android:id="@+id/consig" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:text="PARENT SIGNATURE"
-                android:layout_height="wrap_content" />
-
-            <com.github.gcacace.signaturepad.views.SignaturePad
-                android:layout_width="fill_parent"
-                android:layout_height="200dp"
-                android:id="@+id/parentsig" />
-
-            <LinearLayout
-                android:id="@+id/buttons_container"
-                android:paddingTop="16dp"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_alignParentBottom="true">
-
-                <Button
-                    android:id="@+id/drafts_button"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="SAVE TO DRAFTS"
-                    android:enabled="true" />
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Clements High School Y.E.S. Form"
+                    android:id="@+id/textView"
+                    android:layout_gravity="center_horizontal" />
 
-                <Button
-                    android:id="@+id/submit_sub"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                <TextView
+                    android:layout_width="match_parent"
+                    android:text="FIRST NAME"
                     android:layout_height="wrap_content"
-                    android:text="SUBMIT"
-                    android:enabled="true" />
+                    android:layout_gravity="center"/>
+
+
+                <EditText android:id="@+id/first_sub" android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" android:maxLines="1"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:text="LAST NAME"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"/>
+
+
+                <EditText android:id="@+id/last_sub" android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" android:maxLines="1"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:text="STUDENT ID# (6 DIGIT #)"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"/>
+
+                <EditText android:id="@+id/id_sub" android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" android:maxLines="1"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:text="CLASS OF: "
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"/>
+
+                <EditText android:id="@+id/classof_sub" android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" android:maxLines="1"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:text="3RD PERIOD TEACHER "
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"/>
+
+                <EditText android:id="@+id/teacher" android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" android:maxLines="1"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:text="DATE(s) SERVICE PERFORMED "
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="date"
+                    android:ems="10"
+                    android:id="@+id/servicedate_sub"
+                    android:layout_gravity="center_horizontal" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:text="NUMBER OF HOURS OF SERVICE "
+                    android:layout_height="wrap_content" />
+
+                <EditText android:id="@+id/hours_sub" android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" android:maxLines="1"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:text="BRIEF DESCRIPTION OF COMMUNITY SERVICE"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"/>
+
+                <EditText android:id="@+id/description_sub" android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:text="SIGNATURE OF STUDENT"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"/>
+
+                <com.github.gcacace.signaturepad.views.SignaturePad
+                    android:layout_width="fill_parent"
+                    android:layout_height="200dp"
+                    android:id="@+id/studentsig" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Non-Profit Organization/ Agency Information"
+                    android:id="@+id/textView2" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:text="NAME OF THE ORGANIZATION"
+                    android:layout_height="wrap_content" />
+
+                <EditText android:id="@+id/orgname_sub" android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:text="PHONE NUMBER"
+                    android:layout_height="wrap_content" />
+
+                <EditText android:id="@+id/phonenum_sub" android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:text="WEBSITE"
+                    android:layout_height="wrap_content" />
+
+                <EditText android:id="@+id/website_sub" android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:singleLine="true" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:text="ADDRESS"
+                    android:layout_height="wrap_content" />
+
+                <EditText android:id="@+id/address_sub" android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:singleLine="true" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Contact Person Information"
+                    android:id="@+id/textView3" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:text="NAME (please print)"
+                    android:layout_height="wrap_content" />
+
+                <EditText android:id="@+id/conname_sub" android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:singleLine="true" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:text="EMAIL ADDRESS"
+                    android:layout_height="wrap_content" />
+
+                <EditText android:id="@+id/conemail_sub" android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:singleLine="true" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:text="DATE SIGNED"
+                    android:layout_height="wrap_content" />
+
+                <EditText android:id="@+id/condate_sub" android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="date"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:text="SPONSOR SIGNATURE"
+                    android:layout_height="wrap_content" />
+
+                <com.github.gcacace.signaturepad.views.SignaturePad
+                    android:layout_width="fill_parent"
+                    android:layout_height="200dp"
+                    android:id="@+id/consig" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:text="PARENT SIGNATURE"
+                    android:layout_height="wrap_content" />
+
+                <com.github.gcacace.signaturepad.views.SignaturePad
+                    android:layout_width="fill_parent"
+                    android:layout_height="200dp"
+                    android:id="@+id/parentsig" />
+
+                <LinearLayout
+                    android:id="@+id/buttons_container"
+                    android:paddingTop="16dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_alignParentBottom="true">
+
+                    <Button
+                        android:id="@+id/drafts_button"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="SAVE TO DRAFTS"
+                        android:enabled="true" />
+
+                    <Button
+                        android:id="@+id/submit_sub"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="SUBMIT"
+                        android:enabled="true" />
+                </LinearLayout>
+
             </LinearLayout>
 
-        </LinearLayout>
+        </FrameLayout>
 
     </ScrollView>
+
+
+    <!-- android:visibility="gone"-->
 
 
 </LinearLayout>
