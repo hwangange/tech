@@ -23,7 +23,6 @@
         android:id="@+id/world10"
         android:layout_width="300dp"
         android:layout_height="300dp"
-
         android:src="@drawable/world10"
         android:layout_gravity="center_vertical"
         android:layout_centerInParent="true"/>

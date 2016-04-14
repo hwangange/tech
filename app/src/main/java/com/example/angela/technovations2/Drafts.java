@@ -66,6 +66,8 @@ public class Drafts extends AppCompatActivity
 
     private ListView tab1, tab2;
 
+    private ArrayList draftID;
+
 
     private RelativeLayout view1, view2;
 
@@ -108,6 +110,8 @@ public class Drafts extends AppCompatActivity
 
         navDrawerStudentName.setText(name);
         navDrawerStudentUsername.setText(username);
+
+        draftID = new ArrayList<String>();
 
         draftsList = new ArrayList<Map<String, String>>();
 
@@ -200,7 +204,7 @@ public class Drafts extends AppCompatActivity
 
                             JSONObject row = jsonObject.getJSONObject(i+"");
                             String uniqueid = row.getString("uniqueid");
-                            EXTRA_MESSAGE = uniqueid;
+                            draftID.add(uniqueid);
                             String username = row.getString("username");
                             String first = row.getString("first");
                             String last = row.getString("last");
@@ -261,7 +265,7 @@ public class Drafts extends AppCompatActivity
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Toast.makeText(getApplicationContext(), "drafts", Toast.LENGTH_LONG).show();//show the selected image in toast according to position
                 Intent intent = new Intent(getApplicationContext(), viewDraft.class);
-                intent.putExtra("UNIQUE_ID",EXTRA_MESSAGE);
+                intent.putExtra("UNIQUE_ID",draftID.get(i).toString());
                 startActivity(intent);
             }
         });
