@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Technovation Challenge</string>
+    <string name="app_name">VTRACC</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -53,12 +53,12 @@
     <string name="title_activity_tab_approved">TabApprovedActivity</string>
     <string name="title_activity_tab_denied">TabDeniedActivity</string>
     <string name="title_activity_tab_pending">TabPendingActivity</string>
-    <string name="title_activity_view_form">ViewForm</string>
+    <string name="title_activity_view_form">View Form</string>
     <string name="title_activity_drafts">Drafts</string>
-    <string name="title_activity_admin_nav">AdminNav</string>
-    <string name="title_activity_admin_profile">AdminProfile</string>
-    <string name="title_activity_admin_review">AdminReview</string>
-    <string name="title_activity_view_draft">viewDraft</string>
-    <string name="title_activity_view_reviewed_form">ViewReviewedForm</string>
+    <string name="title_activity_admin_nav">Admin</string>
+    <string name="title_activity_admin_profile">Profile</string>
+    <string name="title_activity_admin_review">Review</string>
+    <string name="title_activity_view_draft">View Draft</string>
+    <string name="title_activity_view_reviewed_form">View Reviewed Form</string>
 
 </resources>

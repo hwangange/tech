@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -65,13 +66,15 @@ public class Drafts extends AppCompatActivity
 
     private ListView tab1, tab2;
 
+
     private RelativeLayout view1, view2;
 
     List<Map<String, String>> draftsList, submittedList;
+    private TextView navDrawerStudentName, navDrawerStudentUsername;
 
     BaseAdapter simpleAdapter;
-    String[] from = {"uniqueid", "servicedate", "description", "orgname"};
-    int[] to = {R.id.idDraftItem, R.id.dateDraftItem, R.id.textDraftItem, R.id.titleDraftItem};
+    String[] from = {"servicedate", "description", "orgname"};
+    int[] to = {R.id.dateDraftItem, R.id.textDraftItem, R.id.titleDraftItem};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +99,15 @@ public class Drafts extends AppCompatActivity
         username = user.get(SessionManagement.KEY_USERNAME);
         name = user.get(SessionManagement.KEY_NAME);
         email = user.get(SessionManagement.KEY_EMAIL);
+
+        View header = LayoutInflater.from(this).inflate(R.layout.nav_header_drafts, null);
+        navigationView.addHeaderView(header);
+
+        navDrawerStudentName = (TextView) header.findViewById(R.id.navDrawerStudentName);
+        navDrawerStudentUsername = (TextView) header.findViewById(R.id.navDrawerStudentUsername);
+
+        navDrawerStudentName.setText(name);
+        navDrawerStudentUsername.setText(username);
 
         draftsList = new ArrayList<Map<String, String>>();
 
@@ -156,7 +168,7 @@ public class Drafts extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home_draft) {
-            startActivity(new Intent(getApplicationContext(), Welcome.class));
+            startActivity(new Intent(getApplicationContext(), WelcomeNav.class));
         } else if (id == R.id.nav_profile_draft) {
             startActivity(new Intent(getApplicationContext(), Profile.class));
         } else if (id == R.id.nav_create_draft) {
@@ -182,7 +194,7 @@ public class Drafts extends AppCompatActivity
                 try{
                     draftsList.clear();
                     JSONObject jsonObject = new JSONObject(response);
-                    if(jsonObject.names().get(0).equals("success")){
+                    if(jsonObject.has("success")){
                         int length = jsonObject.getInt("length");
                         for(int i = 0; i < length; i++) {
 
@@ -211,12 +223,19 @@ public class Drafts extends AppCompatActivity
                             String condate = row.getString("date");
                             String parsig = row.getString("parsig");
 
+                            if(servicedate.equals("0000-00-00"))
+                                servicedate = "";
+                            if(description.equals(""))
+                                description = "(No Description)";
+                            if(orgname.equals(""))
+                                orgname = "(Unknown)";
+
                             draftsList.add(createForm(uniqueid, servicedate, description, orgname));
                             simpleAdapter.notifyDataSetChanged();
                         }
                         Toast.makeText(getApplicationContext(), "SUCCESS: " + jsonObject.getString("success"), Toast.LENGTH_SHORT).show();
                     }else{
-                        if(jsonObject.names().get(0).equals("empty")) {
+                        if(jsonObject.has("empty")) {
                             Toast.makeText(getApplicationContext(),"EMPTY: "+jsonObject.getString("empty"),Toast.LENGTH_SHORT).show();
                         }else {
                             Toast.makeText(getApplicationContext(), "ERROR: " + jsonObject.getString("error"), Toast.LENGTH_SHORT).show();

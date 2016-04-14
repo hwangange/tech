@@ -235,7 +235,7 @@ public class Log extends AppCompatActivity
                 try{
                     approvedList.clear();
                     JSONObject jsonObject = new JSONObject(response);
-                    if(jsonObject.names().get(0).equals("success")){
+                    if(jsonObject.has("success")){
                         int length = jsonObject.getInt("length");
                         for(int i = 0; i < length; i++) {
 
@@ -254,7 +254,7 @@ public class Log extends AppCompatActivity
                         }
                         //Toast.makeText(getApplicationContext(), "SUCCESS: " + jsonObject.getString("success"), Toast.LENGTH_SHORT).show();
                     }else{
-                        if(jsonObject.names().get(0).equals("empty")) {
+                        if(jsonObject.has("empty")) {
                            // Toast.makeText(getApplicationContext(),"EMPTY: "+jsonObject.getString("empty"),Toast.LENGTH_SHORT).show();
                         }else {
                             Toast.makeText(getApplicationContext(), "ERROR: " + jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
@@ -293,7 +293,7 @@ public class Log extends AppCompatActivity
                 try{
                     deniedList.clear();
                     JSONObject jsonObject = new JSONObject(response);
-                    if(jsonObject.names().get(0).equals("success")){
+                    if(jsonObject.has("success")){
                         int length = jsonObject.getInt("length");
                         for(int i = 0; i < length; i++) {
 
@@ -312,7 +312,7 @@ public class Log extends AppCompatActivity
                         }
                         //Toast.makeText(getApplicationContext(), "SUCCESS: " + jsonObject.getString("success"), Toast.LENGTH_SHORT).show();
                     }else{
-                        if(jsonObject.names().get(0).equals("empty")) {
+                        if(jsonObject.has("empty")) {
                             //Toast.makeText(getApplicationContext(),"EMPTY: "+jsonObject.getString("empty"),Toast.LENGTH_SHORT).show();
                         }else {
                             Toast.makeText(getApplicationContext(), "ERROR: " + jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
@@ -350,7 +350,7 @@ public class Log extends AppCompatActivity
                 try{
                     pendingList.clear();
                     JSONObject jsonObject = new JSONObject(response);
-                    if(jsonObject.names().get(0).equals("success")){
+                    if(jsonObject.has("success")){
                         int length = jsonObject.getInt("length");
                         for(int i = 0; i < length; i++) {
 
@@ -368,7 +368,7 @@ public class Log extends AppCompatActivity
                         }
                        // Toast.makeText(getApplicationContext(), "SUCCESS: " + jsonObject.getString("success"), Toast.LENGTH_SHORT).show();
                     }else{
-                        if(jsonObject.names().get(0).equals("empty")) {
+                        if(jsonObject.has("empty")) {
                             //Toast.makeText(getApplicationContext(),"EMPTY: "+jsonObject.getString("empty"),Toast.LENGTH_SHORT).show();
                         }else {
                             Toast.makeText(getApplicationContext(), "ERROR: " + jsonObject.getString("error"), Toast.LENGTH_SHORT).show();

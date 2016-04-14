@@ -12,34 +12,40 @@
             android:id="@+id/titleDraftItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/activity_horizontal_margin"
-            android:text="Orgname"
-            android:textColor="#000" />
+            android:text="(Unknown)"
+            android:textColor="#000"
+            android:paddingLeft="16dp"
+            android:paddingTop="10dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="3dp"
+            android:textStyle = "bold"
+            android:textSize = "20dp"
+            android:maxLines = "1"
+            android:maxLength = "20"
+            android:ellipsize="end"/>
 
         <TextView
             android:id="@+id/dateDraftItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/activity_horizontal_margin"
             android:text="Date"
             android:textColor="#000"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"/>
+            android:layout_marginRight="10dp"
+            android:paddingLeft="16dp"
+            android:paddingTop="16dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="3dp"/>
     </RelativeLayout>
 
     <TextView
         android:id="@+id/textDraftItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="@dimen/activity_horizontal_margin"
-        android:text="Description"
-        android:textColor="#000" />
-
-    <TextView
-        android:id="@+id/idDraftItem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/activity_horizontal_margin"
-        android:text="ID"
-        android:textColor="#000" />
+        android:text="(No Description)"
+        android:textColor="#000"
+        android:paddingBottom="10dp"
+        android:paddingLeft="16dp"
+        android:paddingTop="3dp"
+        android:paddingRight="16dp"/>
 </LinearLayout>

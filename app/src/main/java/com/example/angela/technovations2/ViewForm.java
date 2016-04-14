@@ -189,7 +189,7 @@ public class ViewForm extends AppCompatActivity
                 try{
 
                     JSONObject jsonObject = new JSONObject(response);
-                    if(jsonObject.names().get(0).equals("success")){
+                    if(jsonObject.has("success")){
                       //  Toast.makeText(getApplicationContext(),"SUCCESS: "+jsonObject.getString("success"),Toast.LENGTH_SHORT).show();
                         for(int i = 0; i < 1; i++) {
                             JSONObject row = jsonObject.getJSONObject(i + "");

@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.HashMap;
@@ -24,6 +25,7 @@ public class WelcomeNav extends AppCompatActivity
 
     private SessionManagement session;
     private TextView navDrawerStudentName, navDrawerStudentUsername, navDrawerWelcome;
+    private ImageView ppl10, ppl9, ppl8, ppl7, ppl6, ppl5, ppl4, ppl3, ppl2, ppl1, ppl0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,7 @@ public class WelcomeNav extends AppCompatActivity
         String username = user.get(SessionManagement.KEY_USERNAME);
         String name = user.get(SessionManagement.KEY_NAME);
         String email = user.get(SessionManagement.KEY_EMAIL);
+        int hours = Integer.parseInt(user.get(SessionManagement.KEY_HOURS));
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -52,6 +55,45 @@ public class WelcomeNav extends AppCompatActivity
         View header = LayoutInflater.from(this).inflate(R.layout.nav_header_welcome_nav, null);
         navigationView.addHeaderView(header);
 
+      /*  ppl0 = (ImageView) findViewById(R.id.world0);
+        ppl1 = (ImageView) findViewById(R.id.world1);
+        ppl2 = (ImageView) findViewById(R.id.world2);
+        ppl3 = (ImageView) findViewById(R.id.world3);
+        ppl4 = (ImageView) findViewById(R.id.world4);
+        ppl5 = (ImageView) findViewById(R.id.world5);
+        ppl6 = (ImageView) findViewById(R.id.world6);
+        ppl7 = (ImageView) findViewById(R.id.world7);
+        ppl8 = (ImageView) findViewById(R.id.world8);
+        ppl9 = (ImageView) findViewById(R.id.world9); */
+        ppl10 = (ImageView) findViewById(R.id.world10);
+
+
+
+
+
+
+        if(hours < 10)
+            ppl10.setImageResource(R.drawable.world0);
+        else if(hours >=10 && hours < 20)
+            ppl10.setImageResource(R.drawable.world1);
+        else if(hours >=20 && hours < 30)
+            ppl10.setImageResource(R.drawable.world2);
+        else if(hours >=30 && hours < 40)
+            ppl10.setImageResource(R.drawable.world3);
+        else if(hours >=40 && hours < 50)
+            ppl10.setImageResource(R.drawable.world4);
+        else if(hours >=50 && hours < 60)
+            ppl10.setImageResource(R.drawable.world5);
+        else if(hours >=60 && hours < 70)
+            ppl10.setImageResource(R.drawable.world6);
+        else if(hours >=70 && hours < 80)
+            ppl10.setImageResource(R.drawable.world7);
+        else if(hours >=80 && hours < 90)
+            ppl10.setImageResource(R.drawable.world8);
+        else if(hours >=90 && hours < 100)
+            ppl10.setImageResource(R.drawable.world9);
+        else if(hours >=100)
+            ppl10.setImageResource(R.drawable.world10);
 
         navDrawerStudentName = (TextView) header.findViewById(R.id.navDrawerStudentName);
         navDrawerStudentUsername = (TextView) header.findViewById(R.id.navDrawerStudentUsername);

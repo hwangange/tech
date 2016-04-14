@@ -183,7 +183,7 @@ public class Create extends AppCompatActivity
                         public void onResponse(String response) {
                             try {
                                 JSONObject jsonObject = new JSONObject(response);
-                                if (jsonObject.names().get(0).equals("success")) {
+                                if (jsonObject.has("success")) {
                                     Toast.makeText(getApplicationContext(), "SUCCESS: " + jsonObject.getString("success"), Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(getApplicationContext(), WelcomeNav.class));
                                 } else {
@@ -257,7 +257,7 @@ public class Create extends AppCompatActivity
                         try {
                             Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
                             JSONObject jsonObject = new JSONObject(response);
-                            if (jsonObject.names().get(0).equals("success")) {
+                            if (jsonObject.has("success")) {
                                 Toast.makeText(getApplicationContext(), "SUCCESS: " + jsonObject.getString("success"), Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(getApplicationContext(), WelcomeNav.class));
                             } else {

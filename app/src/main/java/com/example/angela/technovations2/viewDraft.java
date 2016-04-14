@@ -64,7 +64,7 @@ public class viewDraft extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create);
+        setContentView(R.layout.activity_view_draft);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -198,7 +198,7 @@ public class viewDraft extends AppCompatActivity
                         public void onResponse(String response) {
                             try {
                                 JSONObject jsonObject = new JSONObject(response);
-                                if (jsonObject.names().get(0).equals("success")) {
+                                if (jsonObject.has("success")) {
                                     Toast.makeText(getApplicationContext(), "SUCCESS: " + jsonObject.getString("success"), Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(getApplicationContext(), WelcomeNav.class));
                                 } else {
@@ -275,7 +275,7 @@ public class viewDraft extends AppCompatActivity
                         try {
                             Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
                             JSONObject jsonObject = new JSONObject(response);
-                            if (jsonObject.names().get(0).equals("success")) {
+                            if (jsonObject.has("success")) {
                                 Toast.makeText(getApplicationContext(), "SUCCESS: " + jsonObject.getString("success"), Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(getApplicationContext(), WelcomeNav.class));
                             } else {
@@ -335,7 +335,7 @@ public class viewDraft extends AppCompatActivity
             public void onResponse(String response) {
                 try{
                     JSONObject jsonObject = new JSONObject(response);
-                    if(jsonObject.names().get(0).equals("success")){
+                    if(jsonObject.has("success")){
                         Toast.makeText(getApplicationContext(),"SUCCESS: "+jsonObject.getString("success"),Toast.LENGTH_SHORT).show();
                         for(int i = 0; i < 1; i++) {
                             JSONObject row = jsonObject.getJSONObject(i + "");

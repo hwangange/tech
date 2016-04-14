@@ -21,6 +21,4 @@
         android:fitsSystemWindows="true"
         app:menu="@menu/activity_welcome_nav_drawer" />
 
-    <!-- app:headerLayout="@layout/nav_header_welcome_nav"-->
-
 </android.support.v4.widget.DrawerLayout>

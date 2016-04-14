@@ -68,27 +68,27 @@ public class Login extends AppCompatActivity{
                     @Override
                     public void onResponse(String response) {
                         try{
+
                             JSONObject jsonObject = new JSONObject(response);
-                            if(jsonObject.names().get(0).equals("success")){
-                                Toast.makeText(getApplicationContext(),"SUCCESS: "+jsonObject.getString("success"),Toast.LENGTH_SHORT).show();
-                                Toast.makeText(getApplicationContext(),"USER: "+jsonObject.getString("user"),Toast.LENGTH_SHORT).show();
-                                String user = jsonObject.getString("user");
-                                String name = jsonObject.getString("name");
-                                String email = jsonObject.getString("email");
-                                int year = jsonObject.getInt("year");
-                                int hours = jsonObject.getInt("hours");
+                            if(jsonObject.has("success")) {
+                                    Toast.makeText(getApplicationContext(), "SUCCESS: " + jsonObject.getString("success"), Toast.LENGTH_SHORT).show();
+                                    String user = jsonObject.getString("user");
+                                    String name = jsonObject.getString("name");
+                                    String email = jsonObject.getString("email");
+                                    int year = jsonObject.getInt("year");
+                                    int hours = jsonObject.getInt("hours");
 
 
-                                session.createLoginSession(user, name, email, year, hours);
-                                if(username.getText().toString().equals("admin")&&(password.getText().toString().equals("admin"))) {
-                                    startActivity(new Intent(getApplicationContext(),AdminNav.class));
-                                }
-                                else {
-                                    startActivity(new Intent(getApplicationContext(),WelcomeNav.class));
-                                }
-                            }else{
-                                Toast.makeText(getApplicationContext(),"ERROR: "+jsonObject.getString("error"),Toast.LENGTH_SHORT).show();
+                                    session.createLoginSession(user, name, email, year, hours);
+                                    if (username.getText().toString().equals("admin") && (password.getText().toString().equals("admin"))) {
+                                        startActivity(new Intent(getApplicationContext(), AdminNav.class));
+                                    } else {
+                                        startActivity(new Intent(getApplicationContext(), WelcomeNav.class));
+                                    }
+
                             }
+                            else
+                                Toast.makeText(getApplicationContext(),"ERROR: "+jsonObject.getString("error"),Toast.LENGTH_SHORT).show();
                         }catch(JSONException e) {
                             e.printStackTrace();
                         }

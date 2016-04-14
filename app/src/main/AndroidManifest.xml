@@ -56,18 +56,6 @@
             android:label="@string/title_activity_log"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".TabApprovedActivity"
-            android:label="@string/title_activity_tab_approved"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".TabDeniedActivity"
-            android:label="@string/title_activity_tab_denied"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".TabPendingActivity"
-            android:label="@string/title_activity_tab_pending"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".ViewForm"
             android:label="@string/title_activity_view_form"
             android:theme="@style/AppTheme.NoActionBar" />

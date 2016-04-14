@@ -195,7 +195,7 @@ public class AdminReview extends AppCompatActivity
                 try{
                     reviewedList.clear();
                     JSONObject jsonObject = new JSONObject(response);
-                    if(jsonObject.names().get(0).equals("success")){
+                    if(jsonObject.has("success")){
                         int length = jsonObject.getInt("length");
                         for(int i = 0; i < length; i++) {
 
@@ -214,7 +214,7 @@ public class AdminReview extends AppCompatActivity
                         }
                         Toast.makeText(getApplicationContext(), "SUCCESS: " + jsonObject.getString("success"), Toast.LENGTH_SHORT).show();
                     }else{
-                        if(jsonObject.names().get(0).equals("empty")) {
+                        if(jsonObject.has("empty")) {
                             Toast.makeText(getApplicationContext(), "EMPTY: " + jsonObject.getString("empty"), Toast.LENGTH_SHORT).show();
                         }
                     }
