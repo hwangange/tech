@@ -57,7 +57,6 @@ public class Drafts extends AppCompatActivity
 
     private StringRequest request;
 
-    private String EXTRA_MESSAGE = "";
     private String username, email, name;
 
     private SessionManagement session;
@@ -102,7 +101,7 @@ public class Drafts extends AppCompatActivity
         name = user.get(SessionManagement.KEY_NAME);
         email = user.get(SessionManagement.KEY_EMAIL);
 
-        View header = LayoutInflater.from(this).inflate(R.layout.nav_header_drafts, null);
+        View header = LayoutInflater.from(this).inflate(R.layout.nav_header_welcome_nav, null);
         navigationView.addHeaderView(header);
 
         navDrawerStudentName = (TextView) header.findViewById(R.id.navDrawerStudentName);
@@ -228,7 +227,7 @@ public class Drafts extends AppCompatActivity
                             String parsig = row.getString("parsig");
 
                             if(servicedate.equals("0000-00-00"))
-                                servicedate = "";
+                                servicedate = "(No Date)";
                             if(description.equals(""))
                                 description = "(No Description)";
                             if(orgname.equals(""))

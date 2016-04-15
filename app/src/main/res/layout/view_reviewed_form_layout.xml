@@ -202,9 +202,7 @@
 
         <TextView android:id="@+id/description_sub" android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="1"
             android:text="descriptionDefault"
-            android:singleLine="true"
             android:textColor="#000"
             android:paddingLeft="5dp"
             android:paddingTop="3dp"
@@ -249,9 +247,7 @@
 
         <TextView android:id="@+id/orgname_sub" android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="1"
             android:text="orgnameDefault"
-            android:singleLine="true"
             android:textColor="#000"
             android:paddingLeft="5dp"
             android:paddingTop="3dp"
@@ -299,9 +295,7 @@
 
         <TextView android:id="@+id/website_sub" android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="1"
             android:text="websiteDefault"
-            android:singleLine="true"
             android:textColor="#000"
             android:paddingLeft="5dp"
             android:paddingTop="3dp"
@@ -324,9 +318,7 @@
 
         <TextView android:id="@+id/address_sub" android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="1"
             android:text="addressDefault"
-            android:singleLine="true"
             android:textColor="#000"
             android:paddingLeft="5dp"
             android:paddingTop="3dp"
