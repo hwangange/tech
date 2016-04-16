@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+    <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+        <item android:right = "180sp">
+            <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle" >
+                <gradient
+                    android:startColor="#7cbaf3"
+                    android:endColor="#449def"
+                    android:angle="180" />
+                <corners
+                    android:radius="4dp" />
+            </shape>
+        </item>
+        <item android:left="180sp" >
+            <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle" >
+                <gradient
+                    android:startColor="#449def"
+                    android:endColor="#7cbaf3"
+                    android:angle="180" />
+
+                <corners
+                    android:radius="4dp" />
+            </shape>
+        </item>
+    </layer-list>
+
+

@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,8 +25,9 @@ public class WelcomeNav extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private SessionManagement session;
-    private TextView navDrawerStudentName, navDrawerStudentUsername, navDrawerWelcome;
+    private TextView navDrawerStudentName, navDrawerStudentUsername, navDrawerWelcome, hoursStatus;
     private ImageView ppl10, ppl9, ppl8, ppl7, ppl6, ppl5, ppl4, ppl3, ppl2, ppl1, ppl0;
+    private Button profileButton, draftsButton, submitButton, logButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,23 +57,7 @@ public class WelcomeNav extends AppCompatActivity
         View header = LayoutInflater.from(this).inflate(R.layout.nav_header_welcome_nav, null);
         navigationView.addHeaderView(header);
 
-      /*  ppl0 = (ImageView) findViewById(R.id.world0);
-        ppl1 = (ImageView) findViewById(R.id.world1);
-        ppl2 = (ImageView) findViewById(R.id.world2);
-        ppl3 = (ImageView) findViewById(R.id.world3);
-        ppl4 = (ImageView) findViewById(R.id.world4);
-        ppl5 = (ImageView) findViewById(R.id.world5);
-        ppl6 = (ImageView) findViewById(R.id.world6);
-        ppl7 = (ImageView) findViewById(R.id.world7);
-        ppl8 = (ImageView) findViewById(R.id.world8);
-        ppl9 = (ImageView) findViewById(R.id.world9); */
         ppl10 = (ImageView) findViewById(R.id.world10);
-
-
-
-
-
-
         if(hours < 10)
             ppl10.setImageResource(R.drawable.world0);
         else if(hours >=10 && hours < 20)
@@ -100,10 +86,41 @@ public class WelcomeNav extends AppCompatActivity
 
 
         navDrawerWelcome = (TextView) findViewById(R.id.navDrawerWelcome);
+        hoursStatus = (TextView) findViewById(R.id.hoursStatus);
 
         navDrawerStudentName.setText(name); //i   crie
         navDrawerStudentUsername.setText(username);
-        navDrawerWelcome.setText(Html.fromHtml("Welcome <b>" + username + "</b>"));
+        navDrawerWelcome.setText(Html.fromHtml("Welcome to VTRACC, <b>" + username + "</b>"));
+        hoursStatus.setText(Html.fromHtml("<b>Hours: </b>" + hours));
+
+        profileButton = (Button) findViewById(R.id.profileButton);
+        profileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), Profile.class));
+            }
+        });
+        draftsButton = (Button) findViewById(R.id.draftsButton);
+        draftsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), Drafts.class));
+            }
+        });
+        logButton = (Button) findViewById(R.id.logButton);
+        logButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), Log.class));
+            }
+        });
+        submitButton = (Button) findViewById(R.id.submitButton);
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), Create.class));
+            }
+        });
     }
 
     @Override

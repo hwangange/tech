@@ -10,9 +10,14 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" >
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    </style>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
+        <item name = "android:background">@color/white</item>
+        <item name = "android:textColor">@color/black</item>
+    </style>
 
     <style name="LogFormID">
         <item name="android:textSize">21sp</item>
@@ -22,6 +27,16 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:text">DEFAULT TEXT</item>
 
+    </style>
+
+    <style name = "homeButton">
+        <item name = "android:background">@color/transparent_black</item>
+        <item name = "android:textColor">@color/white</item>
+        <item name = "android:paddingLeft">2dp</item>
+        <item name = "android:paddingBottom">0dp</item>
+        <item name = "android:paddingTop">0dp</item>
+        <item name = "android:paddingRight">10dp</item>
+        <item name = "android:layout_margin">5dp</item>
     </style>
 
 </resources>

@@ -42,7 +42,7 @@
 
     <string name="home">Home</string>
     <string name="profile">Profile</string>
-    <string name="create">Create</string>
+    <string name="create">Submit</string>
     <string name="drafts">Drafts</string>
     <string name="log">Log</string>
     <string name="logout">Logout</string>
@@ -60,5 +60,42 @@
     <string name="title_activity_admin_review">Review</string>
     <string name="title_activity_view_draft">View Draft</string>
     <string name="title_activity_view_reviewed_form">View Reviewed Form</string>
+
+    <color name="white">#FFFFFF</color>
+    <color name="lightBlue">#c2daef</color>
+    <color name = "darkSky">#7cbaf3</color>
+    <color name="black">#000000</color>
+    <color name = "transparent_black">#40000000</color>
+
+    <!--
+        Below code for black:-
+
+        <color name="black">#000000</color>
+        Now if i want to use opacity than you can use below code :-
+
+         <color name="black">#99000000</color>
+
+         100% — FF
+        95% — F2
+        90% — E6
+        85% — D9
+        80% — CC
+        75% — BF
+        70% — B3
+        65% — A6
+        60% — 99
+        55% — 8C
+        50% — 80
+        45% — 73
+        40% — 66
+        35% — 59
+        30% — 4D
+        25% — 40
+        20% — 33
+        15% — 26
+        10% — 1A
+        5% — 0D
+        0% — 00
+    -->
 
 </resources>
