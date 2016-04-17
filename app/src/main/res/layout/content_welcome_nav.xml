@@ -11,9 +11,10 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.angela.technovations2.WelcomeNav"
     tools:showIn="@layout/app_bar_welcome_nav"
-    android:background = "@drawable/gradient_background"
+    android:background = "@color/official"
     app:itemIconTint="@color/white">
-    <!--android:gravity="center_vertical"-->
+    <!--android:gravity="center_vertical"
+    android:background = "@drawable/gradient"-->
 
     <TextView
         android:layout_width="match_parent"

@@ -2,6 +2,7 @@ package com.example.angela.technovations2;
 
 import android.app.LocalActivityManager;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -23,6 +24,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TabHost;
+import android.widget.TabWidget;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -124,12 +126,16 @@ public class Log extends AppCompatActivity
         TabHost.TabSpec denied = tabhost.newTabSpec("Denied");
         TabHost.TabSpec pending = tabhost.newTabSpec("Pending");
 
+        TabWidget t = (TabWidget) findViewById(android.R.id.tabs);
+        for(int i=0;i<t.getChildCount();i++){
+            t.getChildAt(i).setBackgroundResource(R.drawable.log_tabs);
+        }
+
         requestQueue = Volley.newRequestQueue(this);
 
         tab1 = (ListView) findViewById(R.id.tab1);
         tab2 = (ListView) findViewById(R.id.tab2);
         tab3 = (ListView) findViewById(R.id.tab3);
-
 
         view1 = new RelativeLayout(getApplicationContext());
         view2 = new RelativeLayout(getApplicationContext());
@@ -168,6 +174,34 @@ public class Log extends AppCompatActivity
         tabhost.addTab(approved);
         tabhost.addTab(denied);
         tabhost.addTab(pending);
+
+        for(int i = 0; i <tabhost.getTabWidget().getChildCount(); i++)
+        {
+            if(i==0)
+            {
+                tabhost.getTabWidget().getChildAt(i).setBackgroundColor(Color.parseColor("#00000000"));
+                TextView tv = (TextView) tabhost.getTabWidget().getChildAt(i).findViewById(android.R.id.title);
+                tv.setTextColor(Color.parseColor("#FFFFFF"));
+            }
+            else
+            {
+                tabhost.getTabWidget().getChildAt(i).setBackgroundResource(R.drawable.log_tabs);
+                TextView tv = (TextView) tabhost.getTabWidget().getChildAt(i).findViewById(android.R.id.title);
+                tv.setTextColor(Color.parseColor("#FFFFFF"));
+            }
+        }
+
+        tabhost.setOnTabChangedListener(new TabHost.OnTabChangeListener(){
+            @Override
+            public void onTabChanged(String tabId) {
+                // TODO Auto-generated method stub
+                for(int i=0;i<tabhost.getTabWidget().getChildCount();i++)
+                {
+                    tabhost.getTabWidget().getChildAt(i).setBackgroundResource(R.drawable.log_tabs); //unselected
+                }
+                tabhost.getTabWidget().getChildAt(tabhost.getCurrentTab()).setBackgroundColor(Color.parseColor("#00000000")); // selected
+            }
+        });
     }
 
     @Override

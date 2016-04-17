@@ -11,6 +11,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.angela.technovations2.Profile"
     tools:showIn="@layout/app_bar_profile"
+    android:background="@color/official"
     android:orientation="vertical">
 
     <TextView
@@ -20,7 +21,7 @@
         android:text="Small Text"
         android:id="@+id/profileUsername"
         android:layout_marginTop="16dp"
-        android:textColor = "#000"/>
+        android:textColor = "#fff"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -29,7 +30,7 @@
         android:text="Small Text"
         android:id="@+id/profileName"
         android:layout_marginTop="16dp"
-        android:textColor = "#000"/>
+        android:textColor = "#fff"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -38,7 +39,7 @@
         android:text="Small Text"
         android:id="@+id/profileEmail"
         android:layout_marginTop="16dp"
-        android:textColor = "#000"/>
+        android:textColor = "#fff"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -47,7 +48,7 @@
         android:text="Small Text"
         android:id="@+id/profileYear"
         android:layout_marginTop="16dp"
-        android:textColor = "#000"/>
+        android:textColor = "#fff"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -56,7 +57,7 @@
         android:text="Small Text"
         android:id="@+id/profileHours"
         android:layout_marginTop="16dp"
-        android:textColor = "#000"/>
+        android:textColor = "#fff"/>
 
     <Button
         android:layout_width="wrap_content"

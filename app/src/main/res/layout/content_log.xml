@@ -11,6 +11,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.angela.technovations2.Log"
     tools:showIn="@layout/app_bar_log"
+    android:background="@color/official"
     android:orientation="vertical">
 
 
@@ -38,22 +39,22 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/tab1"
-                    android:divider="#000"
-                    android:dividerHeight="2dp" />
+                    android:divider="#fff"
+                    android:dividerHeight="1dp" />
 
                 <ListView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/tab2"
-                    android:divider="#000"
-                    android:dividerHeight="2dp" />
+                    android:divider="#fff"
+                    android:dividerHeight="1dp" />
 
                 <ListView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/tab3"
-                    android:divider="#000"
-                    android:dividerHeight="2dp" />
+                    android:divider="#fff"
+                    android:dividerHeight="1dp" />
 
             </FrameLayout>
         </LinearLayout>

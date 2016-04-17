@@ -11,7 +11,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.angela.technovations2.AdminNav"
     tools:showIn="@layout/app_bar_admin_nav"
-    android:background = "@drawable/gradient_background">
+    android:background = "@color/official">
 
     <TextView
         android:layout_width="match_parent"

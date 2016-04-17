@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.HashMap;
@@ -24,6 +25,7 @@ public class AdminNav extends AppCompatActivity
 
     private SessionManagement session;
     private TextView navDrawerStudentName, navDrawerStudentUsername, navDrawerWelcome;
+    private Button profileButton, reviewButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +68,22 @@ public class AdminNav extends AppCompatActivity
         //   navDrawerStudentName.setText(Html.fromHtml("" + name)); //i   crie
         // navDrawerStudentUsername.setText(Html.fromHtml(username));
         navDrawerWelcome.setText(Html.fromHtml("Welcome <b>" + username + "</b>"));
+
+        profileButton = (Button)findViewById(R.id.profileButton);
+        profileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), AdminProfile.class));
+            }
+        });
+        reviewButton = (Button)findViewById(R.id.reviewButton);
+        reviewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), AdminReview.class));
+            }
+        });
+
     }
 
     @Override

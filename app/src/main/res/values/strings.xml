@@ -59,13 +59,16 @@
     <string name="title_activity_admin_profile">Profile</string>
     <string name="title_activity_admin_review">Review</string>
     <string name="title_activity_view_draft">View Draft</string>
-    <string name="title_activity_view_reviewed_form">View Reviewed Form</string>
+    <string name="title_activity_view_reviewed_form">Review Form</string>
 
     <color name="white">#FFFFFF</color>
     <color name="lightBlue">#c2daef</color>
+    <color name="profileBlue">#6fc6f7</color>
     <color name = "darkSky">#7cbaf3</color>
     <color name="black">#000000</color>
     <color name = "transparent_black">#40000000</color>
+
+    <color name = "official">#070d52</color>
 
     <!--
         Below code for black:-

@@ -318,12 +318,12 @@ public class ViewReviewedForm extends AppCompatActivity
             @Override
             public void onResponse(String response) {
                 try{
-                    Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
+                   // Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
                     JSONObject jsonObject = new JSONObject(response);
                     int length = jsonObject.length();
                     for(int x = 0; x < length; x++) {
                         String name = jsonObject.names().get(x).toString();
-                        Toast.makeText(getApplicationContext(),jsonObject.getString(name),Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(),jsonObject.getString(name),Toast.LENGTH_SHORT).show();
                         if(name.equals("successDelete")) {
                             startActivity(new Intent(getApplicationContext(), AdminReview.class));
                         }

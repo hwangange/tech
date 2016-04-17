@@ -10,12 +10,13 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.angela.technovations2.AdminReview"
-    tools:showIn="@layout/app_bar_admin_review">
+    tools:showIn="@layout/app_bar_admin_review"
+    android:background="@color/official">
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/tab1"
-        android:divider="#000"
-        android:dividerHeight="2dp" />
+        android:divider="#fff"
+        android:dividerHeight="1dp" />
 
 </RelativeLayout>
