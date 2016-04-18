@@ -1,10 +1,8 @@
-package com.example.angela.technovations2;
+package com.technovations.innova.technovations2;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +16,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.technovations.innova.technovations2.Login;
+import com.technovations.innova.technovations2.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -62,10 +62,10 @@ public class Register extends AppCompatActivity {
                 request = new StringRequest(Request.Method.POST, "http://ajuj.comlu.com/register.php", new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Toast.makeText(getApplicationContext(),response,Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(getApplicationContext(),response,Toast.LENGTH_SHORT).show();
                         try{
                             JSONObject jsonObject = new JSONObject(response);
-                            if(jsonObject.names().get(0).equals("success")){
+                            if(jsonObject.has("success")){
                                 Toast.makeText(getApplicationContext(), "SUCCESS: " + jsonObject.getString("success"), Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(getApplicationContext(),Login.class));
                             }else{

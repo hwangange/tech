@@ -1,10 +1,8 @@
-package com.example.angela.technovations2;
+package com.technovations.innova.technovations2;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +14,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -30,6 +27,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.technovations.innova.technovations2.*;
+import com.technovations.innova.technovations2.Drafts;
+import com.technovations.innova.technovations2.Log;
+import com.technovations.innova.technovations2.Profile;
+import com.technovations.innova.technovations2.SessionManagement;
+import com.technovations.innova.technovations2.WelcomeNav;
 import com.github.gcacace.signaturepad.views.SignaturePad;
 
 import org.json.JSONException;
@@ -39,30 +42,30 @@ import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Create extends AppCompatActivity
+public class viewDraft extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private EditText first, last, id, classof, teacher, servicedate, hours, description, orgname, phonenum, website, address, conname, conemail, condate;
     private SignaturePad studentsig, consig, parentsig, blankpad;
-    private String blankpadString;
-
     private Spinner paid_spinner;
+    private String blankpadString;
 
     private Button submit, drafts;
     private RequestQueue requestQueue;
 
-    private StringRequest request;
+    private StringRequest request, request1, request2;
 
-    private String URL = "";
+    private String URL = "", uniqueId;
 
-    private SessionManagement session;
-
+    private com.technovations.innova.technovations2.SessionManagement session;
     private TextView navDrawerStudentName, navDrawerStudentUsername;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create);
+        setContentView(R.layout.activity_view_draft);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -84,12 +87,12 @@ public class Create extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        session = new SessionManagement(getApplicationContext());
+        session = new com.technovations.innova.technovations2.SessionManagement(getApplicationContext());
         session.checkLogin();
 
         HashMap<String, String> user = session.getUserDetails();
-        final String username = user.get(SessionManagement.KEY_USERNAME);
-        String name = user.get(SessionManagement.KEY_NAME);
+        final String username = user.get(com.technovations.innova.technovations2.SessionManagement.KEY_USERNAME);
+        String name = user.get(com.technovations.innova.technovations2.SessionManagement.KEY_NAME);
         String email = user.get(SessionManagement.KEY_EMAIL);
 
         View header = LayoutInflater.from(this).inflate(R.layout.nav_header_welcome_nav, null);
@@ -102,6 +105,17 @@ public class Create extends AppCompatActivity
         navDrawerStudentName.setText(name);
         navDrawerStudentUsername.setText(username);
 
+
+        if(savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                uniqueId = null;
+            } else {
+                uniqueId = extras.getString("UNIQUE_ID");
+            }
+        } else {
+            uniqueId = (String) savedInstanceState.getSerializable("UNIQUE_ID");
+        }
 
         first = (EditText) findViewById(R.id.first_sub);
         first.setText("");
@@ -144,18 +158,22 @@ public class Create extends AppCompatActivity
 
         blankpad = (SignaturePad) findViewById(R.id.blankpad);
 
-
         submit = (Button) findViewById(R.id.submit_sub);
         drafts = (Button) findViewById(R.id.drafts_button);
 
         requestQueue = Volley.newRequestQueue(this);
 
+        String drafts_url = "http://ajuj.comlu.com/viewDraft.php/?uniqueIDmessage=" + uniqueId;
+
+        getDraftInfo(drafts_url, uniqueId);
+
+
         submit.setOnClickListener(new View.OnClickListener(){
 
             @Override
-            public void onClick(View view) {
+            public void onClick(View view){
 
-                URL = "http://ajuj.comlu.com/submission.php";
+                URL = "http://ajuj.comlu.com/deleteDraft.php";
 
                 Bitmap studentBitmap = studentsig.getSignatureBitmap();
                 final String student_signature = convert(studentBitmap);
@@ -166,10 +184,8 @@ public class Create extends AppCompatActivity
                 Bitmap parentBitmap = parentsig.getSignatureBitmap();
                 final String parent_signature = convert(parentBitmap);
 
-
                 Bitmap blankpadBitmap = blankpad.getSignatureBitmap();
                 blankpadString = convert(blankpadBitmap);
-
 
                 if (student_signature.equals(blankpadString))
                     Toast.makeText(getApplicationContext(), "The student signature is blank.", Toast.LENGTH_LONG).show();
@@ -203,6 +219,7 @@ public class Create extends AppCompatActivity
                         @Override
                         protected Map<String, String> getParams() throws AuthFailureError {
                             HashMap<String, String> hashMap = new HashMap<String, String>();
+                            hashMap.put("uniqueIDmessage", uniqueId);
                             hashMap.put("username", username);
                             hashMap.put("first", first.getText().toString());
                             hashMap.put("last", last.getText().toString());
@@ -234,12 +251,14 @@ public class Create extends AppCompatActivity
             }
         });
 
+
+
         drafts.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
 
-                URL = "http://ajuj.comlu.com/draft.php";
+                URL = "http://ajuj.comlu.com/resubmitDraft.php";
 
                 Bitmap studentBitmap = studentsig.getSignatureBitmap();
                 final String student_signature = convert(studentBitmap);
@@ -255,7 +274,7 @@ public class Create extends AppCompatActivity
                     @Override
                     public void onResponse(String response) {
                         try {
-                            Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
+                           // Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
                             JSONObject jsonObject = new JSONObject(response);
                             if (jsonObject.has("success")) {
                                 Toast.makeText(getApplicationContext(), "SUCCESS: " + jsonObject.getString("success"), Toast.LENGTH_SHORT).show();
@@ -277,6 +296,7 @@ public class Create extends AppCompatActivity
                     @Override
                     protected Map<String, String> getParams() throws AuthFailureError {
                         HashMap<String, String> hashMap = new HashMap<String, String>();
+                        hashMap.put("uniqueIDmessage",uniqueId);
                         hashMap.put("username", username);
                         hashMap.put("first", first.getText().toString());
                         hashMap.put("last", last.getText().toString() + "");
@@ -289,12 +309,12 @@ public class Create extends AppCompatActivity
                         hashMap.put("description", description.getText().toString() + "");
                         hashMap.put("paid", "no");
                         hashMap.put("studentsig", student_signature);
-                        hashMap.put("orgname", orgname.getText().toString()  +"");
-                        hashMap.put("phonenum", phonenum.getText().toString()  + "");
+                        hashMap.put("orgname", orgname.getText().toString() + "");
+                        hashMap.put("phonenum", phonenum.getText().toString() + "");
                         hashMap.put("website", website.getText().toString() + "");
                         hashMap.put("address", address.getText().toString() + "");
                         hashMap.put("conname", conname.getText().toString() + "");
-                        hashMap.put("conemail", conemail.getText().toString()  +"");
+                        hashMap.put("conemail", conemail.getText().toString() + "");
                         hashMap.put("consig", con_signature);
                         hashMap.put("date", condate.getText().toString() + "");
                         hashMap.put("parsig", parent_signature);
@@ -303,13 +323,84 @@ public class Create extends AppCompatActivity
 
                 };
 
-            requestQueue.add(request);
-        }
-    });
+                requestQueue.add(request);
+            }
+        });
+
+    }
 
 
-}
+    public void getDraftInfo(String url, final String uniqueIDmessage){
+        request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try{
+                    JSONObject jsonObject = new JSONObject(response);
+                    if(jsonObject.has("success")){
+                        Toast.makeText(getApplicationContext(),"SUCCESS: "+jsonObject.getString("success"),Toast.LENGTH_SHORT).show();
+                        for(int i = 0; i < 1; i++) {
+                            JSONObject row = jsonObject.getJSONObject(i + "");
+                            first.setText(row.getString("first"), TextView.BufferType.EDITABLE);
+                            last.setText(row.getString("last"), TextView.BufferType.EDITABLE);
+                            if(String.valueOf(row.getInt("id")).equals("0"))
+                                id.setText("");
+                            else
+                                id.setText(String.valueOf(row.getInt("id")), TextView.BufferType.EDITABLE);
+                            if(String.valueOf(row.getInt("class")).equals("0"))
+                                classof.setText("");
+                            else
+                                classof.setText(String.valueOf(row.getInt("class")), TextView.BufferType.EDITABLE);
+                            teacher.setText(row.getString("teacher"), TextView.BufferType.EDITABLE);
+                            if(row.getString("servicedate").equals("0000-00-00"))
+                                servicedate.setText("");
+                            else
+                                servicedate.setText(row.getString("servicedate"), TextView.BufferType.EDITABLE);
+                            if(String.valueOf(row.getInt("hours")).equals("0"))
+                                hours.setText("");
+                            else
+                                hours.setText(String.valueOf(row.getInt("hours")), TextView.BufferType.EDITABLE);
+                            description.setText(row.getString("description"), TextView.BufferType.EDITABLE);
+                            orgname.setText(row.getString("orgname"), TextView.BufferType.EDITABLE);
+                            if(String.valueOf(row.getInt("phonenum")).equals("0"))
+                                phonenum.setText("");
+                            else
+                                phonenum.setText(String.valueOf(row.getInt("phonenum")), TextView.BufferType.EDITABLE);
+                            website.setText(row.getString("website"), TextView.BufferType.EDITABLE);
+                            address.setText(row.getString("address"), TextView.BufferType.EDITABLE);
+                            conname.setText(row.getString("conname"), TextView.BufferType.EDITABLE);
+                            conemail.setText(row.getString("conemail"), TextView.BufferType.EDITABLE);
+                            if(row.getString("date").equals("0000-00-00"))
+                                condate.setText("");
+                            else
+                                condate.setText(row.getString("date"), TextView.BufferType.EDITABLE);
+                        }
 
+                    }else{
+                        Toast.makeText(getApplicationContext(),"ERROR: "+jsonObject.getString("error"),Toast.LENGTH_SHORT).show();
+                    }
+                }catch(JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener(){
+            @Override
+            public void onErrorResponse(VolleyError error){
+
+            }
+
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String,String> hashMap=new HashMap<String,String>();
+                hashMap.put("uniqueIDmessage",uniqueIDmessage);
+
+                return hashMap;
+            }
+
+        };
+
+        requestQueue.add(request);
+    }
     public String convert(Bitmap bitmap) { //bitmap->byte array->base64 string
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 0 /*ignored for PNG*/, bos);
@@ -357,17 +448,17 @@ public class Create extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_home_create) {
+        if (id == R.id.nav_home_draft) {
             startActivity(new Intent(getApplicationContext(), WelcomeNav.class));
-        } else if (id == R.id.nav_profile_create) {
+        } else if (id == R.id.nav_profile_draft) {
             startActivity(new Intent(getApplicationContext(), Profile.class));
-        } else if (id == R.id.nav_create_create) {
-           // startActivity(new Intent(getApplicationContext(), Create.class));
-        } else if (id == R.id.nav_drafts_create) {
+        } else if (id == R.id.nav_create_draft) {
+            // startActivity(new Intent(getApplicationContext(), Create.class));
+        } else if (id == R.id.nav_drafts_draft) {
             startActivity(new Intent(getApplicationContext(), Drafts.class));
-        } else if (id == R.id.nav_log_create) {
+        } else if (id == R.id.nav_log_draft) {
             startActivity(new Intent(getApplicationContext(), Log.class));
-        } else if (id == R.id.nav_logout_create) {
+        } else if (id == R.id.nav_logout_draft) {
             session.logoutUser();
         }
 

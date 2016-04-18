@@ -1,10 +1,8 @@
-package com.example.angela.technovations2;
+package com.technovations.innova.technovations2;
 
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,12 +16,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.technovations.innova.technovations2.*;
+import com.technovations.innova.technovations2.AdminNav;
+import com.technovations.innova.technovations2.AdminReview;
+import com.technovations.innova.technovations2.SessionManagement;
+
 import java.util.HashMap;
 
 public class AdminProfile extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    SessionManagement session;
+    com.technovations.innova.technovations2.SessionManagement session;
     TextView profileUsername, profileName, profileEmail;
     private TextView navDrawerStudentName, navDrawerStudentUsername;
 
@@ -43,7 +46,7 @@ public class AdminProfile extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        session = new SessionManagement(getApplicationContext());
+        session = new com.technovations.innova.technovations2.SessionManagement(getApplicationContext());
         profileUsername = (TextView) findViewById(R.id.profileUsername);
         profileName = (TextView) findViewById(R.id.profileName);
         profileEmail = (TextView) findViewById(R.id.profileEmail);
@@ -57,9 +60,9 @@ public class AdminProfile extends AppCompatActivity
 
         // get user data from session
         HashMap<String, String> user = session.getUserDetails();
-        String username = user.get(SessionManagement.KEY_USERNAME);
-        String name = user.get(SessionManagement.KEY_NAME);
-        String email = user.get(SessionManagement.KEY_EMAIL);
+        String username = user.get(com.technovations.innova.technovations2.SessionManagement.KEY_USERNAME);
+        String name = user.get(com.technovations.innova.technovations2.SessionManagement.KEY_NAME);
+        String email = user.get(com.technovations.innova.technovations2.SessionManagement.KEY_EMAIL);
         String year = user.get(SessionManagement.KEY_YEAR);
 
         View header = LayoutInflater.from(this).inflate(R.layout.nav_header_welcome_nav, null);

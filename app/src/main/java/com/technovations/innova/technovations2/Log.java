@@ -1,12 +1,8 @@
-package com.example.angela.technovations2;
+package com.technovations.innova.technovations2;
 
-import android.app.LocalActivityManager;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -19,7 +15,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
@@ -34,15 +29,17 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.technovations.innova.technovations2.Create;
+import com.technovations.innova.technovations2.Drafts;
+import com.technovations.innova.technovations2.Profile;
+import com.technovations.innova.technovations2.R;
+import com.technovations.innova.technovations2.SessionManagement;
+import com.technovations.innova.technovations2.ViewForm;
+import com.technovations.innova.technovations2.WelcomeNav;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

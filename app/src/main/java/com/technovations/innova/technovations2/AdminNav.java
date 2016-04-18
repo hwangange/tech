@@ -1,9 +1,7 @@
-package com.example.angela.technovations2;
+package com.technovations.innova.technovations2;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,12 +16,17 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.technovations.innova.technovations2.AdminProfile;
+import com.technovations.innova.technovations2.AdminReview;
+import com.technovations.innova.technovations2.R;
+import com.technovations.innova.technovations2.SessionManagement;
+
 import java.util.HashMap;
 
 public class AdminNav extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private SessionManagement session;
+    private com.technovations.innova.technovations2.SessionManagement session;
     private TextView navDrawerStudentName, navDrawerStudentUsername, navDrawerWelcome;
     private Button profileButton, reviewButton;
 
@@ -34,13 +37,13 @@ public class AdminNav extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        session = new SessionManagement(getApplicationContext());
+        session = new com.technovations.innova.technovations2.SessionManagement(getApplicationContext());
         session.checkLogin();
 
         HashMap<String, String> user = session.getUserDetails();
-        String username = user.get(SessionManagement.KEY_USERNAME);
-        String name = user.get(SessionManagement.KEY_NAME);
-        String email = user.get(SessionManagement.KEY_EMAIL);
+        String username = user.get(com.technovations.innova.technovations2.SessionManagement.KEY_USERNAME);
+        String name = user.get(com.technovations.innova.technovations2.SessionManagement.KEY_NAME);
+        String email = user.get(com.technovations.innova.technovations2.SessionManagement.KEY_EMAIL);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -73,14 +76,14 @@ public class AdminNav extends AppCompatActivity
         profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), AdminProfile.class));
+                startActivity(new Intent(getApplicationContext(), com.technovations.innova.technovations2.AdminProfile.class));
             }
         });
         reviewButton = (Button)findViewById(R.id.reviewButton);
         reviewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), AdminReview.class));
+                startActivity(new Intent(getApplicationContext(), com.technovations.innova.technovations2.AdminReview.class));
             }
         });
 
@@ -127,9 +130,9 @@ public class AdminNav extends AppCompatActivity
         if (id == R.id.nav_admin_home) {
             //startActivity(new Intent(getApplicationContext(), WelcomeNav.class));
         } else if (id == R.id.nav_admin_profile) {
-            startActivity(new Intent(getApplicationContext(), AdminProfile.class));
+            startActivity(new Intent(getApplicationContext(), com.technovations.innova.technovations2.AdminProfile.class));
         } else if (id == R.id.nav_admin_review) {
-            startActivity(new Intent(getApplicationContext(), AdminReview.class));
+            startActivity(new Intent(getApplicationContext(), com.technovations.innova.technovations2.AdminReview.class));
         }
         else if (id == R.id.nav_admin_logout) {
             session.logoutUser();

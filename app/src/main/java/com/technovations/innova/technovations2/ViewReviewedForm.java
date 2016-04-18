@@ -1,14 +1,10 @@
-package com.example.angela.technovations2;
+package com.technovations.innova.technovations2;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.text.Html;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +20,6 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,18 +30,21 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.technovations.innova.technovations2.*;
+import com.technovations.innova.technovations2.AdminNav;
+import com.technovations.innova.technovations2.AdminReview;
+import com.technovations.innova.technovations2.SessionManagement;
+import com.technovations.innova.technovations2.SimpleAdapterEx;
 import com.github.gcacace.signaturepad.views.SignaturePad;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.StringTokenizer;
 
 public class ViewReviewedForm extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -280,14 +278,18 @@ public class ViewReviewedForm extends AppCompatActivity
             @Override
             public void onResponse(String response) {
                 try{
-                    Toast.makeText(getApplicationContext(),response,Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getApplicationContext(),response,Toast.LENGTH_SHORT).show();
                     JSONObject jsonObject = new JSONObject(response);
                     int length = jsonObject.length();
                     for(int x = 0; x < length; x++) {
                         String name = jsonObject.names().get(x).toString();
-                        Toast.makeText(getApplicationContext(),jsonObject.getString(name),Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(getApplicationContext(),jsonObject.getString(name),Toast.LENGTH_SHORT).show();
                         if(name.equals("successDelete"))
-                            startActivity(new Intent(getApplicationContext(),AdminReview.class));
+                        {
+                            Toast.makeText(getApplicationContext(),"Successfully approved form",Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(getApplicationContext(), AdminReview.class));
+                        }
+
                     }
                 }catch(JSONException e) {
                     e.printStackTrace();
@@ -325,6 +327,7 @@ public class ViewReviewedForm extends AppCompatActivity
                         String name = jsonObject.names().get(x).toString();
                         //Toast.makeText(getApplicationContext(),jsonObject.getString(name),Toast.LENGTH_SHORT).show();
                         if(name.equals("successDelete")) {
+                            Toast.makeText(getApplicationContext(),"Successfully denied form",Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), AdminReview.class));
                         }
                     }
@@ -356,9 +359,9 @@ public class ViewReviewedForm extends AppCompatActivity
     protected void showInputDialog() {
 
         // get prompts.xml view
-        LayoutInflater layoutInflater = LayoutInflater.from(ViewReviewedForm.this);
+        LayoutInflater layoutInflater = LayoutInflater.from(com.technovations.innova.technovations2.ViewReviewedForm.this);
         View promptView = layoutInflater.inflate(R.layout.input_dialog, null);
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ViewReviewedForm.this);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(com.technovations.innova.technovations2.ViewReviewedForm.this);
         alertDialogBuilder.setView(promptView);
 
         final EditText comment = (EditText) promptView.findViewById(R.id.comment);

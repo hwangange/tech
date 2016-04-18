@@ -1,21 +1,12 @@
-package com.example.angela.technovations2;
+package com.technovations.innova.technovations2;
 
-import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.media.Image;
-import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
-import android.os.Environment;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -25,6 +16,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.technovations.innova.technovations2.*;
+import com.technovations.innova.technovations2.SessionManagement;
+import com.technovations.innova.technovations2.Welcome;
 import com.github.gcacace.signaturepad.views.SignaturePad;
 //import it.gcacace.signaturepad.R;
 
@@ -32,14 +26,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
-
-import android.util.Base64;
 
 
 public class Signature extends Activity {
@@ -49,14 +37,14 @@ public class Signature extends Activity {
     private Button mSaveButton;
     private RequestQueue requestQueue;
     private StringRequest request;
-    private SessionManagement session;
+    private com.technovations.innova.technovations2.SessionManagement session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signature);
 
-        session = new SessionManagement(getApplicationContext());
+        session = new com.technovations.innova.technovations2.SessionManagement(getApplicationContext());
         session.checkLogin();
         HashMap<String, String> user = session.getUserDetails();
         final String username = user.get(SessionManagement.KEY_USERNAME);

@@ -5,7 +5,7 @@ android {
     buildToolsVersion "22.0.1"
 
     defaultConfig {
-        applicationId "com.example.angela.technovations2"
+        applicationId "com.technovations.innova.technovations2"
         minSdkVersion 15
         targetSdkVersion 23
         versionCode 1

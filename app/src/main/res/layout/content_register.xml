@@ -9,10 +9,11 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.angela.technovations2.Register"
+    tools:context="com.technovations.innova.technovations2.Register"
     tools:showIn="@layout/activity_register"
     android:scrollbars = "vertical"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/official">
 
     <ScrollView android:id="@+id/ScrollView01"
         android:layout_width="match_parent" android:layout_height="match_parent">
@@ -24,6 +25,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/white"
                     android:text="One of the distinctive characteristics of people living in the United States is the conviction that each individual can make a difference through volunteer service. Many colleges now require community service involvement as criteria for acceptance.  The Y.E.S. program provides opportunities for students to get involved with voluntary service at the local level to make a positive difference in their neighborhoods and communities.
 
                         \n\nStudents who complete 100 hours (including up to 25 summer hours) of community service are recognized in the Clements Commencement Program under Awards and Scholarships, and awarded a Y.E.S. medal at Senior Awards Ceremony to wear at graduation. Participation is voluntary and students may not be paid for any service they perform.  Hours must be fulfilled with non-profit organizations/agencies.
@@ -45,13 +47,16 @@
                 android:text="I have reviewed and agree to follow the Y.E.S. guidelines. I understand that to fulfill the requirements for the Y.E.S. medal, I must complete the required hours fifty (50) days before the completion of my senior year. I further understand that I must submit proper documentation in a timely manner as outlined in the Y.E.S. guidelines.
 
                 \n\nIf at any time during this process I falsify documentation, I understand that I will automatically be removed from the Y.E.S. program."
-                android:id="@+id/agreement1" />
+                android:id="@+id/agreement1"
+                android:textColor="@color/white"/>
 
             <EditText android:id="@+id/first_name_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:hint="First Name"
                 android:inputType="text" android:maxLines="1"
                 android:singleLine="true"
+                android:textColor="#f0f8f9"
+                android:textColorHint="#f7efef"
             />
 
             <EditText android:id="@+id/last_name_register"
@@ -59,6 +64,8 @@
                 android:layout_height="wrap_content" android:hint="Last Name"
                 android:inputType="text" android:maxLines="1"
                 android:singleLine="true"
+                android:textColor="#f0f8f9"
+                android:textColorHint="#f7efef"
                 />
 
             <EditText android:id="@+id/email_register"
@@ -66,6 +73,8 @@
                 android:layout_height="wrap_content" android:hint="Email"
                 android:inputType="textEmailAddress" android:maxLines="1"
                 android:singleLine="true"
+                android:textColor="@color/white"
+                android:textColorHint="#f7efef"
                 />
 
             <EditText android:id="@+id/year_register"
@@ -73,30 +82,41 @@
                 android:layout_height="wrap_content" android:hint="Graduating Year"
                 android:inputType="number" android:maxLines="1"
                 android:singleLine="true"
+                android:textColor="#f0f8f9"
+                android:textColorHint="#f7efef"
                 />
 
             <EditText android:id="@+id/username_register" android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:hint="Username"
                 android:inputType="text" android:maxLines="1"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:textColor="#f0f8f9"
+                android:textColorHint="#f7efef"/>
 
             <EditText android:id="@+id/password_register" android:layout_width="match_parent"
                 android:layout_height="wrap_content"  android:hint="@string/prompt_password"
                 android:inputType="textPassword"
-                android:maxLines="1" android:singleLine="true" />
+                android:maxLines="1" android:singleLine="true"
+                android:textColor="#f0f8f9"
+                android:textColorHint="#f7efef"/>
 
             <Button android:id="@+id/register_register"
-                android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:layout_marginTop="16dp" android:text="Register" />
+                android:layout_width="match_parent"
+                android:layout_marginTop="16dp" android:text="Register"
+                android:background="@drawable/home_buttons"
+                android:layout_height="26dp"
+                style = "@style/loginButton"/>
 
             <Button
-                style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:text="Back"
                 android:id="@+id/back_register"
                 android:layout_marginTop="20dp"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/home_buttons"
+                style = "@style/loginButton"
+                android:layout_height="26dp"/>
+            <!--style="?android:attr/buttonStyleSmall"-->
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

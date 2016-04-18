@@ -1,9 +1,7 @@
-package com.example.angela.technovations2;
+package com.technovations.innova.technovations2;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -15,7 +13,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.BaseAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -28,11 +25,17 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.technovations.innova.technovations2.*;
+import com.technovations.innova.technovations2.Create;
+import com.technovations.innova.technovations2.Drafts;
+import com.technovations.innova.technovations2.Log;
+import com.technovations.innova.technovations2.Profile;
+import com.technovations.innova.technovations2.SessionManagement;
+import com.technovations.innova.technovations2.WelcomeNav;
 import com.github.gcacace.signaturepad.views.SignaturePad;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,7 +46,7 @@ import java.util.StringTokenizer;
 public class ViewForm extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private SessionManagement session;
+    private com.technovations.innova.technovations2.SessionManagement session;
     private String username, email, name;
 
     private TextView first, last, id, classof, teacher, servicedate, hours, description, orgname, phonenum, website, address, conname, conemail, condate;
@@ -86,7 +89,7 @@ public class ViewForm extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        session = new SessionManagement(getApplicationContext());
+        session = new com.technovations.innova.technovations2.SessionManagement(getApplicationContext());
         session.checkLogin();
 
         tab1 = (ListView) findViewById(R.id.tab1);
@@ -97,8 +100,8 @@ public class ViewForm extends AppCompatActivity
         requestQueue = Volley.newRequestQueue(this);
 
         HashMap<String, String> user = session.getUserDetails();
-        username = user.get(SessionManagement.KEY_USERNAME);
-        name = user.get(SessionManagement.KEY_NAME);
+        username = user.get(com.technovations.innova.technovations2.SessionManagement.KEY_USERNAME);
+        name = user.get(com.technovations.innova.technovations2.SessionManagement.KEY_NAME);
         email = user.get(SessionManagement.KEY_EMAIL);
 
         View header = LayoutInflater.from(this).inflate(R.layout.nav_header_welcome_nav, null);

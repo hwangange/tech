@@ -1,17 +1,11 @@
-package com.example.angela.technovations2;
+package com.technovations.innova.technovations2;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -21,7 +15,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.github.gcacace.signaturepad.views.SignaturePad;
+import com.technovations.innova.technovations2.*;
+import com.technovations.innova.technovations2.AdminNav;
+import com.technovations.innova.technovations2.Register;
+import com.technovations.innova.technovations2.SessionManagement;
+import com.technovations.innova.technovations2.WelcomeNav;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,7 +34,7 @@ public class Login extends AppCompatActivity{
     private Button sign_in;
     private Button register;
     private RequestQueue requestQueue;
-    SessionManagement session;
+    com.technovations.innova.technovations2.SessionManagement session;
 
     private String URL = ""; //changeable
     private StringRequest request;

@@ -1,4 +1,4 @@
-package com.example.angela.technovations2;
+package com.technovations.innova.technovations2;
 
 import android.app.AlertDialog;
 import android.content.Context;

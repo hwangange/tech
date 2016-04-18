@@ -32,7 +32,7 @@
 
 
     <string name="title_activity_welcome_nav">Home</string>
-    <string name="title_activity_create">Create</string>
+    <string name="title_activity_create">Submit</string>
 
     <!--Submission Form -->
     <string-array name="paid_array">

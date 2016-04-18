@@ -1,4 +1,4 @@
-package com.example.angela.technovations2;
+package com.technovations.innova.technovations2;
 
 import java.util.HashMap;
 
@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+
+import com.technovations.innova.technovations2.Login;
 
 public class SessionManagement {
 

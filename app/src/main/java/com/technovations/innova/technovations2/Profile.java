@@ -1,9 +1,7 @@
-package com.example.angela.technovations2;
+package com.technovations.innova.technovations2;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +24,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.technovations.innova.technovations2.*;
+import com.technovations.innova.technovations2.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -194,7 +194,7 @@ public class Profile extends AppCompatActivity
         if (id == R.id.nav_home_profile) {
             startActivity(new Intent(getApplicationContext(), WelcomeNav.class));
         } else if (id == R.id.nav_profile_profile) {
-            startActivity(new Intent(getApplicationContext(), Profile.class));
+            startActivity(new Intent(getApplicationContext(), com.technovations.innova.technovations2.Profile.class));
         } else if (id == R.id.nav_create_profile) {
             startActivity(new Intent(getApplicationContext(), Create.class));
         } else if (id == R.id.nav_drafts_profile) {

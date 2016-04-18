@@ -1,11 +1,6 @@
-package com.example.angela.technovations2;
-
-import android.app.LocalActivityManager;
+package com.technovations.innova.technovations2;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -18,7 +13,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
@@ -32,53 +26,50 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.technovations.innova.technovations2.*;
+import com.technovations.innova.technovations2.Log;
+import com.technovations.innova.technovations2.Profile;
+import com.technovations.innova.technovations2.WelcomeNav;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AdminReview extends AppCompatActivity
+public class Drafts extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    public final static String EXTRA_MESSAGE = "com.example.joy.MESSAGE";
     private RequestQueue requestQueue;
 
     private StringRequest request;
 
-    private String URL = "";
     private String username, email, name;
 
     private SessionManagement session;
 
     private TabHost tabhost;
 
-    private ListView tab1;
+    private ListView tab1, tab2;
 
-    private RelativeLayout view1;
+    private ArrayList draftID;
 
-    List<Map<String, String>> reviewedList;
 
-    private ArrayList reviewedID;
+    private RelativeLayout view1, view2;
 
-    private BaseAdapter simpleAdapter;
+    List<Map<String, String>> draftsList, submittedList;
     private TextView navDrawerStudentName, navDrawerStudentUsername;
 
-    String[] from = {"orgname", "servicedate", "description"};
-    int[] to = {R.id.titleLogItem, R.id.dateLogItem, R.id.textLogItem};
+    BaseAdapter simpleAdapter;
+    String[] from = {"servicedate", "description", "orgname"};
+    int[] to = {R.id.dateDraftItem, R.id.textDraftItem, R.id.titleDraftItem};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_review);
+        setContentView(R.layout.activity_drafts);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -102,35 +93,31 @@ public class AdminReview extends AppCompatActivity
         View header = LayoutInflater.from(this).inflate(R.layout.nav_header_welcome_nav, null);
         navigationView.addHeaderView(header);
 
-
         navDrawerStudentName = (TextView) header.findViewById(R.id.navDrawerStudentName);
         navDrawerStudentUsername = (TextView) header.findViewById(R.id.navDrawerStudentUsername);
 
         navDrawerStudentName.setText(name);
         navDrawerStudentUsername.setText(username);
 
-        reviewedList = new ArrayList<Map<String, String>>();
+        draftID = new ArrayList<String>();
 
-        reviewedID = new ArrayList<String>();
-
-
+        draftsList = new ArrayList<Map<String, String>>();
 
         requestQueue = Volley.newRequestQueue(this);
 
-        tab1 = (ListView) findViewById(R.id.tab1);
+        tab1 = (ListView) findViewById(R.id.tab1_draft);
+
 
         view1 = new RelativeLayout(getApplicationContext());
+        view2 = new RelativeLayout(getApplicationContext());
 
-        simpleAdapter = new SimpleAdapter(this, reviewedList,
-                R.layout.reviewed_list_items,
+        simpleAdapter = new SimpleAdapter(this, draftsList,
+                R.layout.draft_view_list_items,
                 from, to);
         tab1.setAdapter(simpleAdapter);
-        tab1.setAdapter(simpleAdapter);
 
-
-        String reviewed_url = "http://ajuj.comlu.com/review.php";
-
-        getReviewedContent(reviewed_url);
+        String drafts_url = "http://ajuj.comlu.com/listviewdraft.php/?user=" + username;
+        getDraftsContent(drafts_url);
 
     }
 
@@ -147,7 +134,7 @@ public class AdminReview extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.admin_review, menu);
+        getMenuInflater().inflate(R.menu.drafts, menu);
         return true;
     }
 
@@ -172,13 +159,17 @@ public class AdminReview extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_admin_home_admin_review) {
-            startActivity(new Intent(getApplicationContext(), AdminNav.class));
-        } else if (id == R.id.nav_admin_profile_admin_review) {
-            startActivity(new Intent(getApplicationContext(), AdminProfile.class));
-        } else if (id == R.id.nav_admin_review_admin_review) {
-            startActivity(new Intent(getApplicationContext(), AdminReview.class));
-        } else if (id == R.id.nav_admin_logout_admin_review) {
+        if (id == R.id.nav_home_draft) {
+            startActivity(new Intent(getApplicationContext(), WelcomeNav.class));
+        } else if (id == R.id.nav_profile_draft) {
+            startActivity(new Intent(getApplicationContext(), Profile.class));
+        } else if (id == R.id.nav_create_draft) {
+            startActivity(new Intent(getApplicationContext(), Create.class));
+        } else if (id == R.id.nav_drafts_draft) {
+            startActivity(new Intent(getApplicationContext(), com.technovations.innova.technovations2.Drafts.class));
+        } else if (id == R.id.nav_log_draft) {
+            startActivity(new Intent(getApplicationContext(), Log.class));
+        } else if (id == R.id.nav_logout_draft) {
             session.logoutUser();
         }
 
@@ -187,13 +178,13 @@ public class AdminReview extends AppCompatActivity
         return true;
     }
 
-    public void getReviewedContent(String url) {
+    public void getDraftsContent(String url) {
 
         request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try{
-                    reviewedList.clear();
+                    draftsList.clear();
                     JSONObject jsonObject = new JSONObject(response);
                     if(jsonObject.has("success")){
                         int length = jsonObject.getInt("length");
@@ -201,21 +192,45 @@ public class AdminReview extends AppCompatActivity
 
                             JSONObject row = jsonObject.getJSONObject(i+"");
                             String uniqueid = row.getString("uniqueid");
-                            reviewedID.add(uniqueid);
-
+                            draftID.add(uniqueid);
+                            String username = row.getString("username");
+                            String first = row.getString("first");
+                            String last = row.getString("last");
+                            int id = row.getInt("id");
+                            int classof = row.getInt("class");
+                            String teacher = row.getString("teacher");
                             String servicedate = row.getString("servicedate");
                             int hours = row.getInt("hours");
+                            String log = row.getString("log");
                             String description = row.getString("description");
+                            String paid = row.getString("paid");
+                            String studentsig = row.getString("studentsig");
                             String orgname = row.getString("orgname");
+                            String phonenum = row.getString("phonenum");
+                            String website = row.getString("website");
+                            String address = row.getString("address");
                             String conname = row.getString("conname");
+                            String conemail = row.getString("conemail");
+                            String consig = row.getString("consig");
+                            String condate = row.getString("date");
+                            String parsig = row.getString("parsig");
 
-                            reviewedList.add(createForm(uniqueid, servicedate, description, orgname));
+                            if(servicedate.equals("0000-00-00"))
+                                servicedate = "(No Date)";
+                            if(description.equals(""))
+                                description = "(No Description)";
+                            if(orgname.equals(""))
+                                orgname = "(Unknown)";
+
+                            draftsList.add(createForm(uniqueid, servicedate, description, orgname));
                             simpleAdapter.notifyDataSetChanged();
                         }
                         Toast.makeText(getApplicationContext(), "SUCCESS: " + jsonObject.getString("success"), Toast.LENGTH_SHORT).show();
                     }else{
                         if(jsonObject.has("empty")) {
-                            Toast.makeText(getApplicationContext(), "EMPTY: " + jsonObject.getString("empty"), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),"EMPTY: "+jsonObject.getString("empty"),Toast.LENGTH_SHORT).show();
+                        }else {
+                            Toast.makeText(getApplicationContext(), "ERROR: " + jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
                         }
                     }
                 }catch(JSONException e) {
@@ -236,14 +251,13 @@ public class AdminReview extends AppCompatActivity
         tab1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getApplicationContext(), ViewReviewedForm.class);
-                intent.putExtra(EXTRA_MESSAGE, reviewedID.get(i).toString());
+               // Toast.makeText(getApplicationContext(), "drafts", Toast.LENGTH_LONG).show();//show the selected image in toast according to position
+                Intent intent = new Intent(getApplicationContext(), viewDraft.class);
+                intent.putExtra("UNIQUE_ID",draftID.get(i).toString());
                 startActivity(intent);
             }
         });
     }
-
-
 
     private HashMap<String, String> createForm(String uniqueid, String servicedate, String description, String orgname) {
         HashMap<String, String> formNameID = new HashMap<String, String>();

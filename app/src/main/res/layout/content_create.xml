@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.angela.technovations2.Create"
+    tools:context="com.technovations.innova.technovations2.Create"
     tools:showIn="@layout/app_bar_create">
 
     <ScrollView android:id="@+id/ScrollView01"
@@ -95,7 +95,7 @@
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:text="DATE(s) SERVICE PERFORMED "
+                    android:text="DATE(s) SERVICE PERFORMED (FORMAT: 0000-00-00) "
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"/>
 
@@ -211,7 +211,7 @@
                     android:singleLine="true" />
                 <TextView
                     android:layout_width="match_parent"
-                    android:text="DATE SIGNED"
+                    android:text="DATE SIGNED (FORMAT: 0000-00-00)"
                     android:layout_height="wrap_content" />
 
                 <EditText android:id="@+id/condate_sub" android:layout_width="match_parent"

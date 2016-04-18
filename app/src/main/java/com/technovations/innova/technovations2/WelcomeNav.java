@@ -1,9 +1,7 @@
-package com.example.angela.technovations2;
+package com.technovations.innova.technovations2;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +16,10 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.technovations.innova.technovations2.*;
+import com.technovations.innova.technovations2.Log;
+import com.technovations.innova.technovations2.Profile;
 
 import java.util.HashMap;
 
@@ -97,7 +99,7 @@ public class WelcomeNav extends AppCompatActivity
         profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Profile.class));
+                startActivity(new Intent(getApplicationContext(), com.technovations.innova.technovations2.Profile.class));
             }
         });
         draftsButton = (Button) findViewById(R.id.draftsButton);

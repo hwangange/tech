@@ -1,28 +1,20 @@
-package com.example.angela.technovations2;
+package com.technovations.innova.technovations2;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.text.Html;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.gcacace.signaturepad.views.SignaturePad;
+import com.technovations.innova.technovations2.*;
+import com.technovations.innova.technovations2.Profile;
+import com.technovations.innova.technovations2.SessionManagement;
+import com.technovations.innova.technovations2.WelcomeNav;
+import com.technovations.innova.technovations2.viewSignature;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.*;
 import java.util.HashMap;
 
 /**
@@ -33,14 +25,14 @@ public class Welcome extends Activity {
     private Button logout, signature, viewSignature, profile, welcomeNav;
     private TextView welcome;
 
-    private SessionManagement session;
+    private com.technovations.innova.technovations2.SessionManagement session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome_activity);
 
-        session = new SessionManagement(getApplicationContext());
+        session = new com.technovations.innova.technovations2.SessionManagement(getApplicationContext());
         Toast.makeText(getApplicationContext(), "User Login Status: " + session.isLoggedIn(), Toast.LENGTH_LONG).show();
 
         /**
@@ -52,7 +44,7 @@ public class Welcome extends Activity {
 
         // get user data from session
         HashMap<String, String> user = session.getUserDetails();
-        String username = user.get(SessionManagement.KEY_USERNAME);
+        String username = user.get(com.technovations.innova.technovations2.SessionManagement.KEY_USERNAME);
         String name = user.get(SessionManagement.KEY_NAME);
 
         welcome = (TextView) findViewById(R.id.textView);
