@@ -95,7 +95,7 @@
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:text="DATE(s) SERVICE PERFORMED (FORMAT: 0000-00-00)"
+                    android:text="DATE SERVICE PERFORMED (YYYY-MM-DD)"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"/>
 
@@ -193,7 +193,7 @@
                     android:id="@+id/textView3" />
                 <TextView
                     android:layout_width="match_parent"
-                    android:text="NAME (please print)"
+                    android:text="NAME"
                     android:layout_height="wrap_content" />
 
                 <EditText android:id="@+id/conname_sub" android:layout_width="match_parent"
@@ -211,7 +211,7 @@
                     android:singleLine="true" />
                 <TextView
                     android:layout_width="match_parent"
-                    android:text="DATE SIGNED (FORMAT: 0000-00-00)"
+                    android:text="DATE SIGNED (YYYY-MM-DD)"
                     android:layout_height="wrap_content" />
 
                 <EditText android:id="@+id/condate_sub" android:layout_width="match_parent"
