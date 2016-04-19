@@ -2,6 +2,7 @@ package com.technovations.innova.technovations2;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.LayoutInflater;
@@ -14,8 +15,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,7 +42,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class viewDraft extends AppCompatActivity
@@ -56,8 +61,16 @@ public class viewDraft extends AppCompatActivity
     private StringRequest request, request1, request2;
 
     private String URL = "", uniqueId;
+    private ImageView student, parent, con;
+    String student_signature, parent_signature, con_signature;
+    Bitmap studentBitmap, parentBigmap, conBitmap;
 
     private com.technovations.innova.technovations2.SessionManagement session;
+    String[] from = {"studentsig", "consig", "parentsig"};
+    int[] to = {R.id.studentsig, R.id.consig, R.id.parentsig};
+    List<Map<String, String>> list = new ArrayList<Map<String, String>>();
+    BaseAdapter simpleAdapter;
+
     private TextView navDrawerStudentName, navDrawerStudentUsername;
 
 
@@ -86,6 +99,7 @@ public class viewDraft extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        simpleAdapter = new SimpleAdapterEx(this, list, R.layout.view_reviewed_form_layout, from, to);
 
         session = new com.technovations.innova.technovations2.SessionManagement(getApplicationContext());
         session.checkLogin();
@@ -373,6 +387,12 @@ public class viewDraft extends AppCompatActivity
                                 condate.setText("");
                             else
                                 condate.setText(row.getString("date"), TextView.BufferType.EDITABLE);
+                           /* student.setImageBitmap(reverse(row.getString("studentsig")));
+                            con.setImageBitmap(reverse(row.getString("consig")));
+                            parent.setImageBitmap(reverse(row.getString("parsig"))); */
+                            consig.setSignatureBitmap(reverse(row.getString("consig")));
+                            studentsig.setSignatureBitmap(reverse(row.getString("studentsig")));
+                            parentsig.setSignatureBitmap(reverse(row.getString("parsig")));
                         }
 
                     }else{
@@ -408,6 +428,14 @@ public class viewDraft extends AppCompatActivity
         int flags = Base64.NO_WRAP | Base64.URL_SAFE;
         String str = Base64.encodeToString(bitmapdata, flags);
         return str;
+    }
+
+    public Bitmap reverse (String encodedString) {
+        int flags = Base64.NO_WRAP | Base64.URL_SAFE;
+        byte[] arr = Base64.decode(encodedString, flags);
+        Bitmap temp = consig.getSignatureBitmap();
+        Bitmap bmp = BitmapFactory.decodeByteArray(arr, 0, arr.length);
+        return bmp;
     }
 
     @Override
