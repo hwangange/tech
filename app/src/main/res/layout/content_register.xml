@@ -105,7 +105,8 @@
                 android:layout_marginTop="16dp" android:text="Register"
                 android:background="@drawable/home_buttons"
                 android:layout_height="26dp"
-                style = "@style/loginButton"/>
+                style = "@style/loginButton"
+                android:layout_weight="0.03"/>
 
             <Button
                 android:layout_width="wrap_content"
@@ -115,7 +116,8 @@
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/home_buttons"
                 style = "@style/loginButton"
-                android:layout_height="26dp"/>
+                android:layout_height="26dp"
+                android:layout_weight="0.03"/>
             <!--style="?android:attr/buttonStyleSmall"-->
         </LinearLayout>
     </ScrollView>
